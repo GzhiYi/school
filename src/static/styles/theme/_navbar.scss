@@ -9,6 +9,9 @@ $nav-height: 60px;
     height: $nav-height;
     line-height: $nav-height / 2 !important;
   }
+  .navbar-brand {
+	margin-top: -6px;
+  }
 }
 
 .nav {

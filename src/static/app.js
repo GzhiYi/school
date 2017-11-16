@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import  Avatar  from 'antd/lib/avatar';
 
 import { authLogoutAndRedirect } from './actions/auth';
 import './styles/main.scss';
@@ -65,7 +66,7 @@ class App extends React.Component {
                                 <span className="icon-bar" />
                             </button>
                             <a className="navbar-brand" onClick={this.goToIndex}>
-                                Logo
+                                <Avatar size="large" icon="user" />
                             </a>
                         </div>
                         <div className="collapse navbar-collapse" id="top-navbar">
@@ -88,7 +89,7 @@ class App extends React.Component {
                                     </li>
                                 </ul>
                                 :
-                                <ul className="nav navbar-nav ">
+                                <ul className="nav navbar-nav navbar-right">
                                     <li className={homeClass}>
                                         <a className="js-go-to-index-button" onClick={this.goToIndex}>
                                             <i className="fa fa-home" /> 你好
