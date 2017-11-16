@@ -65,7 +65,7 @@ class App extends React.Component {
                                 <span className="icon-bar" />
                             </button>
                             <a className="navbar-brand" onClick={this.goToIndex}>
-                                Django React Redux Demo
+                                Logo
                             </a>
                         </div>
                         <div className="collapse navbar-collapse" id="top-navbar">
@@ -88,15 +88,25 @@ class App extends React.Component {
                                     </li>
                                 </ul>
                                 :
-                                <ul className="nav navbar-nav navbar-right">
+                                <ul className="nav navbar-nav ">
                                     <li className={homeClass}>
                                         <a className="js-go-to-index-button" onClick={this.goToIndex}>
-                                            <i className="fa fa-home" /> Home
+                                            <i className="fa fa-home" /> 你好
                                         </a>
                                     </li>
                                     <li className={loginClass}>
                                         <a className="js-login-button" onClick={this.goToLogin}>
-                                            <i className="fa fa-home" /> Login
+                                            <i className="fa fa-home" /> 介绍
+                                        </a>
+                                    </li>
+                                    <li className={loginClass}>
+                                        <a className="js-login-button" onClick={this.goToLogin}>
+                                            <i className="fa fa-home" /> 查询
+                                        </a>
+                                    </li>
+                                    <li className={loginClass}>
+                                        <a className="js-login-button" onClick={this.goToLogin}>
+                                            <i className="fa fa-home" /> 交流
                                         </a>
                                     </li>
                                 </ul>

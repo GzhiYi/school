@@ -1,7 +1,22 @@
+$nav-height: 60px;
+
 .navbar {
+  height: $nav-height; 
   border-radius: 0px;
 
   a {
     text-decoration: none;
+    height: $nav-height;
+    line-height: $nav-height / 2 !important;
+  }
+}
+
+.nav {
+  height: $nav-height;
+  li {
+    height: $nav-height;
+  }
+  li.active {
+    height:$nav-height; 
   }
 }
