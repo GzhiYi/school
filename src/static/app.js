@@ -92,22 +92,22 @@ class App extends React.Component {
                                 <ul className="nav navbar-nav navbar-right">
                                     <li className={homeClass}>
                                         <a className="js-go-to-index-button" onClick={this.goToIndex}>
-                                            <i className="fa fa-home" /> 你好
+                                             你好
                                         </a>
                                     </li>
                                     <li className={loginClass}>
                                         <a className="js-login-button" onClick={this.goToLogin}>
-                                            <i className="fa fa-home" /> 介绍
+                                             介绍
                                         </a>
                                     </li>
                                     <li className={loginClass}>
                                         <a className="js-login-button" onClick={this.goToLogin}>
-                                            <i className="fa fa-home" /> 查询
+                                             查询
                                         </a>
                                     </li>
                                     <li className={loginClass}>
                                         <a className="js-login-button" onClick={this.goToLogin}>
-                                            <i className="fa fa-home" /> 交流
+                                             交流
                                         </a>
                                     </li>
                                 </ul>
