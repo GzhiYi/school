@@ -5,22 +5,61 @@ import classNames from 'classnames';
 import { push } from 'react-router-redux';
 import t from 'tcomb-form';
 import PropTypes from 'prop-types';
+import message from 'antd/lib/message';
 
 import * as actionCreators from '../../actions/auth';
 
+import './style.scss';
 const Form = t.form.Form;
 
-const Login = t.struct({
+const LoginEmail = t.struct({
     email: t.String,
-    password: t.String
+    password: t.String,
+    // remenberMe: t.Bool
 });
 
-const LoginFormOptions = {
+const LoginPhone = t.struct({
+    mobile: t.String,
+    password: t.String,
+    // remenberMe: t.Bool,
+});
+
+const LoginFormOptionsEmail = {
     auto: 'placeholders',
-    help: <i>Hint: a@a.com / qw</i>,
     fields: {
         password: {
-            type: 'password'
+            type: 'password',
+            attrs: {
+                placeholder: "密码"
+            }
+        },
+        email: {
+            type: 'email',
+            attrs: {
+                placeholder: "邮箱",
+            }
+        },
+        mobile: {
+            attrs: {
+                className: "mobile"
+            }
+        }
+    }
+};
+
+const LoginFormOptionsPhone = {
+    auto: 'placeholders',
+    fields: {
+        password: {
+            type: 'password',
+            attrs: {
+                placeholder: "密码"
+            }
+        },
+        mobile: {
+            attrs: {
+                placeholder: "手机号",
+            }
         }
     }
 };
@@ -46,14 +85,17 @@ class LoginView extends React.Component {
 
     constructor(props) {
         super(props);
-
         const redirectRoute = this.props.location ? this.extractRedirect(this.props.location.search) || '/' : '/';
         this.state = {
             formValues: {
                 email: '',
+                mobile: '',
                 password: ''
             },
-            redirectTo: redirectRoute
+            redirectTo: redirectRoute,
+            emailActive: "active",
+            phoneActive: "",
+            showStatusText: true
         };
     }
 
@@ -61,6 +103,9 @@ class LoginView extends React.Component {
         if (this.props.isAuthenticated) {
             this.props.dispatch(push('/'));
         }
+        this.setState({
+            showStatusText: false
+        });
     }
 
     onFormChange = (value) => {
@@ -76,13 +121,72 @@ class LoginView extends React.Component {
         e.preventDefault();
         const value = this.loginForm.getValue();
         if (value) {
-            this.props.actions.authLoginUser(value.email, value.password, this.state.redirectTo);
+            if (this.state.emailActive) {
+                this.props.actions.authLoginUser(value.email, value.password, this.state.redirectTo);
+            } else {
+                //phone api goes here
+            }
+
         }
+        this.setState({
+            showStatusText: true
+        });
     };
+
+    goToSignUp = (e) => {
+        e.preventDefault();
+        this.props.dispatch(push('/register'));
+    }
+
+
+    showEmail = (e) => {
+        this.setState({
+            emailActive: "active",
+            phoneActive: ""
+        });
+    }
+
+    showPhone = (e) => {
+        this.setState({
+            emailActive: "",
+            phoneActive: "active"
+        });
+    }
+
+    renderForm() {
+        let loginForm = null;
+        if (this.state.emailActive == "active") {
+            loginForm =
+                <Form ref={(ref) => { this.loginForm = ref; }}
+                    type={LoginEmail}
+                    options={LoginFormOptionsEmail}
+                    value={this.state.formValues}
+                    onChange={this.onFormChange}
+                />;
+        } else {
+            loginForm =
+                <Form ref={(ref) => { this.loginForm = ref; }}
+                    type={LoginPhone}
+                    options={LoginFormOptionsPhone}
+                    value={this.state.formValues}
+                    onChange={this.onFormChange}
+                />
+        }
+        return (
+            <div className="login-form">
+                {loginForm}
+            </div>
+        )
+    }
+
 
     render() {
         let statusText = null;
-        if (this.props.statusText) {
+        if (this.props.statusText && this.state.showStatusText) {
+            message.error(this.props.statusText);
+            this.setState({
+                showStatusText: false
+            });
             const statusTextClassNames = classNames({
                 'alert': true,
                 'alert-danger': this.props.statusText.indexOf('Authentication Error') === 0,
@@ -102,23 +206,43 @@ class LoginView extends React.Component {
 
         return (
             <div className="container login">
-                <h1 className="text-center">Login</h1>
                 <div className="login-container margin-top-medium">
-                    {statusText}
-                    <form onSubmit={this.login}>
-                        <Form ref={(ref) => { this.loginForm = ref; }}
-                            type={Login}
-                            options={LoginFormOptions}
-                            value={this.state.formValues}
-                            onChange={this.onFormChange}
-                        />
+                    <div className="login-label">
+                        <h2 className="text-center">欢迎回来</h2>
+                    </div>
+
+                    <form className="login-form" onSubmit={this.login}>
+                        <div className="login-type">
+                            <div className="btn-group login-btn-gup">
+                                <a
+                                    className={`btn email ${this.state.emailActive}`}
+                                    onClick={this.showEmail}
+                                >邮箱</a>
+                                <a
+                                    className={`btn phone ${this.state.phoneActive}`}
+                                    onClick={this.showPhone}
+                                >手机号</a>
+                            </div>
+                        </div>
+                        {this.renderForm()}
                         <button disabled={this.props.isAuthenticating}
                             type="submit"
-                            className="btn btn-default btn-block"
+                            className="btn btn-auth"
                         >
-                            Submit
+                            登录
                         </button>
                     </form>
+                    <div className="hr-outer">
+                        <hr className="hr-inner" />
+                        <span className="hr-span">更多</span>
+                        <hr className="hr-inner" />
+                    </div>
+
+                    <div className="login-more">
+                        <a className="login-more-fo-pwd">忘记密码</a>
+                        <span className="line"> &nbsp;| &nbsp;</span>
+                        <a onClick={this.goToSignUp} className="login-more-sign-up">立即注册</a>
+                    </div>
                 </div>
             </div>
         );
