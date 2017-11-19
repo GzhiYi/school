@@ -38,6 +38,10 @@ class App extends React.Component {
         this.props.dispatch(push('/protected'));
     };
 
+    goToIntroduce = () => {
+        this.props.dispatch(push('/introduce'));
+    }
+
     render() {
         const homeClass = classNames({
             active: this.props.location && this.props.location.pathname === '/'
@@ -47,6 +51,9 @@ class App extends React.Component {
         });
         const loginClass = classNames({
             active: this.props.location && this.props.location.pathname === '/login'
+        });
+        const introduceClass = classNames({
+            active: this.props.location && this.props.location.pathname === '/introduce'
         });
 
         return (
@@ -95,8 +102,8 @@ class App extends React.Component {
                                              你好
                                         </a>
                                     </li>
-                                    <li className={loginClass}>
-                                        <a className="js-login-button" onClick={this.goToLogin}>
+                                    <li className={introduceClass}>
+                                        <a className="js-login-button" onClick={this.goToIntroduce}>
                                              介绍
                                         </a>
                                     </li>
