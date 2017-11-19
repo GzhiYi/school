@@ -1,0 +1,61 @@
+.introduce-page {
+    padding: 0 18%;
+    .header {
+        h2 {
+            margin-top: 0;
+            margin-bottom: 32px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 26px;
+            color: #808080;
+        }
+    }
+    .card {
+        .item {
+            text-align: left;
+            padding: 20px;
+            margin-top: 25px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px 0 #CCCBCB;
+            transition: all 0.3s ease;
+        }
+        .item:hover {
+            box-shadow: 0 5px 8px 2px #CCCBCB;
+        }
+
+        .card-pic {
+            margin-bottom: 5px;
+            overflow: hidden;
+            transition: all 1s ease;
+            
+            img {
+                width: 100%;
+                height: 160px;
+                image-rendering: -webkit-optimize-contrast;
+                transform: translateZ(0) scale(1, 1);
+            }
+        }
+        h4 {
+            margin-top: 15px;
+        }
+        .card-content {
+            height: 40px;
+            line-height: 20px;
+            color: #6E6E6E;
+            text-align: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical; 
+        }
+        .card-footer {
+            position: relative;
+            height: 20px;
+            line-height: 20px;
+            margin-top: 10px;
+        }
+    }
+}

@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import { push } from 'react-router-redux';
 import t from 'tcomb-form';
 import PropTypes from 'prop-types';
-import message from 'antd/lib/message';
 
 import * as actionCreators from '../../actions/auth';
 
@@ -35,7 +34,36 @@ class IntroduceView extends React.Component {
 
     render() {
         return (
-            <div>This is a introduce page</div>
+            <div>
+                <div className="introduce-page">
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="header text-center">
+                                <h2>广东药科大学</h2>
+                                <p>简单介绍</p>
+                            </div>
+                            <ul className="card">
+                                <li className="card-item">
+                                    <div className="col-md-12">
+                                        <div className="item">
+                                            <div className="card-pic">
+                                                <img src="https://blog.teambition.com/wp-content/uploads/2017/11/webv920-454x316.png" alt=""/>
+                                                <h4>xue yuan</h4>
+                                            </div>
+                                            <div className="card-content">
+                                                <p>内容</p>
+                                            </div>
+                                            <div className="card-footer">
+                                                <p>???</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>   
+            </div>
         )
     }
 }
