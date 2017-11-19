@@ -109,7 +109,7 @@ class App extends React.Component {
                                     </li>
                                     <li className={loginClass}>
                                         <a className="js-login-button" onClick={this.goToLogin}>
-                                             查询
+                                             周边
                                         </a>
                                     </li>
                                     <li className={loginClass}>
