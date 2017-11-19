@@ -12,25 +12,18 @@ import * as actionCreators from '../../actions/auth';
 import './style.scss';
 const Form = t.form.Form;
 
-const LoginEmail = t.struct({
+const RegisterForm = t.struct({
     email: t.String,
     password: t.String,
-    // remenberMe: t.Bool
 });
 
-const LoginPhone = t.struct({
-    mobile: t.String,
-    password: t.String,
-    // remenberMe: t.Bool,
-});
-
-const LoginFormOptionsEmail = {
+const RegiserFormOptions = {
     auto: 'placeholders',
     fields: {
         password: {
             type: 'password',
             attrs: {
-                placeholder: "密码"
+                placeholder: "请输入密码"
             }
         },
         email: {
@@ -39,32 +32,15 @@ const LoginFormOptionsEmail = {
                 placeholder: "邮箱",
             }
         },
-        mobile: {
-            attrs: {
-                className: "mobile"
-            }
-        }
+        // mobile: {
+        //     attrs: {
+        //         className: "mobile"
+        //     }
+        // }
     }
 };
 
-const LoginFormOptionsPhone = {
-    auto: 'placeholders',
-    fields: {
-        password: {
-            type: 'password',
-            attrs: {
-                placeholder: "密码"
-            }
-        },
-        mobile: {
-            attrs: {
-                placeholder: "手机号",
-            }
-        }
-    }
-};
-
-class LoginView extends React.Component {
+class RegisterView extends React.Component {
     static propTypes = {
         dispatch: PropTypes.func.isRequired,
         isAuthenticated: PropTypes.bool.isRequired,
@@ -89,12 +65,9 @@ class LoginView extends React.Component {
         this.state = {
             formValues: {
                 email: '',
-                mobile: '',
                 password: ''
             },
             redirectTo: redirectRoute,
-            emailActive: "active",
-            phoneActive: "",
             showStatusText: true
         };
     }
@@ -117,15 +90,15 @@ class LoginView extends React.Component {
         return match ? match[1] : '/';
     };
 
-    login = (e) => {
+    register = (e) => {
         e.preventDefault();
-        const value = this.loginForm.getValue();
+        const value = this.registerForm.getValue();
         if (value) {
-            if (this.state.emailActive) {
-                this.props.actions.authLoginUser(value.email, value.password, this.state.redirectTo);
-            } else {
+            // if (this.state.emailActive) {
+            //     this.props.actions.authLoginUser(value.email, value.password, this.state.redirectTo);
+            // } else {
                 //phone api goes here
-            }
+            // }
 
         }
         this.setState({
@@ -133,52 +106,10 @@ class LoginView extends React.Component {
         });
     };
 
-    goToSignUp = (e) => {
+    goToSignIn = (e) => {
         e.preventDefault();
-        this.props.dispatch(push('/register'));
+        this.props.dispatch(push('/login'));
     }
-
-
-    showEmail = (e) => {
-        this.setState({
-            emailActive: "active",
-            phoneActive: ""
-        });
-    }
-
-    showPhone = (e) => {
-        this.setState({
-            emailActive: "",
-            phoneActive: "active"
-        });
-    }
-
-    renderForm() {
-        let loginForm = null;
-        if (this.state.emailActive == "active") {
-            loginForm =
-                <Form ref={(ref) => { this.loginForm = ref; }}
-                    type={LoginEmail}
-                    options={LoginFormOptionsEmail}
-                    value={this.state.formValues}
-                    onChange={this.onFormChange}
-                />;
-        } else {
-            loginForm =
-                <Form ref={(ref) => { this.loginForm = ref; }}
-                    type={LoginPhone}
-                    options={LoginFormOptionsPhone}
-                    value={this.state.formValues}
-                    onChange={this.onFormChange}
-                />
-        }
-        return (
-            <div className="login-form">
-                {loginForm}
-            </div>
-        )
-    }
-
 
     render() {
         let statusText = null;
@@ -208,28 +139,23 @@ class LoginView extends React.Component {
             <div className="container login">
                 <div className="login-container margin-top-medium">
                     <div className="login-label">
-                        <h2 className="text-center">欢迎回来</h2>
+                        <h2 className="text-center">加入广药大家园!</h2>
                     </div>
 
-                    <form className="login-form" onSubmit={this.login}>
-                        <div className="login-type">
-                            <div className="btn-group login-btn-gup">
-                                <a
-                                    className={`btn email ${this.state.emailActive}`}
-                                    onClick={this.showEmail}
-                                >邮箱</a>
-                                <a
-                                    className={`btn phone ${this.state.phoneActive}`}
-                                    onClick={this.showPhone}
-                                >手机号</a>
-                            </div>
+                    <form className="login-form" onSubmit={this.register}> 
+                        <div className="login-form">
+                            <Form ref={(ref) => { this.registerForm = ref; }}
+                                type={RegisterForm}
+                                options={RegiserFormOptions}
+                                value={this.state.formValues}
+                                onChange={this.onFormChange}
+                            />
                         </div>
-                        {this.renderForm()}
                         <button disabled={this.props.isAuthenticating}
                             type="submit"
-                            className="btn btn-auth"
+                            className="btn btn-auth-register"
                         >
-                            登录
+                            注册
                         </button>
                     </form>
                     <div className="hr-outer">
@@ -237,11 +163,8 @@ class LoginView extends React.Component {
                         <span className="hr-span">更多</span>
                         <hr className="hr-inner" />
                     </div>
-
-                    <div className="login-more">
-                        <a className="login-more-fo-pwd">忘记密码</a>
-                        <span className="line"> &nbsp;| &nbsp;</span>
-                        <a onClick={this.goToSignUp} className="login-more-sign-up">立即注册</a>
+                    <div className="register-more">
+                        <a onClick={this.goToSignIn} className="login-more-sign-up">立即登录</a>
                     </div>
                 </div>
             </div>
@@ -264,5 +187,5 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginView);
-export { LoginView as LoginViewNotConnected };
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterView);
+export { RegisterView as RegisterViewNotConnected };

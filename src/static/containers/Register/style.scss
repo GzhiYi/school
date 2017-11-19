@@ -1,0 +1,44 @@
+$form-input-height: 55px;
+.register-more {
+    width: 14%;;
+    margin: 0 auto;
+    margin-top: 12px;
+    a {
+        font-size: 1.2em;
+        text-decoration: none;
+        color: #828282;
+    }
+    a:hover {
+        color: black;
+    }
+}
+
+.btn-auth-register {
+    width: 100%;
+    height: $form-input-height + 8px;
+    font-size: 1.3em;
+    background: $color-green;
+    color: white;
+    margin-top: 8px;
+    transition: background 1s;
+}
+
+.btn-auth-register:hover {
+    background: $color-green-dark;
+    color: white;
+}
+
+@media screen and (max-width: 545px) {
+    .line {
+        display: none;
+    }
+    .regiser-more a {
+        text-decoration: none;
+        color: #828282;
+        text-align: center;
+        margin-top: 7px;
+    }
+    .regiser-more {
+        display: grid;
+    }
+}
