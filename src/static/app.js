@@ -63,17 +63,17 @@ class App extends React.Component {
         let content = 
             <div>
                 <ul className="avatar-auth">
-                    <li className="avatar-auth-li" onClick={this.goToLogin}>登录</li>
-                    <li className="avatar-auth-li" onClick={this.goToRegister}>注册</li>
+                    <li className="avatar-auth-li" onClick={this.goToLogin}><a>登录</a></li>
+                    <li className="avatar-auth-li" onClick={this.goToRegister}><a>注册</a></li>
                 </ul>
             </div>;
         if (this.props.isAuthenticated) {
             content = 
             <div>
                 <ul className="avatar-auth">
-                    <li className="avatar-auth-li">个人中心</li>
-                    <li className="avatar-auth-li">设置</li>
-                    <li className="avatar-auth-li" onClick={this.logout}>退出登录</li>
+                    <li className="avatar-auth-li"><a>个人中心</a></li>
+                    <li className="avatar-auth-li"><a>设置</a></li>
+                    <li className="avatar-auth-li" onClick={this.logout}><a>退出登录</a></li>
                 </ul>
             </div>;
         }
