@@ -8,3 +8,16 @@
 @import "theme/footer";
 
 @import "utils/margins";
+
+li.avatar-auth-li {
+    cursor: pointer;
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+li.avatar-auth-li:hover {
+    color: $color-green;
+}
+.ant-popover-title {
+    font-size: 1.1em;
+}

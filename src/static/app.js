@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import  Avatar  from 'antd/lib/avatar';
+import Avatar  from 'antd/lib/avatar';
+import Popover from 'antd/lib/popover';
 
 import { authLogoutAndRedirect } from './actions/auth';
 import './styles/main.scss';
@@ -34,6 +35,10 @@ class App extends React.Component {
         this.props.dispatch(push('/login'));
     };
 
+    goToRegister = () => {
+        this.props.dispatch(push('/register'));
+    };
+
     goToProtected = () => {
         this.props.dispatch(push('/protected'));
     };
@@ -55,7 +60,23 @@ class App extends React.Component {
         const introduceClass = classNames({
             active: this.props.location && this.props.location.pathname === '/introduce'
         });
-
+        let content = 
+            <div>
+                <ul className="avatar-auth">
+                    <li className="avatar-auth-li" onClick={this.goToLogin}>登录</li>
+                    <li className="avatar-auth-li" onClick={this.goToRegister}>注册</li>
+                </ul>
+            </div>;
+        if (this.props.isAuthenticated) {
+            content = 
+            <div>
+                <ul className="avatar-auth">
+                    <li className="avatar-auth-li">个人中心</li>
+                    <li className="avatar-auth-li">设置</li>
+                    <li className="avatar-auth-li" onClick={this.logout}>退出登录</li>
+                </ul>
+            </div>;
+        }
         return (
             <div className="app">
                 <nav className="navbar navbar-default">
@@ -72,15 +93,17 @@ class App extends React.Component {
                                 <span className="icon-bar" />
                                 <span className="icon-bar" />
                             </button>
-                            <a className="navbar-brand" onClick={this.goToIndex}>
-                                <Avatar size="large" icon="user" />
+                            <a className="navbar-brand">   
+                                <Popover placement="bottomLeft" content={content} title={this.props.isAuthenticated ? "你好,gzhiyi!" : "游客，你好！"} trigger="hover">
+                                    <Avatar size="large" icon="user" />
+                                </Popover>
                             </a>
                         </div>
                         <div className="collapse navbar-collapse" id="top-navbar">
                             {this.props.isAuthenticated ?
                                 <ul className="nav navbar-nav navbar-right">
                                     <li className={homeClass}>
-                                        <a className="js-go-to-index-button" onClick={this.goToIndex}>
+                                        <a className="js-go-to-index-button">
                                             <i className="fa fa-home" /> Home
                                         </a>
                                     </li>
