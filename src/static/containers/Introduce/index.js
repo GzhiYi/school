@@ -42,9 +42,9 @@ class IntroduceView extends React.Component {
                                 <h2>广东药科大学</h2>
                                 <p>简单介绍</p>
                             </div>
-                            <ul className="card">
-                                <li className="card-item">
-                                    <div className="col-md-12">
+                            <div className="col-md-8">
+                                <ul className="card">
+                                    <li className="card-item"> 
                                         <div className="item">
                                             <div className="card-pic">
                                                 <img src="https://blog.teambition.com/wp-content/uploads/2017/11/webv920-454x316.png" alt=""/>
@@ -57,9 +57,27 @@ class IntroduceView extends React.Component {
                                                 <p>???</p>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                            </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="col-md-4">
+                                <ul className="card">
+                                    <li className="card-item">
+                                        <div className="item">
+                                            <div className="card-pic">
+                                                <img src="https://blog.teambition.com/wp-content/uploads/2017/11/webv920-454x316.png" alt="" />
+                                                <h4>xue yuan</h4>
+                                            </div>
+                                            <div className="card-content">
+                                                <p>内容</p>
+                                            </div>
+                                            <div className="card-footer">
+                                                <p>???</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>   

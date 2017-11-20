@@ -1,5 +1,5 @@
 .introduce-page {
-    padding: 0 18%;
+    padding: 0px 8%;;
     .header {
         h2 {
             margin-top: 0;
@@ -20,6 +20,13 @@
             border-radius: 10px;
             box-shadow: 0 2px 5px 0 #CCCBCB;
             transition: all 0.3s ease;
+            .search-card {
+                text-align: center;
+                width: 80%;
+                input.search-input {
+                    width: 100%;
+                }
+            }
         }
         .item:hover {
             box-shadow: 0 5px 8px 2px #CCCBCB;
