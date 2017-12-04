@@ -47,6 +47,14 @@ class App extends React.Component {
         this.props.dispatch(push('/introduce'));
     }
 
+    goToSurrounding = () => {
+        this.props.dispatch(push('/surrounding'));
+    }
+
+    goToForum = () => {
+        this.props.dispatch(push('/forum'));
+    }
+
     render() {
         const homeClass = classNames({
             active: this.props.location && this.props.location.pathname === '/'
@@ -59,6 +67,12 @@ class App extends React.Component {
         });
         const introduceClass = classNames({
             active: this.props.location && this.props.location.pathname === '/introduce'
+        });
+        const surroundingClass = classNames({
+            active: this.props.location && this.props.location.pathname === '/surrounding'
+        });
+        const forumClass = classNames({
+            active: this.props.location && this.props.location.pathname === '/forum'
         });
         let content = 
             <div>
@@ -130,13 +144,13 @@ class App extends React.Component {
                                              介绍
                                         </a>
                                     </li>
-                                    <li className={loginClass}>
-                                        <a className="js-login-button" onClick={this.goToLogin}>
+                                    <li className={surroundingClass}>
+                                        <a className="js-login-button" onClick={this.goToSurrounding}>
                                              周边
                                         </a>
                                     </li>
-                                    <li className={loginClass}>
-                                        <a className="js-login-button" onClick={this.goToLogin}>
+                                    <li className={forumClass}>
+                                        <a className="js-login-button" onClick={this.goToForum}>
                                              交流
                                         </a>
                                     </li>

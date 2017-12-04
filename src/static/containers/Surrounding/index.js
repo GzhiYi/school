@@ -9,7 +9,7 @@ import * as actionCreators from '../../actions/data';
 
 import './style.scss';
 
-class ForumView extends React.Component {
+class SurroundingView extends React.Component {
     static propTypes = {
         dispatch: PropTypes.func.isRequired,
         isAuthenticated: PropTypes.bool.isRequired,
@@ -30,7 +30,7 @@ class ForumView extends React.Component {
     render() {
         return (
             <div>
-                This is forum page.
+                This is surrounding page.
             </div>
         )
     }
@@ -51,5 +51,5 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ForumView);
-export { ForumView as ForumViewNotConnected };
+export default connect(mapStateToProps, mapDispatchToProps)(SurroundingView);
+export { SurroundingView as SurroundingViewNotConnected };
