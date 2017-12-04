@@ -58,6 +58,20 @@ class IntroduceView extends React.Component {
                                             </div>
                                         </div>
                                     </li>
+                                    <li className="card-item">
+                                        <div className="item">
+                                            <div className="card-pic">
+                                                <img src="https://blog.teambition.com/wp-content/uploads/2017/11/webv920-454x316.png" alt="" />
+                                                <h4>xue yuan</h4>
+                                            </div>
+                                            <div className="card-content">
+                                                <p>内容</p>
+                                            </div>
+                                            <div className="card-footer">
+                                                <p>???</p>
+                                            </div>
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
                             <div className="col-md-4">
