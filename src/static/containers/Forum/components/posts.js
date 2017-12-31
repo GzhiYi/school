@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './style.scss';
 
 class Posts extends Component {
     render() {
@@ -6,10 +7,10 @@ class Posts extends Component {
         renderPosts = 
             <div className="list-item">
                 <a href="#" className="list-item-avatar">
-                    <img src="#" alt="头像"/>
+                    <img src="../../../images/github.png" alt="头像"/>
                 </a>
                 <div className="list-content">
-                    <a href="#">标题标题</a>
+                    <a href="#" className="list-title">标题标题</a>
                 </div>
                 <div className="list-footer">
                     <div className="author">
