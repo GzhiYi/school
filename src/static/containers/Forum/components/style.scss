@@ -1,0 +1,17 @@
+.forum-page {
+    .posts {
+        .list-item {
+            height: 73px;
+            width: 684px;
+
+            .list-item-avatar {
+                display: block;
+                width: 45px;
+                height: 45px;
+                margin-left: 6px;
+                margin-right: 12px;
+                float: left;
+            }
+        }
+    }
+}
