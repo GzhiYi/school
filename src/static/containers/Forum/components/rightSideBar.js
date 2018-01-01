@@ -10,6 +10,11 @@ class RightSideBar extends Component {
         console.log(a, b, c);
     }
 
+    createPost = () => {
+        console.log('???');
+        window.open('/forum/new-post');
+    }
+
     render() {
         return (
             <div>
@@ -26,6 +31,7 @@ class RightSideBar extends Component {
                     <button 
                         type="button" 
                         className="btn new-post"
+                        onClick={this.createPost}
                     >
                         <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
                         发帖
