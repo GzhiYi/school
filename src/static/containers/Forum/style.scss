@@ -63,6 +63,13 @@ $rightBarMargin : 20px;
 
         .recommend-posts-list li {
             padding: 14px 5px;
+
+            a {
+                text-decoration: none;
+                outline: none;
+                color: #252323;
+                margin-left: 6px;
+            }
         }
 
         span.recommend1 {

@@ -47,15 +47,19 @@ class RightSideBar extends Component {
                             <ul>
                                 <li>
                                     <span className="recommend1">1</span>
+                                    <a>标题1</a>
                                 </li>
                                 <li>
                                     <span className="recommend2">2</span>
+                                    <a>标题2</a>
                                 </li>
                                 <li>
                                     <span className="recommend3">3</span>
+                                    <a>标题3</a>
                                 </li>
                                 <li>
                                     <span className="recommend4">4</span>
+                                    <a>标题4</a>
                                 </li>
                             </ul>
                         </div>
