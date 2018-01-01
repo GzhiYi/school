@@ -9,7 +9,8 @@ class NewPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            postType: "2"
+            postType: "2",
+            postTitle: ""
         }
     }
 
@@ -49,7 +50,13 @@ class NewPost extends Component {
                                     </div>
 
                                     <div className="post-title">
-                                        <input type="text" className="post-title-input"/>
+                                        <input 
+                                            type="text" 
+                                            name="postTitle"
+                                            className="post-title-input"
+                                            value={this.state.postTitle}
+                                            onChange={this.handleChange}
+                                        />
                                     </div>
 
                                 </div>
