@@ -169,7 +169,7 @@ class App extends React.Component {
                     {this.props.children}
                 </div>
                 {
-                    (this.props.location && this.props.location.pathname === '/forum') || (this.props.location && this.props.location.pathname === '/forum/new-post')
+                    (this.props.location && this.props.location.pathname === '/forum')
                     ?
                         ""
                     :
