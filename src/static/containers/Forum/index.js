@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import ForumCarousel from './components/forumCarousel';
 import Posts from './components/posts';
 import RightSideBar from './components/rightSideBar';
+import BackTop from 'antd/lib/back-top';
 
 import * as actionCreators from '../../actions/data';
 
@@ -33,23 +34,27 @@ class ForumView extends React.Component {
     render() {
         return (
             <div className="forum-page">
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-9">
-                        <div className="carousel-content">
-                            <ForumCarousel />
-                        </div>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-9">
+                            <div className="carousel-content">
+                                <ForumCarousel />
+                            </div>
 
-                        <div>
-                            <Posts />
+                            <div>
+                                <Posts />
+                            </div>
                         </div>
-                    </div>
-                    <div className="col-md-3">
-                        <RightSideBar />
+                        <div className="col-md-3">
+                            <RightSideBar />
+                        </div>
                     </div>
                 </div>
-            </div>
-               
+                <BackTop>
+                    <div className="top-up">
+                        <i className="fa fa-arrow-up" aria-hidden="true"></i>
+                    </div>
+                </BackTop> 
             </div>
         )
     }
