@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { push } from 'react-router-redux';
+import { connect } from 'react-redux';
 import Input from 'antd/lib/input';
 import Carousel from 'antd/lib/carousel';
 const Search = Input.Search;
 
 import './style.scss';
 class RightSideBar extends Component {
+    constructor(props) {
+        super(props);
+    }
 
     onChange = (a, b, c) => {
         console.log(a, b, c);
@@ -12,7 +18,7 @@ class RightSideBar extends Component {
 
     createPost = () => {
         console.log('???');
-        window.open('/forum/new-post');
+        this.props.dispatch(push('/forum/new-post'));
     }
 
     render() {
@@ -76,4 +82,11 @@ class RightSideBar extends Component {
     }
 }
 
-export default RightSideBar;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        isAuthenticated: state.auth.isAuthenticated,
+        location: state.routing.location
+    };
+};
+
+export default connect(mapStateToProps)(RightSideBar);
