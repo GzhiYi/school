@@ -12,7 +12,7 @@ class NewPost extends Component {
         this.state = {
             postType: "2",
             postTitle: "",
-            text: ""
+            editorHtml: ""
         }
     }
 
@@ -20,9 +20,9 @@ class NewPost extends Component {
         console.log('e', e.target.value);
     }    
     
-    handleEditorChange = (value) => {
+    handleEditorChange = (html) => {
         this.setState({
-            text: value
+            editorHtml: html
         });
     }
 
@@ -63,8 +63,12 @@ class NewPost extends Component {
                                 </div>
 
                                 <div className="post-editor">
-                                    <ReactQuill value={this.state.text}
-                                        onChange={this.handleEditorChange} 
+                                    <ReactQuill
+                                        onChange={this.handleEditorChange}
+                                        value={this.state.editorHtml}
+                                        modules={NewPost.modules}
+                                        formats={NewPost.formats}
+                                        // bounds={'.app'}
                                     />
                                 </div>
                             </div>
@@ -74,6 +78,43 @@ class NewPost extends Component {
             </div>
         );
     }
+}
+
+/* 
+ * Quill modules to attach to editor
+ * See https://quilljs.com/docs/modules/ for complete options
+ */
+NewPost.modules = {
+    toolbar: [
+        [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+        [{ size: [] }],
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' },
+        { 'indent': '-1' }, { 'indent': '+1' }],
+        ['link', 'image'],
+        ['clean']
+    ],
+    clipboard: {
+        // toggle to add extra line breaks when pasting HTML:
+        matchVisual: false,
+    }
+}
+/* 
+ * Quill editor formats
+ * See https://quilljs.com/docs/formats/
+ */
+NewPost.formats = [
+    'header', 'font', 'size',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent',
+    'link', 'image'
+]
+
+/* 
+ * PropType validation
+ */
+NewPost.propTypes = {
+    placeholder: React.PropTypes.string,
 }
 
 export default NewPost;
