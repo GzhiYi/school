@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
-import t from 'tcomb-form';
+import ReactQuill from 'react-quill';
+
 
 import './style.scss';
 class NewPost extends Component {
@@ -10,21 +11,22 @@ class NewPost extends Component {
         super(props);
         this.state = {
             postType: "2",
-            postTitle: ""
+            postTitle: "",
+            text: ""
         }
     }
 
     handleChange = (e) => {
         console.log('e', e.target.value);
-    } 
+    }    
     
+    handleEditorChange = (value) => {
+        this.setState({
+            text: value
+        });
+    }
 
     render() {
-        const formItemLayout = {
-            labelCol: { span: 6 },
-            wrapperCol: { span: 14 },
-        };
-
         return (
             <div>
                 <div className="container">
@@ -58,7 +60,12 @@ class NewPost extends Component {
                                             onChange={this.handleChange}
                                         />
                                     </div>
+                                </div>
 
+                                <div className="post-editor">
+                                    <ReactQuill value={this.state.text}
+                                        onChange={this.handleEditorChange} 
+                                    />
                                 </div>
                             </div>
                         </div>
