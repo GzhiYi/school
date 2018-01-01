@@ -39,7 +39,7 @@ class ForumView extends React.Component {
                             <ForumCarousel />
                         </div>
 
-                        <div className="posts">
+                        <div>
                             <Posts />
                         </div>
                     </div>

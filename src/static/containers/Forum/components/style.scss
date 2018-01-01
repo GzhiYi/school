@@ -1,11 +1,12 @@
 .forum-page {
     .posts {
+        background: #ffffff;
+        margin-top: 20px;
         .list-item {
-            height: 73px;
+            height: 93px;
             width: 100%;
-            background: #f9f9f9;
             border-bottom: 1px solid #eee;
-            padding: 0 10px;
+            padding: 10px 10px;
 
             a {
                 outline: none;
@@ -80,6 +81,13 @@
                     font-size: 1.2rem;
                 }
             }
+        }
+
+        .posts-main-title {
+            margin: 40px 0 0 10px;
+            padding-bottom: 20px;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #eee;
         }
     }
 }

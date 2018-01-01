@@ -4,13 +4,12 @@ import Jpg from '../../../images/github.png';
 import _ from 'lodash';
 
 class Posts extends Component {
-    render() {
-        let renderPosts = null;
-        let test = [1, 2 , 3, 4, 4, 5, 5];
-        renderPosts = 
-            _.map (test, (item, index) => {
+
+    renderPosts(data) {
+        return (
+            _.map(data, (item, index) => {
                 return (
-                    <div className="list-item" key = {index}>
+                    <div className="list-item" key={index}>
                         <a href="#" className="list-item-avatar">
                             <img src={Jpg} alt="头像" />
                         </a>
@@ -44,9 +43,33 @@ class Posts extends Component {
                     </div>
                 )
             })
+        )
+    }
+
+    render() {
+        let renderPosts = null;
+        let renderTopPosts = null;
+        let test = [];
+        let testTop = [];
+        testTop.length = 5;
+        test.length = 30;
+        renderTopPosts = this.renderPosts(testTop);
+        renderPosts = this.renderPosts(test);
         return (
-            <div>
-                {renderPosts}
+            <div className="posts">
+                <div className="top-posts">
+                    <div className="render-top-posts">
+                        {renderTopPosts}
+                    </div>
+                </div>
+                <div className="common-posts">
+                    <div className="posts-main-title">
+                        主题
+                    </div>
+                    <div className="render-posts">
+                        {renderPosts}
+                    </div>
+                </div>
             </div>
         );
     }
