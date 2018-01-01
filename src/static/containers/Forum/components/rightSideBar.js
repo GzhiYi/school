@@ -41,6 +41,25 @@ class RightSideBar extends Component {
                         <div><h3>3</h3></div>
                         <div><h3>4</h3></div>
                     </Carousel>
+                    <div className="carousel-below">
+                        <div className="title">推荐帖子</div>
+                        <div className="recommend-posts-list">
+                            <ul>
+                                <li>
+                                    <span className="recommend1">1</span>
+                                </li>
+                                <li>
+                                    <span className="recommend2">2</span>
+                                </li>
+                                <li>
+                                    <span className="recommend3">3</span>
+                                </li>
+                                <li>
+                                    <span className="recommend4">4</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

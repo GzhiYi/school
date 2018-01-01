@@ -46,13 +46,56 @@ $rightBarMargin : 20px;
 
     .recommend-posts {
         margin-bottom: $rightBarMargin;
-        
+
         .ant-carousel .slick-slide {
             text-align: center;
             height: 100px;
             line-height: 160px;
             background: #364d79;
             overflow: hidden;
+        }
+
+        .title {
+            border-bottom: 1px solid #eee;
+            margin-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .recommend-posts-list li {
+            padding: 14px 5px;
+        }
+
+        span.recommend1 {
+            color: white;
+            background: #f84e4e;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        span.recommend2 {
+            color: white;
+            background: #f64d4d;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        span.recommend3 {
+            color: white;
+            background: #f86336;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        span.recommend4 {
+            color: white;
+            background: #f8a436;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        .carousel-below {
+            background: #ffffff;
+            padding: 10px;
         }
     }
 }
