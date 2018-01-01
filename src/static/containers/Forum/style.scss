@@ -1,3 +1,5 @@
+$rightBarMargin : 20px;
+
 .forum-page {
     .ant-carousel .slick-slide {
         text-align: center;
@@ -13,6 +15,8 @@
 
         //right sidebar
     .post-btn {
+        margin-bottom: $rightBarMargin;
+
         .new-post {
             color: white;
             font-weight: bold;
@@ -20,6 +24,9 @@
             height: 55px;
             font-size: 1.3rem;
             background: #1c71c0;
+        }
+        i.fa.fa-pencil-square-o {
+            margin-right: 6px;
         }
     }
 
@@ -30,5 +37,22 @@
         width: 45px;
         border-radius: 23px;
         border: 1px solid;
+    }
+
+    .search {
+        margin-bottom: $rightBarMargin;
+
+    }
+
+    .recommend-posts {
+        margin-bottom: $rightBarMargin;
+        
+        .ant-carousel .slick-slide {
+            text-align: center;
+            height: 100px;
+            line-height: 160px;
+            background: #364d79;
+            overflow: hidden;
+        }
     }
 }
