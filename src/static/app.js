@@ -72,7 +72,7 @@ class App extends React.Component {
             active: this.props.location && this.props.location.pathname === '/surrounding'
         });
         const forumClass = classNames({
-            active: this.props.location && this.props.location.pathname === '/forum'
+            active: (this.props.location && this.props.location.pathname === '/forum') || (this.props.location && this.props.location.pathname === '/forum/new-post')
         });
         let content = 
             <div>
