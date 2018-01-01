@@ -5,7 +5,8 @@ import classNames from 'classnames';
 import { push } from 'react-router-redux';
 import PropTypes from 'prop-types';
 import ForumCarousel from './components/forumCarousel';
-import Posts from './components/posts'
+import Posts from './components/posts';
+import RightSideBar from './components/rightSideBar';
 
 import * as actionCreators from '../../actions/data';
 
@@ -44,7 +45,7 @@ class ForumView extends React.Component {
                         </div>
                     </div>
                     <div className="col-md-3">
-                        right over here
+                        <RightSideBar />
                     </div>
                 </div>
             </div>
