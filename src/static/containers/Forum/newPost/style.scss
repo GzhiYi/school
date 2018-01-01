@@ -1,0 +1,34 @@
+.new-post {
+    background: #ffffff;
+    padding: 16px;
+   
+    .title {
+        font-size: 1.3rem;
+        border-bottom: 1px solid #eeeeee;
+        padding-bottom: 18px;
+    }
+
+    .new-post-content {
+        display: -webkit-box;
+        margin-top: 20px;   
+        .post-type-select {
+            background: #ffffff;
+            padding: 5px;
+            border-radius: 4px;
+            border-color: #e3e3e3;
+            font-size: 0.8rem;
+            height: 36px;
+        }
+
+        .post-title {
+            margin-left: 36px;
+            .post-title-input {
+                height: 36px;
+                border: 1px solid #e3e3e3;
+                border-radius: 4px;
+                width: 450px;
+                padding: 10px;
+            }
+        }
+    }
+}
