@@ -4,7 +4,6 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import ReactQuill from 'react-quill';
 
-
 import './style.scss';
 class NewPost extends Component {
     constructor(props) {
@@ -70,6 +69,11 @@ class NewPost extends Component {
                                         formats={NewPost.formats}
                                         // bounds={'.app'}
                                     />
+                                </div>
+
+                                <div className="post-buttons">
+                                    <button type="button" className="btn save-draft" disabled>保存草稿</button>
+                                    <button type="button" className="btn publish">发布帖子</button>
                                 </div>
                             </div>
                         </div>
