@@ -8,6 +8,7 @@ import Popover from 'antd/lib/popover';
 
 import { authLogoutAndRedirect } from './actions/auth';
 import './styles/main.scss';
+import Img from "./images/github.png";
 
 class App extends React.Component {
     static propTypes = {
@@ -53,6 +54,10 @@ class App extends React.Component {
 
     goToForum = () => {
         this.props.dispatch(push('/forum'));
+    }
+
+    openGithub = () => {
+        window.open('https://github.com/GzhiYi/school');
     }
 
     render() {
@@ -163,6 +168,17 @@ class App extends React.Component {
                 <div>
                     {this.props.children}
                 </div>
+                {
+                    (this.props.location && this.props.location.pathname === '/forum')
+                    ?
+                        ""
+                    :
+                        <div className="top-footer">
+                            <div className="basic-info">
+                                <img src={Img} alt="" onClick={this.openGithub}/>
+                            </div>
+                        </div>
+                }
             </div>
         );
     }

@@ -42,7 +42,7 @@ class IntroduceView extends React.Component {
                                 <h2>广东药科大学</h2>
                                 <p>简单介绍</p>
                             </div>
-                            <div className="col-md-8">
+                            <div className="col-md-offset-1 col-md-7">
                                 <ul className="card">
                                     <li className="card-item"> 
                                         <div className="item">
@@ -74,7 +74,7 @@ class IntroduceView extends React.Component {
                                     </li>
                                 </ul>
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-3">
                                 <ul className="card">
                                     <li className="card-item">
                                         <div className="item">
