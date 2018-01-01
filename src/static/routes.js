@@ -8,9 +8,17 @@ import {
     IntroduceView, 
     NotFoundView,
     SurroundingView,
-    ForumView
+    ForumView,
+    ForumNewPostView
  } from './containers';
 import requireAuthentication from './utils/requireAuthentication';
+
+const ForumChildRoute = ({match}) => (
+    <div>
+        <Route exact path={`${match.url}/new-post`} component={ForumNewPostView} />
+        <Route exact path={`${match.url}/`} component={ForumView} />
+    </div>
+)
 
 export default(
     <Switch>
@@ -20,7 +28,7 @@ export default(
         <Route path="/protected" component={requireAuthentication(ProtectedView)} />
         <Route path="/introduce" component={IntroduceView} />
         <Route path="/surrounding" component={SurroundingView} />
-        <Route path="/forum" component={ForumView} />
+        <Route path="/forum" component={ForumChildRoute} />
         <Route path="*" component={NotFoundView} />
     </Switch>
 

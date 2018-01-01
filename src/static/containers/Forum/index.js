@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { push } from 'react-router-redux';
 import PropTypes from 'prop-types';
-import Carousel from 'antd/lib/carousel';
+import ForumCarousel from './components/forumCarousel';
+import Posts from './components/posts';
+import RightSideBar from './components/rightSideBar';
+import BackTop from 'antd/lib/back-top';
 
 import * as actionCreators from '../../actions/data';
 
@@ -28,19 +31,30 @@ class ForumView extends React.Component {
         super(props);
     }
 
-    onChange = (a, b, c) => {
-        console.log(a, b, c);
-    }
-
     render() {
         return (
             <div className="forum-page">
-                <Carousel afterChange={this.onChange} /*autoplay*/>
-                    <div><h3>1</h3></div>
-                    <div><h3>2</h3></div>
-                    <div><h3>3</h3></div>
-                    <div><h3>4</h3></div>
-                </Carousel>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-9">
+                            <div className="carousel-content">
+                                <ForumCarousel />
+                            </div>
+
+                            <div>
+                                <Posts />
+                            </div>
+                        </div>
+                        <div className="col-md-3">
+                            <RightSideBar />
+                        </div>
+                    </div>
+                </div>
+                <BackTop>
+                    <div className="top-up">
+                        <i className="fa fa-arrow-up" aria-hidden="true"></i>
+                    </div>
+                </BackTop> 
             </div>
         )
     }
