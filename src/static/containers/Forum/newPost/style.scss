@@ -1,6 +1,7 @@
 .new-post {
     background: #ffffff;
     padding: 20px;
+    height: 666px;
    
     .title {
         font-size: 1.3rem;
@@ -34,5 +35,8 @@
 
     .post-editor {
         margin-top: 20px;
+        .quill {
+            height: 430px;
+        }
     }
 }

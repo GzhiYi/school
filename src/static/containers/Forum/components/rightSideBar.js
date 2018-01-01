@@ -36,7 +36,7 @@ class RightSideBar extends Component {
                 <div className="post-btn">
                     <button 
                         type="button" 
-                        className="btn new-post"
+                        className="btn new-post-btn"
                         onClick={this.createPost}
                     >
                         <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
