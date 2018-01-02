@@ -137,7 +137,7 @@ class RegisterView extends React.Component {
 
         return (
             <div className="container login">
-                <div className="login-container margin-top-medium">
+                <div className="login-container register-margin">
                     <div className="login-label">
                         <h2 className="text-center">加入广药大家园!</h2>
                     </div>

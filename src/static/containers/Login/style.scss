@@ -1,171 +1,183 @@
 $form-input-height: 55px;
 .login {
     .login-container {
-        max-width: 561px;
+        max-width: 550px;
         margin: 0 auto;
-        padding: 38px;
-        border: 2px solid #c4c4c4;
-        margin-top: 32px;
-        border-radius: 7px;
+        padding: 13px 39px;
+        border-radius: 28px;
+        background: #ffffff;
+        margin-top: 40px;
+        box-shadow: 0px 9px 20px 0 rgba(46, 61, 73, 0.2);
+        transition: 0.6s all;
+        
         .login-label {
             margin-top: 23px;
         }
     }
+    .login-container:hover {
+        box-shadow: none;
+    }
     width: 100%;
     padding: 0;
-}
 
-form.login-form {
-    margin-top: 38px;
-}
 
-h1.login-header {
-    border-bottom: 2px solid;
-    height: 90px;
-    line-height: 77px;
-}
-
-span.login-logo {
-    padding: 0 41px 10px 41px;
-    border: 1px solid;
-}
-
-h5.welcome-back {
-    margin: 15px;
-}
-
-.radio label,
-.checkbox label {
-    min-height: 20px;
-    padding-left: 20px;
-    margin-bottom: 0;
-    font-weight: normal;
-    cursor: pointer;
-    line-height: 21px;
-}
-
-.hr-outer {
-    width: 100%;
-    text-align: center;
-    margin-top: 24px;
-    .hr-inner {
-        width: 30%;
-        display: inline-block;
+    form.login-form {
+        margin-top: 38px;
     }
-    .hr-span {
-        position: relative;
-        top: -16px;
-        padding: 13px;
-        color: #7a7a7a;
-        font-size: 1.1em;
-    }
-}
 
-.login-more {
-    width: 32%;;
-    margin: 0 auto;
-    margin-top: 12px;
-    a {
-        font-size: 1.2em;
-        text-decoration: none;
-        color: #828282;
+    h1.login-header {
+        border-bottom: 2px solid;
+        height: 90px;
+        line-height: 77px;
     }
-    a:hover {
-        color: black;
-    }
-}
 
-$login-type-width: 50%;
-.login-type {
-    text-align: center;
-    margin: 0 0 30px 0;
-    width: 100%;
-    .login-btn-gup {
-        width: 74%;
-        .email {
-            width: $login-type-width;
-            text-decoration: none;
-            height: 42px;
-            line-height: 28px;
-        }
-        .phone {
-            width: $login-type-width;
-            text-decoration: none;
-            height: 42px;
-            line-height: 28px;
-        }
+    span.login-logo {
+        padding: 0 41px 10px 41px;
+        border: 1px solid;
     }
-}
 
-.login-with-other {
-    text-align: center;
-    ul {
-        display: -webkit-inline-box;
+    h5.welcome-back {
+        margin: 15px;
     }
-    .li-brand {
-        font-size: 2em;
+
+    .radio label,
+    .checkbox label {
+        min-height: 20px;
+        padding-left: 20px;
+        margin-bottom: 0;
+        font-weight: normal;
         cursor: pointer;
-        margin: 0 8px;
+        line-height: 21px;
     }
-}
 
-.form-group-country_code {
-    width: 24%;
-    float: left;
-}
+    .hr-outer {
+        width: 100%;
+        text-align: center;
+        margin-top: 24px;
+        .hr-inner {
+            width: 30%;
+            display: inline-block;
+        }
+        .hr-span {
+            position: relative;
+            top: -16px;
+            padding: 13px;
+            color: #7a7a7a;
+            font-size: 1.1em;
+        }
+    }
 
-.btn-auth {
-    width: 100%;
-    height: $form-input-height + 8px;
-    font-size: 1.3em;
-    background: $color-blue;
-    color: white;;
-    margin-top: 8px;
-    transition: background 1s;
-}
+    .login-more {
+        width: 32%;
+        margin: 0 auto;
+        /* margin-top: 12px; */
+        font-size: 0.8rem;
+        a {
+            font-size: 1.2em;
+            text-decoration: none;
+            color: #828282;
+            transition: 0.5s all;
+        }
+        a:hover {
+            color: black;
+        }
+    }
 
-.btn-auth:hover {
-    background: $color-blue-dark;
-    color: white;;
-}
+    $login-type-width: 50%;
+    .login-type {
+        text-align: center;
+        margin: 0 0 30px 0;
+        width: 100%;
+        .login-btn-gup {
+            width: 74%;
+            .email {
+                width: $login-type-width;
+                text-decoration: none;
+                height: 42px;
+                line-height: 28px;
+            }
+            .phone {
+                width: $login-type-width;
+                text-decoration: none;
+                height: 42px;
+                line-height: 28px;
+            }
+        }
+    }
 
-.form-control {
-    height: $form-input-height;
-    font-size: 1.2em;
-}
+    .login-with-other {
+        text-align: center;
+        ul {
+            display: -webkit-inline-box;
+        }
+        .li-brand {
+            font-size: 2em;
+            cursor: pointer;
+            margin: 0 8px;
+        }
+    }
 
-.form-control:focus {
-    border: $color-blue;
-}
+    .form-group-country_code {
+        width: 24%;
+        float: left;
+    }
 
-a.email.active {
-    border-color: $color-blue;
-    background: $color-blue-light;
-    color: white;
-}
+    .btn-auth {
+        width: 100%;
+        height: $form-input-height + 8px;
+        font-size: 1.3rem;
+        background: $color-blue;
+        color: white;;
+        margin-top: 8px;
+        box-shadow: 0px 9px 20px 0 rgba(46, 61, 73, 0.2);
+        transition: 0.6s all;
+    }
 
-a.phone.active {
-    border-color: $color-blue;
-    background: $color-blue-light;
-    color: white;
-}
+    .btn-auth:hover {
+        background: $color-blue-dark;
+        color: white;
+        box-shadow: none;
+    }
 
-a.btn.phone {
-    color: black;
-    border-color: $color-blue;
-}
-   
-a.btn.email {
-    color: black;
-    border-color: $color-blue;
-}
+    .form-control {
+        height: $form-input-height;
+        font-size: 1rem;
+    }
 
-li.li-brand {
-    transition: color 1s;
-}
+    .form-control:focus {
+        border: $color-blue;
+    }
 
-li.li-brand:hover {
-    color: #36a69a;
+    a.email.active {
+        border-color: $color-blue;
+        background: $color-blue-light;
+        color: white;
+    }
+
+    a.phone.active {
+        border-color: $color-blue;
+        background: $color-blue-light;
+        color: white;
+    }
+
+    a.btn.phone {
+        color: black;
+        border-color: $color-blue;
+    }
+    
+    a.btn.email {
+        color: black;
+        border-color: $color-blue;
+    }
+
+    li.li-brand {
+        transition: color 1s;
+    }
+
+    li.li-brand:hover {
+        color: #36a69a;
+    }
+
 }
 
 
