@@ -5,5 +5,6 @@ export ProtectedView from './Protected/index';
 export IntroduceView from './Introduce/index';
 export SurroundingView from './Surrounding/index';
 export ForumView from './Forum/index';
+export PostDetailView from './Forum/postDetail/index';
 export ForumNewPostView from './Forum/newPost/index';
 export NotFoundView from './NotFound/index';
