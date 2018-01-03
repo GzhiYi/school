@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-import './style.scss';
+import { bindActionCreators } from 'redux';
+import { push } from 'react-router-redux';
+import { connect } from 'react-redux';
+import * as actionCreators from '../../../actions/auth';
 import Jpg from '../../../images/github.png';
 import _ from 'lodash';
 
+import './style.scss';
 class Posts extends Component {
+
+    showPostDetail = (index) => {
+        this.props.dispatch(push(`/forum/detail/${index}`));
+    }
 
     renderPosts(data) {
         return (
@@ -14,7 +22,12 @@ class Posts extends Component {
                             <img src={Jpg} alt="头像" />
                         </a>
                         <div className="list-content">
-                            <a href="#" className="list-title">标题标题</a>
+                            <a
+                             className="list-title"
+                             onClick={() => this.showPostDetail(index)}
+                            >
+                                标题标题
+                            </a>
                         </div>
                         <div className="list-footer">
                             <div className="author">
@@ -55,6 +68,7 @@ class Posts extends Component {
         test.length = 30;
         renderTopPosts = this.renderPosts(testTop);
         renderPosts = this.renderPosts(test);
+        console.log('render');
         return (
             <div className="posts">
                 <div className="top-posts">
@@ -75,4 +89,20 @@ class Posts extends Component {
     }
 }
 
-export default Posts;
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.auth.isAuthenticated,
+        isAuthenticating: state.auth.isAuthenticating,
+        statusText: state.auth.statusText
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch,
+        actions: bindActionCreators(actionCreators, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Posts);
+export { Posts };

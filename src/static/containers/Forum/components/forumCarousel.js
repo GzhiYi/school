@@ -4,7 +4,7 @@ import Carousel from 'antd/lib/carousel';
 class ForumCarousel extends React.Component {
 
     onChange = (a, b, c) => {
-        console.log(a, b, c);
+        // console.log(a, b, c);
     }
 
     render() {

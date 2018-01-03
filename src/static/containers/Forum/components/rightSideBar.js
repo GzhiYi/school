@@ -13,7 +13,7 @@ class RightSideBar extends Component {
     }
 
     onChange = (a, b, c) => {
-        console.log(a, b, c);
+        // console.log(a, b, c);
     }
 
     createPost = () => {
