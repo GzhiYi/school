@@ -8,7 +8,11 @@ import './style.scss';
 import Img from "../../../images/github.png";
 
 class PostDetailView extends Component {
-
+    constructor(props) {
+        super(props);
+        
+    }
+    
     back = () => {
         this.props.dispatch(push('/forum'));
     }
@@ -25,7 +29,7 @@ class PostDetailView extends Component {
                                 </div>
                                 
                                 <div className="col-lg-8">
-                                    <div className="post-floor">
+                                    <div className="post-floor first-floor">
                                         <div className="avatar">
                                             <img src={Img} alt="avatar"/>
                                         </div>
