@@ -2,11 +2,16 @@
     background: #ffffff;
     padding: 20px;
     height: 666px;
+    border-radius: 4px;
    
     .title {
         font-size: 1.3rem;
         border-bottom: 1px solid #eeeeee;
         padding-bottom: 18px;
+        span {
+            color: #337ab7;
+            cursor: pointer;
+        }
     }
 
     .new-post-content {

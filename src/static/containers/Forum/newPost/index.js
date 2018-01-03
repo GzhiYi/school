@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import ReactQuill from 'react-quill';
+import * as actionCreators from '../../../actions/auth';
 
 import './style.scss';
 class NewPost extends Component {
@@ -25,6 +26,10 @@ class NewPost extends Component {
         });
     }
 
+    back = () => {
+        this.props.dispatch(push("/forum"));
+    }
+
     render() {
         return (
             <div>
@@ -33,7 +38,7 @@ class NewPost extends Component {
                         <div className="col-lg-offset-1 col-lg-10">
                             <div className="new-post">
                                 <div className="title"> 
-                                    发表帖子
+                                    <span onClick={this.back}>返回</span> / 发表帖子
                                 </div>
                                 <div className="new-post-content">
                                     <div className="post-type">
@@ -121,4 +126,20 @@ NewPost.propTypes = {
     placeholder: React.PropTypes.string,
 }
 
-export default NewPost;
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.auth.isAuthenticated,
+        isAuthenticating: state.auth.isAuthenticating,
+        statusText: state.auth.statusText
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch,
+        actions: bindActionCreators(actionCreators, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewPost);
+export { NewPost };
