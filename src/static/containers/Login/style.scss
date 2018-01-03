@@ -90,6 +90,8 @@ $form-input-height: 55px;
         width: 100%;
         .login-btn-gup {
             width: 74%;
+            box-shadow: #eee 0px 7px 19px;
+            transition: 0.5s all;
             .email {
                 width: $login-type-width;
                 text-decoration: none;
@@ -102,6 +104,10 @@ $form-input-height: 55px;
                 height: 42px;
                 line-height: 28px;
             }
+        }
+
+        .login-btn-gup:hover {
+            box-shadow: none;
         }
     }
 
