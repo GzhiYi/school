@@ -104,13 +104,15 @@ class PostDetailView extends Component {
 
                                 <div className="col-lg-offset-1 col-lg-2">
                                     <Anchor>
-                                        <Link href="#components-anchor-demo-basic" title="Basic demo" />
-                                        <Link href="#components-anchor-demo-fixed" title="Fixed demo" />
-                                        <Link href="#API" title="API">
-                                            <Link href="#Anchor-Props" title="Anchor Props" />
-                                            <Link href="#Link-Props" title="Link Props" />
-                                        </Link>
+                                        <Link href="#components-anchor-demo-basic" title="一楼" />
+                                        <Link href="#components-anchor-demo-fixed" title="回复本帖" />
                                     </Anchor>
+                                </div>
+
+                                <div className="col-lg-12">
+                                    <div className="load-more">
+                                        更多
+                                    </div>
                                 </div>
                             </div>
                         </div>
