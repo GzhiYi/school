@@ -3,15 +3,20 @@ import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../../actions/auth';
-
+import Anchor from 'antd/lib/anchor';
 import './style.scss';
 import Img from "../../../images/github.png";
 
+const { Link }= Anchor;
 class PostDetailView extends Component {
     constructor(props) {
         super(props);
-        
     }
+
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+    
     
     back = () => {
         this.props.dispatch(push('/forum'));
@@ -98,7 +103,14 @@ class PostDetailView extends Component {
                                 </div>
 
                                 <div className="col-lg-offset-1 col-lg-2">
-                                    ))))))
+                                    <Anchor>
+                                        <Link href="#components-anchor-demo-basic" title="Basic demo" />
+                                        <Link href="#components-anchor-demo-fixed" title="Fixed demo" />
+                                        <Link href="#API" title="API">
+                                            <Link href="#Anchor-Props" title="Anchor Props" />
+                                            <Link href="#Link-Props" title="Link Props" />
+                                        </Link>
+                                    </Anchor>
                                 </div>
                             </div>
                         </div>

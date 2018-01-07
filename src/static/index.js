@@ -14,7 +14,7 @@ const history = createHistory();
 const store = configureStore(initialState, history);
 
 const node = (
-    <Root store={store} history={history} />
+    <Root onUpdate={() => window.scrollTo(0, 0) } store={store} history={history} />
 );
 
 const token = sessionStorage.getItem('token');
