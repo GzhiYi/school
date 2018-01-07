@@ -25,7 +25,9 @@ class PostDetailView extends Component {
                         <div className="col-lg-offset-1 col-lg-10">
                             <div className="post-detail">
                                 <div className="title">
-                                    <span className="post-back" onClick={this.back}>返回</span> / <span className="post-detail-title">标题</span> 
+                                    <span className="post-back" onClick={this.back}>返回</span> / <span className="post-detail-title">
+                                    这是一个毕业设计
+                                    </span> 
                                 </div>
                                 
                                 <div className="col-lg-8">
@@ -51,10 +53,47 @@ class PostDetailView extends Component {
                                         </div>
                                     </div>
                                     <div className="post-floor">
-                                        哈哈今天天气真不错
+                                        <div className="avatar">
+                                            <img src={Img} alt="avatar" />
+                                        </div>
+                                        <div className="name-time">
+                                            <div className="user-name">
+                                                <span className="author-name">userName</span>
+                                            </div>
+                                            <div className="post-create-time">2018.1.5</div>
+                                        </div>
+
+                                        <div className="content">
+                                           我是2楼楼
+                                        </div>
+
+                                        <div className="reply">
+                                            <i className="fa fa-reply" aria-hidden="true"></i> 回复
+                                        </div>
+                                        <div className="footer">
+                                            <i className="fa fa-heart" aria-hidden="true"></i> 98
+                                        </div>
                                     </div>
                                     <div className="post-floor">
-                                        哈哈今天天气真不错
+                                        <div className="avatar">
+                                            <img src={Img} alt="avatar" />
+                                        </div>
+                                        <div className="name-time">
+                                            <div className="user-name">
+                                                <span className="author-name">userName</span>
+                                            </div>
+                                            <div className="post-create-time">2018.1.5</div>
+                                        </div>
+
+                                        <div className="content">
+                                            地板  
+                                        </div>
+                                        <div className="reply">
+                                            <i className="fa fa-reply" aria-hidden="true"></i> 回复
+                                        </div>
+                                        <div className="footer">
+                                            <i className="fa fa-heart" aria-hidden="true"></i> 44
+                                        </div>
                                     </div>
                                 </div>
 

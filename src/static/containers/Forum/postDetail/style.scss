@@ -21,7 +21,7 @@
     }
 
     .first-floor {
-        background: #f0d9d9;
+        background: #caf6dd;
         transition: all 1s;
     }
 
@@ -30,6 +30,9 @@
         padding: 12px;
         margin-bottom: 20px;
         border-radius: 4px;
+        box-shadow: #eee 0px 2px 10px 1px;
+        transition: 0.5s all;
+
         .avatar {
             margin-bottom: 20px;
             width: 50px;
@@ -59,9 +62,23 @@
             margin-bottom: 20px;
         }
 
+        .reply {
+            float: left;
+            padding: 5px 22px;
+            border-radius: 4px;
+        }
+
+        .reply:hover {
+            background: #eee;
+            cursor: pointer;
+        }
+
         .footer {
             text-align: right;
             margin-bottom: 20px;
         }
+    }
+    .post-floor:hover {
+        box-shadow: none;
     }
 }
