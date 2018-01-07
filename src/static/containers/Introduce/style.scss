@@ -22,8 +22,8 @@
             margin-top: 25px;
             cursor: pointer;
             border-radius: 10px;
-            box-shadow: 0 2px 5px 0 #CCCBCB;
-            transition: all 0.3s ease;
+            box-shadow: #eee 0px 7px 19px;
+            transition: all 0.5s;
             .search-card {
                 text-align: center;
                 width: 80%;
@@ -33,19 +33,27 @@
             }
         }
         .item:hover {
-            box-shadow: 0 5px 8px 2px #CCCBCB;
+            box-shadow: rgb(172, 171, 171) 0px 7px 19px;
         }
 
         .card-pic {
             margin-bottom: 5px;
             overflow: hidden;
             transition: all 1s ease;
+            height: 200px;
+            border-radius: 4px;
             
             img {
                 width: 100%;
-                height: 130px;
+                // height: 130px;
                 image-rendering: -webkit-optimize-contrast;
-                transform: translateZ(0) scale(1, 1);
+                transition: all 1s ease;
+                width: 100%;
+                height: auto;
+            }
+
+            img:hover {
+                transform: scale(1.06);
             }
         }
         h4 {

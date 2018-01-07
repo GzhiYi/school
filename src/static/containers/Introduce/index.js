@@ -47,7 +47,7 @@ class IntroduceView extends React.Component {
                                     <li className="card-item"> 
                                         <div className="item">
                                             <div className="card-pic">
-                                                <img src="https://blog.teambition.com/wp-content/uploads/2017/11/webv920-454x316.png" alt=""/>
+                                                <img src="https://blog.teambition.com/wp-content/uploads/2017/12/图1.png" alt=""/>
                                                 <h4>xue yuan</h4>
                                             </div>
                                             <div className="card-content">
