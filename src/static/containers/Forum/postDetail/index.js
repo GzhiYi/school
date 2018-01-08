@@ -36,7 +36,7 @@ class PostDetailView extends Component {
                                 </div>
                                 
                                 <div className="col-lg-8">
-                                    <div className="post-floor first-floor">
+                                    <div id="first-floor" className="post-floor first-floor">
                                         <div className="avatar">
                                             <img src={Img} alt="avatar"/>
                                         </div>
@@ -104,7 +104,7 @@ class PostDetailView extends Component {
 
                                 <div className="col-lg-offset-1 col-lg-2">
                                     <Anchor>
-                                        <Link href="#components-anchor-demo-basic" title="一楼" />
+                                        <Link href="#first-floor" title="一楼" />
                                         <Link href="#components-anchor-demo-fixed" title="回复本帖" />
                                     </Anchor>
                                 </div>
