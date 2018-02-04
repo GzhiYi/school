@@ -82,9 +82,9 @@ class PostDetailView extends Component {
                                            我是2楼楼
                                         </div>
 
-                                        <div className="reply">
+                                        <a className="reply">
                                             <i className="fa fa-reply" aria-hidden="true"></i> 回复
-                                        </div>
+                                        </a>
                                         <div className="footer">
                                             <i className="fa fa-heart" aria-hidden="true"></i> 98
                                         </div>
@@ -103,9 +103,9 @@ class PostDetailView extends Component {
                                         <div className="content">
                                             地板  
                                         </div>
-                                        <div className="reply">
+                                        <a className="reply">
                                             <i className="fa fa-reply" aria-hidden="true"></i> 回复
-                                        </div>
+                                        </a>
                                         <div className="footer">
                                             <i className="fa fa-heart" aria-hidden="true"></i> 44
                                         </div>
@@ -115,7 +115,7 @@ class PostDetailView extends Component {
                                 <div className="col-lg-offset-1 col-lg-2">
                                     <Anchor>
                                         <Link href="#first-floor" title="一楼" />
-                                        <Link href="#components-anchor-demo-fixed" title="回复本帖" />
+                                        <Link href="#take-a-comment" title="回复本帖" />
                                     </Anchor>
                                 </div>
 
@@ -125,7 +125,7 @@ class PostDetailView extends Component {
                                     </div>
                                 </div>
 
-                                <div className="col-lg-12">
+                                <div className="col-lg-12" id="take-a-comment">
                                     <div className="reply-area col-lg-9">
                                         {
                                             token 
