@@ -8,3 +8,4 @@ export ForumView from './Forum/index';
 export PostDetailView from './Forum/postDetail/index';
 export ForumNewPostView from './Forum/newPost/index';
 export NotFoundView from './NotFound/index';
+export ProfileView from './Profile/index';

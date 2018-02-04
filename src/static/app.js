@@ -60,6 +60,10 @@ class App extends React.Component {
         window.open('https://github.com/GzhiYi/school');
     }
 
+    goToProfile = () => {
+        this.props.dispatch(push('/profile'));
+    }
+
     render() {
         const homeClass = classNames({
             active: this.props.location && this.props.location.pathname === '/'
@@ -90,8 +94,7 @@ class App extends React.Component {
             content = 
             <div>
                 <ul className="avatar-auth">
-                    <li className="avatar-auth-li"><a>个人中心</a></li>
-                    <li className="avatar-auth-li"><a>设置</a></li>
+                    <li className="avatar-auth-li"><a onClick={this.goToProfile}>个人中心</a></li>
                     <li className="avatar-auth-li" onClick={this.logout}><a>退出登录</a></li>
                 </ul>
             </div>;
@@ -119,7 +122,7 @@ class App extends React.Component {
                             </a>
                         </div>
                         <div className="collapse navbar-collapse" id="top-navbar">
-                            {this.props.isAuthenticated ?
+                            {/* {this.props.isAuthenticated ?
                                 <ul className="nav navbar-nav navbar-right">
                                     <li className={homeClass}>
                                         <a className="js-go-to-index-button">
@@ -137,7 +140,7 @@ class App extends React.Component {
                                         </a>
                                     </li>
                                 </ul>
-                                :
+                                : */}
                                 <ul className="nav navbar-nav navbar-right">
                                     <li className={homeClass}>
                                         <a className="js-go-to-index-button" onClick={this.goToIndex}>
@@ -160,7 +163,7 @@ class App extends React.Component {
                                         </a>
                                     </li>
                                 </ul>
-                            }
+                            {/* } */}
                         </div>
                     </div>
                 </nav>
