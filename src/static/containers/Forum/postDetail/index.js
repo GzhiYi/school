@@ -31,6 +31,14 @@ class PostDetailView extends Component {
         this.props.dispatch(push('/forum'));
     }
 
+    goToLogin = () => {
+        this.props.dispatch(push('/login'));
+    }
+
+    goToRegister = () => {
+        this.props.dispatch(push('/register'));
+    }
+
     render() {
         let token = sessionStorage.getItem('token');
         return (
@@ -140,7 +148,7 @@ class PostDetailView extends Component {
                                             :
                                                 <div className="notify-login">
                                                     <p>
-                                                        您需要登录后才可以回帖 <a href="/login">登录 </a> | <a href="/register">注册</a>
+                                                        您需要登录后才可以回帖 <a onClick={this.goToLogin}>登录 </a> | <a onClick={this.goToRegister}>注册</a>
                                                     </p>
                                                 </div>
                                         }
