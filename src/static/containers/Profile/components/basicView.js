@@ -150,6 +150,7 @@ class BasicView extends Component {
 								<DatePicker
 									// defaultValue={moment(user.date_born)}
 									onChange={this.onDatePickerChange}
+									placeholder="选择出生日期"
 								/>
 							</div>
 						</div>
