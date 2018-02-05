@@ -93,7 +93,7 @@ class ProfileView extends Component {
                                 </SubMenu> */}
                             </Menu>
                         </div>
-                        <div className="col-lg-8">
+                        <div className="col-lg-9">
                             <div className="profile-body">
                                 {renderComponent}
                             </div>
