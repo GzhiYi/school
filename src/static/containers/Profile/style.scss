@@ -2,4 +2,28 @@
     .profile-menu {
         min-height: 600px;
     }
+
+    .profile-body {
+        min-height: 600px;
+        background: #ffffff;
+        padding: 24px;
+
+        .basic-view {
+            .avatar-upload {
+                margin: 0 auto;
+                width: 104px;
+
+                .ant-upload.ant-upload-select.ant-upload-select-picture-card {
+                    background: #ffffff !important;
+                    border: none !important;
+                }
+
+                img {
+                    width: 100px;
+                    border-radius: 100px;
+                }
+            }
+            
+        }
+    }
 }
