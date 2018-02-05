@@ -32,7 +32,7 @@ export default(
         <Route path="/surrounding" component={SurroundingView} />
         <Route path="/forum/detail/:topicId" component={PostDetailView} />
         <Route path="/forum" component={ForumChildRoute} />
-        <Route path="/profile" component={ProfileView} />
+        <Route path="/profile/:menu" component={ProfileView} />
         <Route path="*" component={NotFoundView} />
     </Switch>
 

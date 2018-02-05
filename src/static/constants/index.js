@@ -1,3 +1,12 @@
+export const TAB = {
+    basic: 'basic',
+    avatar: 'avatar',
+    posts: 'posts',
+    comments: 'comments',
+    mail_phone: 'mail_phone',
+    password: 'password'
+}
+
 export const AUTH_LOGIN_USER_REQUEST = 'AUTH_LOGIN_USER_REQUEST';
 export const AUTH_LOGIN_USER_FAILURE = 'AUTH_LOGIN_USER_FAILURE';
 export const AUTH_LOGIN_USER_SUCCESS = 'AUTH_LOGIN_USER_SUCCESS';
