@@ -4,6 +4,13 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../actions/auth';
 import { TAB } from '../../constants/index';
+
+import BasicView from './components/basicView';
+import PostsView from './components/postsView';
+import CommentsView from './components/commentsView';
+import MailView from './components/mailView';
+import PasswordView from './components/passwordView';
+
 import Menu from  'antd/lib/menu';
 import Icon from 'antd/lib/menu';
 const SubMenu = Menu.SubMenu;
@@ -32,6 +39,27 @@ class ProfileView extends Component {
 
     render() {
         console.log('this.state.tab', this.state.tab);
+        let tab = this.state.tab;
+        let renderComponent = null;
+        if (tab) {
+            switch (tab) {
+                case TAB.posts:
+                    renderComponent = <PostsView />;
+                    break;
+                case TAB.comments:
+                    renderComponent = <CommentsView />;
+                    break;
+                case TAB.mail_phone:
+                    renderComponent = <MailView />;
+                    break;
+                case TAB.password:
+                    renderComponent = <PasswordView />;
+                    break;
+                default:
+                    renderComponent = <BasicView />;
+                    break;
+            }
+        }
         return (
             <div className="profile-page">
                 <div className="container">
@@ -41,12 +69,12 @@ class ProfileView extends Component {
                                 onClick={this.handleClick}
                                 style={{ width: 256 }}
                                 selectedKeys={[this.state.tab]}
-                                defaultOpenKeys={['sub1', 'sub2']}
+                                defaultOpenKeys={['sub1', 'sub2', 'sub3']}
                                 mode="inline"
                             >
                                 <SubMenu key="sub1" title={<span><Icon type="user" /><span>个人信息</span></span>}>
                                     <Menu.Item key={TAB.basic}>基本信息</Menu.Item>
-                                    <Menu.Item key={TAB.avatar}>修改头像</Menu.Item>
+                                    {/* <Menu.Item key={TAB.avatar}>修改头像</Menu.Item> */}
                                 </SubMenu>
 
                                 <SubMenu key="sub2" title={<span><Icon type="mail" /><span>我的帖子</span></span>}>
@@ -66,7 +94,9 @@ class ProfileView extends Component {
                             </Menu>
                         </div>
                         <div className="col-lg-8">
-                            detail  
+                            <div className="profile-body">
+                                {renderComponent}
+                            </div>
                         </div>
                     </div>
                 </div>
