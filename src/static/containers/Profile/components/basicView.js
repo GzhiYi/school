@@ -164,9 +164,9 @@ class BasicView extends Component {
 									{
 										this.props.isUpdatingProfile
 											?
-											"Updating..."
+											"上传中..."
 											:
-											"Update Profile"
+											"更新信息"
 									}
 								</Button>
 							</div>
