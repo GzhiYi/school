@@ -61,7 +61,7 @@ class App extends React.Component {
     }
 
     goToProfile = () => {
-        this.props.dispatch(push('/profile'));
+        this.props.dispatch(push('/profile/basic'));
     }
 
     render() {

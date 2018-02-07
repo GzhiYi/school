@@ -86,7 +86,7 @@ class PasswordView extends Component {
 									{
 										this.props.isUpdatingProfile
 											?
-											"上传中..."
+											"修改中..."
 											:
 											"修改密码"
 									}
