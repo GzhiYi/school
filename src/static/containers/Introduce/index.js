@@ -38,10 +38,10 @@ class IntroduceView extends React.Component {
                 <div className="introduce-page">
                     <div className="container-fluid">
                         <div className="row">
-                            <div className="header text-center">
+                            {/* <div className="header text-center">
                                 <h2>广东药科大学</h2>
                                 <p>简单介绍</p>
-                            </div>
+                            </div> */}
                             <div className="col-md-offset-1 col-md-7">
                                 <ul className="card">
                                     <li className="card-item"> 
