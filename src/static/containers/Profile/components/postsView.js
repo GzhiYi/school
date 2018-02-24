@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Table from 'antd/lib/table';
 import Input from 'antd/lib/input';
+import Button from 'antd/lib/button';
 const Search = Input.Search;
 
 const columns = [{
@@ -38,27 +39,41 @@ const data = [{
 	category: '问答',
 }];
 
-const rowSelection = {
-	onChange: (selectedRowKeys, selectedRows) => {
-		console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-	},
-	getCheckboxProps: record => ({
-		disabled: record.name === 'Disabled User', // Column configuration not to be checked
-		name: record.name,
-	}),
-};
-
 class PostsView extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			selectedRows: [],
+
+		}
 	}
 	onClick = () => {
 		
 	}
 	render() {
+		const rowSelection = {
+			onChange: (selectedRowKeys, selectedRows) => {
+				console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+				this.setState({
+					selectedRows
+				});
+			},
+			getCheckboxProps: record => ({
+				disabled: record.name === 'Disabled User', // Column configuration not to be checked
+				name: record.name,
+			}),
+		};
+		const { selectedRows } = this.state;
 		return (
 			<div>
 				<div className="search">
+					{
+						selectedRows.length > 0
+						?
+							<Button className="del-post-btn" type="danger">删除</Button>
+						:
+							''
+					}
 					<Search
 						placeholder="标题"
 						onSearch={value => console.log(value)}
