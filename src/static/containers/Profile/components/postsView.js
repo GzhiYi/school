@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Table from 'antd/lib/table';
 import Input from 'antd/lib/input';
 import Button from 'antd/lib/button';
+import Popconfirm from 'antd/lib/popconfirm';
+import message from 'antd/lib/message';
 const Search = Input.Search;
 
 const columns = [{
@@ -44,18 +46,25 @@ class PostsView extends Component {
 		super(props);
 		this.state = {
 			selectedRows: [],
-
+			selectedRowKeys: []
 		}
 	}
-	onClick = () => {
-		
+	confirm = (e) => {
+		console.log(e);
+		message.success('已经删除');
+	}
+
+	cancel = (e) => {
+		console.log(e);
+		message.error('选择取消');
 	}
 	render() {
 		const rowSelection = {
 			onChange: (selectedRowKeys, selectedRows) => {
 				console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
 				this.setState({
-					selectedRows
+					selectedRows,
+					selectedRowKeys
 				});
 			},
 			getCheckboxProps: record => ({
@@ -70,7 +79,16 @@ class PostsView extends Component {
 					{
 						selectedRows.length > 0
 						?
-							<Button className="del-post-btn" type="danger">删除</Button>
+							<Popconfirm 
+								title="确认删除帖子？" 
+								onConfirm={this.confirm} 
+								onCancel={this.cancel} 
+								okText="是的" 
+								cancelText="算了"
+								placement="left"
+							>
+								<Button className="del-post-btn" type="danger">删除</Button>
+							</Popconfirm>
 						:
 							''
 					}
