@@ -127,7 +127,7 @@ class PostDetailView extends Component {
                                     </Anchor>
                                 </div>
 
-                                <div className="col-lg-12">
+                                <div className="col-lg-8">
                                     <div className="load-more">
                                         更多
                                     </div>
