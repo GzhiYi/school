@@ -8,6 +8,7 @@ import Radio from 'antd/lib/radio';
 import DatePicker from 'antd/lib/date-picker';
 import Select from 'antd/lib/select';
 import Spin from 'antd/lib/spin';
+import _ from 'lodash';
 
 const RadioGroup = Radio.Group;
 const Search = Input.Search;
@@ -66,6 +67,10 @@ class BasicView extends Component {
 		this.setState({
 			formValues
 		});
+	}
+
+	updateProfile = () => {
+
 	}
 
 	render() {
