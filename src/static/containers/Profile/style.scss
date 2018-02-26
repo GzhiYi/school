@@ -54,15 +54,6 @@
         padding: 0 16px;
     }
 
-    .ant-list-item:hover {
-        background: #e6f7ff;
-    }
-
-    .ant-list-item {
-        cursor: pointer;
-        transition: .5s all;
-    }
-
     .ant-list-item-meta {
         width: 100%;
     }
@@ -72,9 +63,9 @@
     }
 
     .ant-list-item-meta-description {
-        background: #e6f7ff;
         padding: 6px;
         border-radius: 4px;
+        transition: .5s;
     }
 
     a.origin-post {
@@ -83,7 +74,7 @@
     }
 
     .ant-list-item-meta-description:hover {
-        background: #ffffff;
+        background: #e6f7ff;
     }
 
     i.anticon.anticon-link {

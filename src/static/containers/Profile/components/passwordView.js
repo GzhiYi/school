@@ -7,6 +7,7 @@ import Radio from 'antd/lib/radio';
 import DatePicker from 'antd/lib/date-picker';
 import Select from 'antd/lib/select';
 import Spin from 'antd/lib/spin';
+import Alert from 'antd/lib/alert';
 
 const RadioGroup = Radio.Group;
 const Search = Input.Search;
@@ -76,6 +77,9 @@ class PasswordView extends Component {
 									onChange={this.onInputChange}
 								/>
 							</div>
+						</div>
+						<div className="alert-div">
+							<Alert message="密码修改成功需要重新登录!" type="info" />
 						</div>
 						<div className="form-group">
 							<div className="col-md-9 text-right">
