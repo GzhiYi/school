@@ -7,7 +7,15 @@ import Icon from 'antd/lib/icon';
 import Menu from 'antd/lib/menu';
 import Layout from 'antd/lib/layout';
 import Dropdown from 'antd/lib/dropdown';
-import Link from 'react-router-dom';
+import logo from '../../images/logo.png';
+
+import AdminIntroduceView from './components/adminIntroduce';
+import AdminOverview from './components/adminOverview';
+import AdminPostsView from './components/adminPosts';
+import AdminStudentDataView from './components/adminStudentData';
+import AdminSurroundingView from './components/adminSurrounding';
+import AdminUserView from './components/adminUser';
+
 import './style.scss';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -19,15 +27,25 @@ class AdminView extends Component {
         
     }
 
+    componentDidMount() {
+        const openKey = location.pathname.split('/')[2];
+        this.setState({
+            openKey
+        });
+    }
+    
+
     onCollapse = (collapsed) => {
         console.log(collapsed);
         this.setState({ collapsed });
     }
 
-    handleClick = (e) => {
+    changeMenu = (e) => {
+        console.log(e.key);
         this.setState({
             openKey: e.key
         });
+        this.props.dispatch(push(`/admin/${e.key}`));
     }
 
     goTo = (directTo) => {
@@ -51,6 +69,29 @@ class AdminView extends Component {
                 </Menu.Item>
             </Menu>
         );
+        const path = location.pathname.split('/')[2];
+        console.log(this.state.openKey);
+        let displayContent = '';
+        switch (path) {
+            case 'user':
+                displayContent = <AdminUserView />;
+                break;
+            case 'introduce':
+                displayContent = <AdminIntroduceView />;
+                break;
+            case 'surrounding':
+                displayContent = <AdminSurroundingView />;
+                break;
+            case 'posts':
+                displayContent = <AdminPostsView />;
+                break;
+            case 'stu-data':
+                displayContent = <AdminStudentDataView />;
+                break;
+            default:
+                displayContent = <AdminOverview />;
+                break;
+        }
         return (
             <div className="admin-page">
                 <Layout style={{ minHeight: '85.2vh' }}>
@@ -59,35 +100,38 @@ class AdminView extends Component {
                         collapsed={this.state.collapsed}
                         onCollapse={this.onCollapse}
                     >
-                        <div className="logo" />
-                        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-                            <Menu.Item key="1">
+                        <div className="logo">
+                        </div>
+                        <Menu 
+                            theme="dark" 
+                            defaultSelectedKeys={['overview']} 
+                            mode="inline"
+                            onClick={this.changeMenu}
+                            selectedKeys={[`${this.state.openKey}`]}
+                        >
+                            <Menu.Item key="overview">
                                 <Icon type="pie-chart" />
                                 <span>概览</span>
                             </Menu.Item>
-                            <Menu.Item key="2">
+                            <Menu.Item key="user">
                                 <Icon type="user" />
                                 <span>用户管理</span>
                             </Menu.Item>
-                            <Menu.Item key="3">
+                            <Menu.Item key="introduce">
                                 <Icon type="copy" />
                                 <span>介绍内容管理</span>
                             </Menu.Item>
-                            <Menu.Item key="4">
+                            <Menu.Item key="surrounding">
                                 <Icon type="shop" />
                                 <span>周边内容管理</span>
                             </Menu.Item>
-                            <Menu.Item key="5">
+                            <Menu.Item key="posts">
                                 <Icon type="compass" />
                                 <span>帖子管理</span>
                             </Menu.Item>
-                            <Menu.Item key="6">
+                            <Menu.Item key="stu-data">
                                 <Icon type="user-add" />
                                 <span>学生数据管理</span>
-                            </Menu.Item>
-                            <Menu.Item key="7">
-                                <Icon type="lock" />
-                                <span>个人中心</span>
                             </Menu.Item>
                         </Menu>
                     </Sider>
@@ -101,7 +145,7 @@ class AdminView extends Component {
                         </Header>
                         <Content style={{ margin: '16px 16px' }}>
                             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                                Bill is a cat.
+                                {displayContent}
                             </div>
                         </Content>
                     </Layout>

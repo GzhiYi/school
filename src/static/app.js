@@ -102,7 +102,7 @@ class App extends React.Component {
         return (
             <div className="app">
                 {
-                    (this.props.location && this.props.location.pathname === '/admin')
+                    (location.pathname.split('/')[1] === 'admin')
                     ?
                         ''
                     :
