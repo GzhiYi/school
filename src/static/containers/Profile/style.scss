@@ -23,7 +23,66 @@
                     border-radius: 100px;
                 }
             }
+
+            .basic-form {
+                margin-top: 40px;
+            }
+
+            .alert-div {
+                width: 49%;
+                margin: 0 auto;
+                margin-bottom: 20px;
+            }
             
         }
+    }
+    .search {
+        text-align: right;
+        margin-bottom: 20px;
+    }
+
+    .del-post-btn {
+        margin-right: 20px;
+    }
+
+    //comment view style
+    .comments-view-page {
+        border: 1px solid #eee;
+    }
+
+    .ant-list-item-meta-content {
+        padding: 0 16px;
+    }
+
+    .ant-list-item-meta {
+        width: 100%;
+    }
+
+    span.post-time {
+        float: right;
+    }
+
+    .ant-list-item-meta-description {
+        padding: 6px;
+        border-radius: 4px;
+        transition: .5s;
+    }
+
+    a.origin-post {
+        font-size: 0.8rem;
+        text-decoration: none;
+    }
+
+    .ant-list-item-meta-description:hover {
+        background: #e6f7ff;
+    }
+
+    i.anticon.anticon-link {
+        margin-left: 10px;
+    }
+    
+    .view-more {
+        text-align: center;
+        margin-top: 20px;
     }
 }

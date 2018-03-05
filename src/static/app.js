@@ -61,7 +61,7 @@ class App extends React.Component {
     }
 
     goToProfile = () => {
-        this.props.dispatch(push('/profile'));
+        this.props.dispatch(push('/profile/basic'));
     }
 
     render() {
@@ -101,28 +101,33 @@ class App extends React.Component {
         }
         return (
             <div className="app">
-                <nav className="navbar navbar-default">
-                    <div className="container-fluid">
-                        <div className="navbar-header">
-                            <button type="button"
-                                className="navbar-toggle collapsed"
-                                data-toggle="collapse"
-                                data-target="#top-navbar"
-                                aria-expanded="false"
-                            >
-                                <span className="sr-only">Toggle navigation</span>
-                                <span className="icon-bar" />
-                                <span className="icon-bar" />
-                                <span className="icon-bar" />
-                            </button>
-                            <a className="navbar-brand">   
-                                <Popover placement="bottomLeft" content={content} title={this.props.isAuthenticated ? "你好,gzhiyi!" : "游客，你好！"} trigger="hover">
-                                    <Avatar size="large" icon="user" />
-                                </Popover>
-                            </a>
-                        </div>
-                        <div className="collapse navbar-collapse" id="top-navbar">
-                            {/* {this.props.isAuthenticated ?
+                {
+                    (location.pathname.split('/')[1] === 'admin')
+                    ?
+                        ''
+                    :
+                        <nav className="navbar navbar-default">
+                            <div className="container-fluid">
+                                <div className="navbar-header">
+                                    <button type="button"
+                                        className="navbar-toggle collapsed"
+                                        data-toggle="collapse"
+                                        data-target="#top-navbar"
+                                        aria-expanded="false"
+                                    >
+                                        <span className="sr-only">Toggle navigation</span>
+                                        <span className="icon-bar" />
+                                        <span className="icon-bar" />
+                                        <span className="icon-bar" />
+                                    </button>
+                                    <a className="navbar-brand">
+                                        <Popover placement="bottomLeft" content={content} title={this.props.isAuthenticated ? "你好,gzhiyi!" : "游客，你好！"} trigger="hover">
+                                            <Avatar size="large" icon="user" />
+                                        </Popover>
+                                    </a>
+                                </div>
+                                <div className="collapse navbar-collapse" id="top-navbar">
+                                    {/* {this.props.isAuthenticated ?
                                 <ul className="nav navbar-nav navbar-right">
                                     <li className={homeClass}>
                                         <a className="js-go-to-index-button">
@@ -141,32 +146,34 @@ class App extends React.Component {
                                     </li>
                                 </ul>
                                 : */}
-                                <ul className="nav navbar-nav navbar-right">
-                                    <li className={homeClass}>
-                                        <a className="js-go-to-index-button" onClick={this.goToIndex}>
-                                             你好
+                                    <ul className="nav navbar-nav navbar-right">
+                                        <li className={homeClass}>
+                                            <a className="js-go-to-index-button" onClick={this.goToIndex}>
+                                                你好
                                         </a>
-                                    </li>
-                                    <li className={introduceClass}>
-                                        <a className="js-login-button" onClick={this.goToIntroduce}>
-                                             介绍
+                                        </li>
+                                        <li className={introduceClass}>
+                                            <a className="js-login-button" onClick={this.goToIntroduce}>
+                                                介绍
                                         </a>
-                                    </li>
-                                    <li className={surroundingClass}>
-                                        <a className="js-login-button" onClick={this.goToSurrounding}>
-                                             周边
+                                        </li>
+                                        <li className={surroundingClass}>
+                                            <a className="js-login-button" onClick={this.goToSurrounding}>
+                                                周边
                                         </a>
-                                    </li>
-                                    <li className={forumClass}>
-                                        <a className="js-login-button" onClick={this.goToForum}>
-                                             交流
+                                        </li>
+                                        <li className={forumClass}>
+                                            <a className="js-login-button" onClick={this.goToForum}>
+                                                交流
                                         </a>
-                                    </li>
-                                </ul>
-                            {/* } */}
-                        </div>
-                    </div>
-                </nav>
+                                        </li>
+                                    </ul>
+                                    {/* } */}
+                                </div>
+                            </div>
+                        </nav>
+
+                }
 
                 <div>
                     {this.props.children}

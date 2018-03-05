@@ -11,7 +11,9 @@ import {
     ForumView,
     ForumNewPostView,
     PostDetailView,
-    ProfileView
+    ProfileView,
+    AdminView,
+
  } from './containers';
 import requireAuthentication from './utils/requireAuthentication';
 
@@ -33,6 +35,7 @@ export default(
         <Route path="/forum/detail/:topicId" component={PostDetailView} />
         <Route path="/forum" component={ForumChildRoute} />
         <Route path="/profile/:menu" component={ProfileView} />
+        <Route path="/admin" component={AdminView} />
         <Route path="*" component={NotFoundView} />
     </Switch>
 
