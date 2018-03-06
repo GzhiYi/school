@@ -25,8 +25,8 @@ class HomeView extends React.Component {
 
     render() {
         return (
-            <div className="container">
-                <div className="margin-top-medium text-center">
+            <div className="container home">
+                {/* <div className="margin-top-medium text-center">
                     <img className="page-logo margin-bottom-medium"
                         src={reactLogo}
                         alt="ReactJs"
@@ -51,7 +51,7 @@ class HomeView extends React.Component {
                         :
                         null
                     }
-                </div>
+                </div> */}
             </div>
         );
     }
