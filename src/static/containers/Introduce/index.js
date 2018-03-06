@@ -35,6 +35,10 @@ class IntroduceView extends React.Component {
        
     }
 
+    goToLogin = () => {
+        this.props.dispatch(push('/login'));
+    }
+
     render() {
         return (
             <div>
@@ -79,12 +83,20 @@ class IntroduceView extends React.Component {
                                 <ul className="card">
                                     <li className="card-item">
                                         <div className="item">
-                                            <div className="tool">
-                                                <Button type="primary">查看录取情况</Button>
-                                            </div>
-                                            <div className="tool">
-                                                <Button type="primary">查看个人数据</Button>
-                                            </div>
+                                            {
+                                                this.props.isAuthenticated
+                                                ?
+                                                    <div>
+                                                        <div className="tool">
+                                                            <Button type="primary">查看录取情况</Button>
+                                                        </div>
+                                                        <div className="tool">
+                                                            <Button type="primary">查看个人数据</Button>
+                                                        </div>
+                                                    </div>
+                                                :
+                                                    <p><a onClick={this.goToLogin}>登录</a>以查看录取等个人情况</p>
+                                            }
                                         </div>
                                     </li>
                                 </ul>
