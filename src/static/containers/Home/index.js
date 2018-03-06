@@ -52,6 +52,9 @@ class HomeView extends React.Component {
                         null
                     }
                 </div> */}
+                <div className="content">
+
+                </div>
             </div>
         );
     }
