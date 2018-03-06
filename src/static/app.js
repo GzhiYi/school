@@ -157,11 +157,11 @@ class App extends React.Component {
                                                 介绍
                                         </a>
                                         </li>
-                                        <li className={surroundingClass}>
+                                        {/* <li className={surroundingClass}>
                                             <a className="js-login-button" onClick={this.goToSurrounding}>
                                                 周边
                                         </a>
-                                        </li>
+                                        </li> */}
                                         <li className={forumClass}>
                                             <a className="js-login-button" onClick={this.goToForum}>
                                                 交流
