@@ -4,7 +4,7 @@ class AdminOverview extends Component {
     render() {
         return (
             <div>
-                AdminOverview
+                待开发，需要构想原型
             </div>
         );
     }
