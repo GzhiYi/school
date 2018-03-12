@@ -129,10 +129,10 @@ class AdminView extends Component {
                                 <Icon type="compass" />
                                 <span>帖子管理</span>
                             </Menu.Item>
-                            <Menu.Item key="stu-data">
+                            {/* <Menu.Item key="stu-data">
                                 <Icon type="user-add" />
                                 <span>学生数据管理</span>
-                            </Menu.Item>
+                            </Menu.Item> */}
                         </Menu>
                     </Sider>
                     <Layout>
@@ -144,7 +144,7 @@ class AdminView extends Component {
                             </Dropdown>
                         </Header>
                         <Content style={{ margin: '16px 16px' }}>
-                            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+                            <div style={{ padding: 24, background: '#fff', minHeight: 558 }}>
                                 {displayContent}
                             </div>
                         </Content>

@@ -13,4 +13,27 @@
         float: right;
         margin-right: 50px;
     }
+    .search {
+        text-align: right;
+        margin-bottom: 20px;
+    }
+
+    button.ant-btn.del-post-btn.ant-btn-danger {
+        margin-right: 20px;
+    }
+
+    .admin-introduce {
+        .editor {
+            width: 70%;
+            margin-top: 20px;
+
+            .ql-editor {
+                min-height: 367px;
+            }
+        }
+        .submit-button {
+            text-align: right;
+            margin-top: 20px;
+        }
+    }
 }

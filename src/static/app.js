@@ -78,7 +78,7 @@ class App extends React.Component {
             active: this.props.location && this.props.location.pathname === '/introduce'
         });
         const surroundingClass = classNames({
-            active: this.props.location && this.props.location.pathname === '/surrounding'
+            active: location.pathname.split('/')[1] === 'surrounding'
         });
         const forumClass = classNames({
             active: (this.props.location && this.props.location.pathname === '/forum') || (this.props.location && this.props.location.pathname === '/forum/new-post')

@@ -5,6 +5,9 @@ import classNames from 'classnames';
 import { push } from 'react-router-redux';
 import t from 'tcomb-form';
 import PropTypes from 'prop-types';
+import door from '../../images/door.jpg';
+import build from '../../images/lib.jpg';
+import Button from 'antd/lib/button';
 
 import * as actionCreators from '../../actions/auth';
 
@@ -32,6 +35,10 @@ class IntroduceView extends React.Component {
        
     }
 
+    goToLogin = () => {
+        this.props.dispatch(push('/login'));
+    }
+
     render() {
         return (
             <div>
@@ -47,29 +54,27 @@ class IntroduceView extends React.Component {
                                     <li className="card-item"> 
                                         <div className="item">
                                             <div className="card-pic">
-                                                <img src="https://blog.teambition.com/wp-content/uploads/2017/12/图1.png" alt=""/>
-                                                <h4>xue yuan</h4>
+                                                <img src={door} alt=""/>
                                             </div>
                                             <div className="card-content">
-                                                <p>内容</p>
+                                                <h4>关于广东药科大学</h4>
                                             </div>
-                                            <div className="card-footer">
+                                            {/* <div className="card-footer">
                                                 <p>???</p>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </li>
                                     <li className="card-item">
                                         <div className="item">
                                             <div className="card-pic">
-                                                <img src="https://blog.teambition.com/wp-content/uploads/2017/11/webv920-454x316.png" alt="" />
-                                                <h4>xue yuan</h4>
+                                                <img src={build} alt="" />
                                             </div>
                                             <div className="card-content">
-                                                <p>内容</p>
+                                                <h4>学校内各学院介绍</h4>
                                             </div>
-                                            <div className="card-footer">
+                                            {/* <div className="card-footer">
                                                 <p>???</p>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </li>
                                 </ul>
@@ -78,16 +83,20 @@ class IntroduceView extends React.Component {
                                 <ul className="card">
                                     <li className="card-item">
                                         <div className="item">
-                                            <div className="card-pic">
-                                                <img src="https://blog.teambition.com/wp-content/uploads/2017/11/webv920-454x316.png" alt="" />
-                                                <h4>xue yuan</h4>
-                                            </div>
-                                            <div className="card-content">
-                                                <p>内容</p>
-                                            </div>
-                                            <div className="card-footer">
-                                                <p>???</p>
-                                            </div>
+                                            {
+                                                this.props.isAuthenticated
+                                                ?
+                                                    <div>
+                                                        <div className="tool">
+                                                            <Button type="primary">查看录取情况</Button>
+                                                        </div>
+                                                        <div className="tool">
+                                                            <Button type="primary">查看个人数据</Button>
+                                                        </div>
+                                                    </div>
+                                                :
+                                                    <p><a onClick={this.goToLogin}>登录</a>以查看录取等个人情况</p>
+                                            }
                                         </div>
                                     </li>
                                 </ul>

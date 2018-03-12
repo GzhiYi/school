@@ -1,0 +1,34 @@
+.card-container > .ant-tabs-card > .ant-tabs-content {
+    // height: 120px;
+    margin-top: -16px;
+}
+
+.card-container > .ant-tabs-card > .ant-tabs-content > .ant-tabs-tabpane {
+    background: #fff;
+    padding: 16px;
+    min-height: 537px;
+}
+
+.card-container > .ant-tabs-card > .ant-tabs-bar {
+    border-color: #fff;
+}
+
+.card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab {
+    border-color: transparent;
+    background: transparent;
+}
+
+.card-container > .ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
+    border-color: #fff;
+    background: #fff;
+}
+.card-container {
+    width: 65%;
+    margin: 0 auto;
+
+    span.panel-time {
+        float: right;
+        margin-right: 20px;
+        color: grey;
+    }
+}
