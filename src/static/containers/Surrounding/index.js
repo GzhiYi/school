@@ -7,50 +7,76 @@ import PropTypes from 'prop-types';
 import Tabs from 'antd/lib/tabs';
 import Icon from 'antd/lib/icon';
 import * as actionCreators from '../../actions/data';
-
+import SurroundingNewView from './components/surroundingNew';
+import SurroundingEatView from './components/surroundingEat';
+import SurroundingTrafficView from './components/surroundingTraffic';
 import './style.scss';
 const TabPane = Tabs.TabPane;
 class SurroundingView extends React.Component {
-    static propTypes = {
-        dispatch: PropTypes.func.isRequired,
-        isAuthenticated: PropTypes.bool.isRequired,
-        isAuthenticating: PropTypes.bool.isRequired,
-        statusText: PropTypes.string,
-        actions: PropTypes.shape({
-            authLoginUser: PropTypes.func.isRequired
-        }).isRequired,
-        location: PropTypes.shape({
-            search: PropTypes.string.isRequired
-        })
-    };
+    state = {
+        path: null,
+    }
 
-    constructor(props) {
-        super(props);
+    componentDidMount() {
+        this.setState({
+            path: location.pathname.split('/')[2],
+        });
+    }
+    
+    onTabChange = (key) => {
+        let pushTo = null;
+        switch (key) {
+            case '1':
+                pushTo="new";
+                break;
+            case '2':
+                pushTo = "eat";
+                break;
+            case '3':
+                pushTo = "traffic";
+                break;
+        
+            default:
+                break;
+        }
+        this.setState({
+            path: pushTo,
+        });
+        this.props.dispatch(push(`/surrounding/${pushTo}`));
     }
 
     render() {
+        const { path } = this.state;
+        console.log("what in path", path);
+        let activeKey = 1;
+        switch (path) {
+            case 'news':
+                activeKey = 1;
+                break;
+            case 'eat':
+                activeKey = 2;
+                break;
+            case 'traffic':
+                activeKey = 3;
+                break;
+            default:
+                break;
+        }
         return (
             <div className="card-container">
-                <Tabs type="card">
+                <Tabs 
+                    type="card"
+                    activeKey={String(activeKey)}
+                    onChange={this.onTabChange}
+                >
                     <TabPane tab={<span><Icon type="team" />周边听闻</span>} key="1">
-                        <p>Content of Tab Pane 1</p>
-                        <p>Content of Tab Pane 1</p>
-                        <p>Content of Tab Pane 1</p>
+                        <SurroundingNewView />
                     </TabPane>
-                    <TabPane tab={<span><Icon type="shop" />有什么吃的</span>} key="2">
-                        <p>Content of Tab Pane 2</p>
-                        <p>Content of Tab Pane 2</p>
-                        <p>Content of Tab Pane 2</p>
+                    <TabPane tab={<span><Icon type="shop" />吃的喝的</span>} key="2">
+                        <SurroundingEatView />
                     </TabPane>
-                    <TabPane tab={<span><Icon type="coffee" />来喝喝</span>} key="3">
-                        <p>Content of Tab Pane 3</p>
-                        <p>Content of Tab Pane 3</p>
-                        <p>Content of Tab Pane 3</p>
-                    </TabPane>
-                    <TabPane tab={<span><Icon type="car" />去哪</span>} key="4">
-                        <p>Content of Tab Pane 3</p>
-                        <p>Content of Tab Pane 3</p>
-                        <p>Content of Tab Pane 3</p>
+                    <TabPane tab={<span><Icon type="car" />去哪</span>} key="3">
+                       <SurroundingTrafficView />
                     </TabPane>
                 </Tabs>
             </div>
