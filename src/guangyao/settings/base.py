@@ -1,4 +1,4 @@
-"""Django settings for djangoreactredux project."""
+"""Django settings for guangyao project."""
 
 import os
 
@@ -57,9 +57,9 @@ TEMPLATES = [
     },
 ]
 
-ROOT_URLCONF = 'djangoreactredux.urls'
+ROOT_URLCONF = 'guangyao.urls'
 
-WSGI_APPLICATION = 'djangoreactredux.wsgi.application'
+WSGI_APPLICATION = 'guangyao.wsgi.application'
 
 LANGUAGE_CODE = 'en-us'
 
