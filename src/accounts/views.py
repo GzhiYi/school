@@ -47,6 +47,7 @@ class UserConfirmEmailView(AtomicMixin, GenericAPIView):
 
         Receive an activation key as parameter and confirm email.
         """
+        print(request)
         user = get_object_or_404(User, activation_key=str(activation_key))
         if user.confirm_email():
             return Response(status=status.HTTP_200_OK)

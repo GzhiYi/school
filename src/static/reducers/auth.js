@@ -2,7 +2,11 @@ import {
     AUTH_LOGIN_USER_REQUEST,
     AUTH_LOGIN_USER_SUCCESS,
     AUTH_LOGIN_USER_FAILURE,
-    AUTH_LOGOUT_USER
+    AUTH_LOGOUT_USER,
+
+    AUTH_REGISTER_USER_REQUEST,
+    AUTH_REGISTER_USER_SUCCESS,
+    AUTH_REGISTER_USER_FAILURE
 } from '../constants';
 
 
@@ -46,6 +50,24 @@ export default function authReducer(state = initialState, action) {
                 token: null,
                 userName: null,
                 statusText: 'You have been successfully logged out.'
+            });
+
+        case AUTH_REGISTER_USER_REQUEST:
+            return Object.assign({}, state, {
+                isRegistering: true,
+                statusText: null
+            });
+
+        case AUTH_REGISTER_USER_SUCCESS:
+            return Object.assign({}, state, {
+                isRegistering: false,
+                registerResponse: action.payload.response,
+            });
+
+        case AUTH_REGISTER_USER_FAILURE:
+            return Object.assign({}, state, {
+                isRegistering: false,
+                statusText: `Authentication Error: ${action.payload.status} - ${action.payload.statusText}`
             });
 
         default:

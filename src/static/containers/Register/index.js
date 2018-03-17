@@ -6,7 +6,8 @@ import { push } from 'react-router-redux';
 import t from 'tcomb-form';
 import PropTypes from 'prop-types';
 import message from 'antd/lib/message';
-
+import Modal from 'antd/lib/modal';
+import Button from 'antd/lib/button';
 import * as actionCreators from '../../actions/auth';
 
 import './style.scss';
@@ -41,19 +42,6 @@ const RegiserFormOptions = {
 };
 
 class RegisterView extends React.Component {
-    static propTypes = {
-        dispatch: PropTypes.func.isRequired,
-        isAuthenticated: PropTypes.bool.isRequired,
-        isAuthenticating: PropTypes.bool.isRequired,
-        statusText: PropTypes.string,
-        actions: PropTypes.shape({
-            authLoginUser: PropTypes.func.isRequired
-        }).isRequired,
-        location: PropTypes.shape({
-            search: PropTypes.string.isRequired
-        })
-    };
-
     static defaultProps = {
         statusText: '',
         location: null
@@ -68,7 +56,8 @@ class RegisterView extends React.Component {
                 password: ''
             },
             redirectTo: redirectRoute,
-            showStatusText: true
+            showStatusText: true,
+            visible: false,
         };
     }
 
@@ -79,6 +68,18 @@ class RegisterView extends React.Component {
         this.setState({
             showStatusText: false
         });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.registerResponse !== this.props.registerResponse) {
+            this.setState({
+                visible: true,
+            });
+        }
+    }
+
+    handleCancel = () => {
+        this.setState({visible: false})
     }
 
     onFormChange = (value) => {
@@ -99,6 +100,8 @@ class RegisterView extends React.Component {
             // } else {
                 //phone api goes here
             // }
+            console.log(value);
+            this.props.actions.authRegisterUser(value.email, value.password);
 
         }
         this.setState({
@@ -155,7 +158,13 @@ class RegisterView extends React.Component {
                             type="submit"
                             className="btn btn-auth-register"
                         >
-                            注册
+                            {
+                                this.props.isRegistering
+                                ?
+                                    "注册中..."
+                                :
+                                    "注册"
+                            }
                         </button>
                     </form>
                     <div className="hr-outer">
@@ -167,6 +176,18 @@ class RegisterView extends React.Component {
                         <a onClick={this.goToSignIn} className="login-more-sign-up">立即登录</a>
                     </div>
                 </div>
+                <Modal
+                    title="激活提示"
+                    visible={this.state.visible}
+                    onCancel={this.handleCancel}
+                    footer={[
+                        <Button key="submit" type="primary" onClick={this.handleCancel}>
+                            确认
+                        </Button>
+                    ]}
+                >
+                    <p>您的账号已经注册，请到<span style={{color: 'red'}}>{this.state.formValues.email}</span>激活邮箱。</p>
+                </Modal>
             </div>
         );
     }
@@ -174,9 +195,8 @@ class RegisterView extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated: state.auth.isAuthenticated,
-        isAuthenticating: state.auth.isAuthenticating,
-        statusText: state.auth.statusText
+        isRegistering: state.auth.isRegistering,
+        registerResponse: state.auth.registerResponse
     };
 };
 

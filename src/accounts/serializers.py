@@ -7,7 +7,7 @@ from lib.utils import validate_email as email_is_valid
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'is_superuser', 'gender', 'phone_number', 'user_type')
+        fields = ('email', 'first_name', 'is_superuser', 'gender', 'phone_number')
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -15,7 +15,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'email', 'first_name', 'last_name', 'password')
+        fields = ('id', 'email', 'password')
 
     def create(self, validated_data):
         """
