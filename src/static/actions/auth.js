@@ -59,6 +59,7 @@ export function authLoginUser(email, password, redirect = '/') {
     return (dispatch) => {
         dispatch(authLoginUserRequest());
         const auth = btoa(`${email}:${password}`);
+        console.log(auth)
         return fetch(`${SERVER_URL}/api/v1/accounts/login/`, {
             method: 'post',
             headers: {
