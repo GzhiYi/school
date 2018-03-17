@@ -19,7 +19,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'email', 'password')
+        fields = ('id', 'first_name', 'last_name', 'email', 'password')
 
     def create(self, validated_data):
         """
@@ -32,21 +32,21 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
-    def validate_email(self, value):
-        """
-        Validate if email is valid or there is an user using the email.
-
-        :param value: string
-        :return: string
-        """
-
-        if not email_is_valid(value):
-            raise serializers.ValidationError('Please use a different email address provider.')
-
-        if User.objects.filter(email=value).exists():
-            raise serializers.ValidationError('Email already in use, please use a different email address.')
-
-        return value
+    # def validate_email(self, value):
+    #     """
+    #     Validate if email is valid or there is an user using the email.
+    #
+    #     :param value: string
+    #     :return: string
+    #     """
+    #
+    #     if not email_is_valid(value):
+    #         raise serializers.ValidationError('Please use a different email address provider.')
+    #
+    #     if User.objects.filter(email=value).exists():
+    #         raise serializers.ValidationError('Email already in use, please use a different email address.')
+    #
+    #     return value
 
 class UidAndTokenSerializer(serializers.Serializer):
     key_salt = 'django.contrib.auth.tokens.PasswordResetTokenGenerator'

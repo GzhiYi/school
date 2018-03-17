@@ -37,7 +37,7 @@ class MyUserManager(BaseUserManager):
 
         return user
 
-    def create_user(self, email, first_name, last_name, password, **extra_fields):
+    def create_user(self, email, first_name='', last_name='', password=None, **extra_fields):
         """
         Create and save an User with the given email, password and name.
 

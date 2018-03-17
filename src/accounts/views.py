@@ -27,15 +27,30 @@ from accounts.serializers import (
     ActivationSerializer
 )
 from lib.utils import AtomicMixin
+import smtplib
 
 
-class UserRegisterView(AtomicMixin, CreateModelMixin, GenericAPIView):
-    serializer_class = UserRegistrationSerializer
-    authentication_classes = ()
+class UserRegisterView(UserCreateView):
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-    def post(self, request):
-        """User registration view."""
-        return self.create(request)
+        try:
+            user = serializer.save()
+            # send email
+            signals.user_registered.send(
+                sender=self.__class__, user=user, request=self.request
+            )
+            context = {'user': user}
+            to = [get_user_email(user)]
+            if djoser_settings.SEND_ACTIVATION_EMAIL:
+                ActivationEmail(self.request, context).send(to)
+        except smtplib.SMTPRecipientsRefused as e:
+            user.delete()
+            return Response(str(e), status=400)
+        else:
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class UserLoginView(GenericAPIView):
