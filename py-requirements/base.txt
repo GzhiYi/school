@@ -22,3 +22,7 @@ python-dateutil==2.6.1
 git+https://github.com/Seedstars/django-rest-logger.git
 
 django-rest-knox==3.0.3
+
+
+# 验证
+djoser

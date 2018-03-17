@@ -8,9 +8,24 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import CreateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework import status, generics, permissions, viewsets
+
+from djoser.views import ActivationView as DJActivationView
+from djoser import signals
+from djoser.conf import settings as djoser_settings
+from djoser.serializers import TokenSerializer
+from djoser.compat import get_user_email, get_user_email_field_name
+from djoser.views import UserCreateView, TokenCreateView, TokenDestroyView
+from djoser.views import PasswordResetView as DJPasswordResetView
+from .authentication import GYAuthentication
+from accounts.services import ActivationEmail
 
 from accounts.models import User
-from accounts.serializers import UserRegistrationSerializer, UserSerializer
+from accounts.serializers import (
+    UserRegistrationSerializer,
+    UserSerializer,
+    ActivationSerializer
+)
 from lib.utils import AtomicMixin
 
 
@@ -66,3 +81,33 @@ class UserEmailConfirmationStatusView(GenericAPIView):
         """Retrieve user current confirmed_email status."""
         user = self.request.user
         return Response({'status': user.confirmed_email}, status=status.HTTP_200_OK)
+
+
+class ActivationView(DJActivationView):
+    """
+    Use this endpoint to activate user account.
+    """
+    serializer_class = ActivationSerializer
+
+
+class ResentActivationEmailViewSet(generics.CreateAPIView):
+    authentication_classes = (GYAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def create(self, request, *args, **kwargs):
+        is_active = request.user.is_active
+        if is_active:
+            return Response('你已经激活', status=status.HTTP_400_BAD_REQUEST)
+        user = request.user
+        signals.user_registered.send(
+            sender=self.__class__, user=user, request=self.request
+        )
+
+        context = {'user': user}
+        to = [get_user_email(user)]
+        if djoser_settings.SEND_ACTIVATION_EMAIL:
+            ActivationEmail(self.request, context).send(to)
+        else:
+            return Response("Sent Email Error", status=status.HTTP_501_NOT_IMPLEMENTED)
+
+        return Response(status=status.HTTP_200_OK)
