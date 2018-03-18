@@ -70,6 +70,7 @@ class ActivationEmail(BaseEmailMessage):
     template_name = 'email/activation.html'
 
     def get_context_data(self):
+        print("context_data", self)
         context = super(ActivationEmail, self).get_context_data()
 
         user = context.get('user')

@@ -44,6 +44,7 @@ class UserRegisterView(UserCreateView):
             context = {'user': user}
             to = [get_user_email(user)]
             if djoser_settings.SEND_ACTIVATION_EMAIL:
+                print("context", context, "to", to)
                 ActivationEmail(self.request, context).send(to)
         except smtplib.SMTPRecipientsRefused as e:
             user.delete()
