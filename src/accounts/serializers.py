@@ -1,7 +1,7 @@
 from rest_framework import serializers, exceptions
 
 from accounts.models import User
-from lib.utils import validate_email as email_is_valid
+# from lib.utils import validate_email as email_is_valid
 from django.utils.translation import ugettext_lazy as _
 
 from djoser import constants, utils
@@ -16,11 +16,10 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
-    print(email)
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'email', 'password')
+        fields = ('id', 'email', 'password')
 
     def create(self, validated_data):
         """

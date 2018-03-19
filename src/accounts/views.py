@@ -18,7 +18,8 @@ from djoser.compat import get_user_email, get_user_email_field_name
 from djoser.views import UserCreateView, TokenCreateView, TokenDestroyView
 from djoser.views import PasswordResetView as DJPasswordResetView
 from .authentication import GYAuthentication
-from accounts.services import ActivationEmail
+from .services import ActivationEmail
+from django.conf import settings
 
 from accounts.models import User
 from accounts.serializers import (
@@ -26,32 +27,23 @@ from accounts.serializers import (
     UserSerializer,
     ActivationSerializer
 )
-from lib.utils import AtomicMixin
+# from lib.utils import AtomicMixin
 import smtplib
 
 
 class UserRegisterView(UserCreateView):
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+    def perform_create(self, serializer):
+        user = serializer.save()
+        signals.user_registered.send(
+            sender=self.__class__, user=user, request=self.request
+        )
 
-        try:
-            user = serializer.save()
-            # send email
-            signals.user_registered.send(
-                sender=self.__class__, user=user, request=self.request
-            )
-            context = {'user': user}
-            to = [get_user_email(user)]
-            if djoser_settings.SEND_ACTIVATION_EMAIL:
-                print("context", context, "to", to)
-                ActivationEmail(self.request, context).send(to)
-        except smtplib.SMTPRecipientsRefused as e:
-            user.delete()
-            return Response(str(e), status=400)
-        else:
-            headers = self.get_success_headers(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        context = {'user': user, 'domain': djoser_settings.DOMAIN}
+        to = [get_user_email(user)]
+        if djoser_settings.SEND_ACTIVATION_EMAIL:
+            djoser_settings.EMAIL.activation(self.request, context).send(to)
+        elif djoser_settings.SEND_CONFIRMATION_EMAIL:
+            djoser_settings.EMAIL.confirmation(self.request, context).send(to)
 
 
 class UserLoginView(GenericAPIView):
@@ -68,7 +60,7 @@ class UserLoginView(GenericAPIView):
         })
 
 
-class UserConfirmEmailView(AtomicMixin, GenericAPIView):
+class UserConfirmEmailView(GenericAPIView):
     serializer_class = None
     authentication_classes = ()
 

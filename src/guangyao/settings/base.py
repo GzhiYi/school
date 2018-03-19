@@ -9,7 +9,7 @@ SECRET_KEY = 'ajsdgas7&*kosdsa21[]jaksdhlka-;kmcv8l$#diepsm8&ah^'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
 
 # Application definition
 
@@ -26,7 +26,8 @@ INSTALLED_APPS = (
     'django_extensions',
 
     'accounts',
-    'base'
+    'base',
+    'introduce',
 )
 
 MIDDLEWARE_CLASSES = (
