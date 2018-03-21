@@ -113,7 +113,8 @@ class User(AbstractBaseUser):
         max_length=50,
         unique=True,
         null=True,
-        blank=True
+        blank=True,
+
     )
 
     user_type = models.PositiveSmallIntegerField(
