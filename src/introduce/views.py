@@ -23,10 +23,18 @@ class IntroduceViewSet(GenericAPIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class IntroduceSchoolViewSetWithNoToken(GenericAPIView):
+
+class IntroduceViewSetWithNoToken(GenericAPIView):
 
     def get(self, request):
         introduces = Introduce.objects.all()
         serializer = IntroduceSerializer(introduces, many=True)
         return Response(serializer.data)
 
+
+class BasicIntroduceViewSet(GenericAPIView):
+
+    def get(self, request):
+        introduces = Introduce.objects.all()
+        serializer = BasicIntroduceSerializer(introduces, many=True)
+        return Response(serializer.data)

@@ -11,3 +11,8 @@ class IntroduceSerializer(serializers.ModelSerializer):
         model = Introduce
         fields = ('id', 'title', 'body', 'cover_image', 'created_by', 'date_created', 'date_updated')
 
+
+class BasicIntroduceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Introduce
+        fields = ('id', 'title', 'cover_image')
