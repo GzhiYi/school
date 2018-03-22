@@ -1,20 +1,26 @@
 from rest_framework.decorators import api_view
-from rest_framework import status
+from rest_framework import viewsets, authentication, permissions, filters, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import generics
-from .models import School
-from .serializers import SchoolSerializer
+from rest_framework.generics import GenericAPIView
+from rest_framework.permissions import IsAuthenticated
+from .models import *
+from .serializers import *
+from knox.auth import TokenAuthentication
 
 
-class IntroduceSchoolView(APIView):
-    def get(self, request, format=None):
+class IntroduceSchoolViewSet(GenericAPIView):
+
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
         schools = School.objects.all()
         print(request)
         serializer = SchoolSerializer(schools, many=True)
         return Response(serializer.data)
 
-    def post(self, request, format=None):
+    def post(self, request):
         print(request.data)
         serializer = SchoolSerializer(data=request.data)
         if serializer.is_valid():
