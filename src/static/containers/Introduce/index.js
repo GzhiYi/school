@@ -8,6 +8,7 @@ import door from '../../images/door.jpg';
 import build from '../../images/lib.jpg';
 import Button from 'antd/lib/button';
 import Modal from 'antd/lib/modal';
+import Input from 'antd/lib/input';
 import _ from 'lodash';
 
 import * as actionCreators from '../../actions/introduce';
@@ -111,9 +112,15 @@ class IntroduceView extends React.Component {
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                 >
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
+                    <div className="input-id">
+                        <Input 
+                            placeholder="输入身份证号" 
+                            type="number"
+                        />
+                    </div>
+                    <div>
+                        <Button>查询</Button>
+                    </div>
                 </Modal>
             </div>
         )
