@@ -13,7 +13,8 @@ class AdminIntroduceView extends Component {
     state = {
         showEditor: false,
         editorHtml: "",
-        title: ''
+        title: '',
+        currentTarget: '',
     }
 
     handleEditorChange = (html) => {
@@ -26,11 +27,11 @@ class AdminIntroduceView extends Component {
         const showEditor = this.state.showEditor;
         if (!showEditor) {
             this.setState({
-                showEditor: true
+                showEditor: true,
+                currentTarget: value
             });
         }
         this.props.actions.getIntroduceDetail(value, (response) => {
-            console.log("回调", response);
             if (response.length > 0) {
                 this.setState({
                     editorHtml: response[0].body,
@@ -47,10 +48,19 @@ class AdminIntroduceView extends Component {
 
     onTitleChange = (e) => {
         console.log(e.target.value);
+        this.setState({
+            title: e.target.value
+        });
     }
 
     updateIntroduce = () => {
         console.log("提交的内容为:", this.state.editorHtml);
+        let token = Cookies.get('token');
+        let data = {
+            "title": this.state.title,
+            "body": this.state.editorHtml
+        }
+        this.props.actions.updateIntroduceDetail(token, this.state.currentTarget, data, () => {})
     }
 
     render() {

@@ -25,8 +25,7 @@ class IntroduceSchool(models.Model):
         null=True
     )
 
-    body = models.CharField(
-        max_length=50,
+    body = models.TextField(
         blank=False,
         null=True,
         default='',
@@ -60,8 +59,7 @@ class IntroduceTeacher(models.Model):
         null=True
     )
 
-    body = models.CharField(
-        max_length=50,
+    body = models.TextField(
         blank=False,
         null=True,
         default='',
@@ -95,8 +93,7 @@ class IntroduceProfession(models.Model):
         null=True
     )
 
-    body = models.CharField(
-        max_length=50,
+    body = models.TextField(
         blank=False,
         null=True,
         default='',
@@ -130,8 +127,7 @@ class IntroduceCollege(models.Model):
         null=True
     )
 
-    body = models.CharField(
-        max_length=50,
+    body = models.TextField(
         blank=False,
         null=True,
         default='',
@@ -165,8 +161,7 @@ class IntroduceSociety(models.Model):
         null=True
     )
 
-    body = models.CharField(
-        max_length=50,
+    body = models.TextField(
         blank=False,
         null=True,
         default='',

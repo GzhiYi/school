@@ -12,6 +12,10 @@ import {
     GET_INTRODUCE_DETAIL_FAILURE,
     GET_INTRODUCE_DETAIL_REQUEST,
 
+    UPDATE_INTRODUCE_DETAIL_SUCCESS,
+    UPDATE_INTRODUCE_DETAIL_FAILURE,
+    UPDATE_INTRODUCE_DETAIL_REQUEST
+
 } from '../constants';
 import { authLoginUserFailure } from './auth';
 
@@ -115,6 +119,63 @@ export function getIntroduceDetail(type, callback) {
                 } else {
                     // Most likely connection issues
                     dispatch(getIntroduceDetailFailure('Connection Error', 'An error occurred while sending your data!'));
+                }
+                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+            });
+    };
+}
+
+
+export function updateIntroduceDetailSuccess(response) {
+    return {
+        type: UPDATE_INTRODUCE_DETAIL_SUCCESS,
+        payload: {
+            response
+        }
+    };
+}
+
+export function updateIntroduceDetailFailure(error, message) {
+    return {
+        type: UPDATE_INTRODUCE_DETAIL_FAILURE,
+        payload: {
+            status: error,
+            statusText: message
+        }
+    };
+}
+
+export function updateIntroduceDetailRequest() {
+    return {
+        type: UPDATE_INTRODUCE_DETAIL_REQUEST
+    };
+}
+
+export function updateIntroduceDetail(token, type, data, callback) {
+    return (dispatch, state) => {
+        dispatch(updateIntroduceDetailSuccess());
+        return fetch(`${SERVER_URL}/api/v1/introduce/${type}/`, {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `token ${token}`
+            },
+            body: JSON.stringify(data)
+        })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then((response) => {
+                dispatch(updateIntroduceDetailSuccess(response));
+                callback(response)
+            })
+            .catch((error) => {
+                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                    // Server side error
+                    dispatch(updateIntroduceDetailFailure(500, 'A server error occurred while sending your data!'));
+                } else {
+                    // Most likely connection issues
+                    dispatch(updateIntroduceDetailFailure('Connection Error', 'An error occurred while sending your data!'));
                 }
                 return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
             });

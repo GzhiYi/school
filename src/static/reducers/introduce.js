@@ -7,6 +7,10 @@ import {
     GET_INTRODUCE_DETAIL_FAILURE,
     GET_INTRODUCE_DETAIL_REQUEST,
 
+    UPDATE_INTRODUCE_DETAIL_SUCCESS,
+    UPDATE_INTRODUCE_DETAIL_FAILURE,
+    UPDATE_INTRODUCE_DETAIL_REQUEST
+
 } from '../constants';
 
 const initialState = {
@@ -50,6 +54,24 @@ export default function introduceReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 isGettingIntroduceBase: false,
                 statusText: `Authentication Error: ${action.payload.status} - ${action.payload.statusText}`
+            });
+
+        case UPDATE_INTRODUCE_DETAIL_REQUEST:
+            return Object.assign({}, state, {
+                isUpdateIntroduceDetail: true,
+                statusText: null
+            });
+
+        case UPDATE_INTRODUCE_DETAIL_SUCCESS:
+            return Object.assign({}, state, {
+                isUpdateIntroduceDetail: false,
+                updateIntroduceDetail: action.payload.response,
+            });
+
+        case UPDATE_INTRODUCE_DETAIL_FAILURE:
+            return Object.assign({}, state, {
+                isUpdateIntroduceDetail: false,
+                statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
             });
 
         default:
