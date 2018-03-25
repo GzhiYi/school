@@ -15,7 +15,6 @@ class IntroduceViewSet(GenericAPIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request):
-        print(request.data)
         serializer = IntroduceSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -27,7 +26,7 @@ class IntroduceViewSet(GenericAPIView):
 class IntroduceViewSetWithNoToken(GenericAPIView):
 
     def get(self, request):
-        introduces = Introduce.objects.all()
+        introduces = Introduce.objects.order_by('-date_updated')[:1]
         serializer = IntroduceSerializer(introduces, many=True)
         return Response(serializer.data)
 

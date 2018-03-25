@@ -33,13 +33,6 @@ class Introduce(models.Model):
         help_text=_('e.g introduce school body')
     )
 
-    created_by = models.ForeignKey(
-        "accounts.User",
-        null=True,
-        blank=True,
-        on_delete=models.PROTECT
-    )
-
     date_created = models.DateTimeField(
         _('date created'),
         default=timezone.now
