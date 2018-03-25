@@ -95,17 +95,18 @@ class App extends React.Component {
                 </ul>
             </div>;
         let user = null;
-        if (sessionStorage.getItem('user')) {
-            user = JSON.parse(sessionStorage.getItem('user'));
+        console.log(Cookies.get('user') == undefined);
+        if (Cookies.get('user') !== undefined) {
+            user = JSON.parse(Cookies.get('user'));
         }
         console.log(user, user !== null);
-        if (this.props.isAuthenticated) {
+        if (user) {
             content = 
             <div>
                 <ul className="avatar-auth">
                     <li className="avatar-auth-li"><a onClick={this.goToProfile}>个人中心</a></li>
                     {
-                        user !== null
+                        user !== undefined && user !== null
                         ?
                             user.is_superuser
                             ?

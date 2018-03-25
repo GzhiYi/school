@@ -15,8 +15,9 @@ import {
 
 
 export function authLoginUserSuccess(response) {
-    sessionStorage.setItem('token', response.token);
-    sessionStorage.setItem('user', JSON.stringify(response.user));
+    console.log(response);
+    Cookies.set('user', response.user);
+    Cookies.set('token', response.token)
     return {
         type: AUTH_LOGIN_USER_SUCCESS,
         payload: {
@@ -26,7 +27,7 @@ export function authLoginUserSuccess(response) {
 }
 
 export function authLoginUserFailure(error, message) {
-    sessionStorage.removeItem('token');
+    Cookies.remove('token');
     return {
         type: AUTH_LOGIN_USER_FAILURE,
         payload: {
@@ -43,8 +44,8 @@ export function authLoginUserRequest() {
 }
 
 export function authLogout() {
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user');
+    Cookies.remove('token');
+    Cookies.remove('user');
     return {
         type: AUTH_LOGOUT_USER
     };
@@ -106,7 +107,7 @@ export function authRegisterUserSuccess(response) {
 }
 
 export function authRegisterUserFailure(error, message) {
-    sessionStorage.removeItem('token');
+    Cookies.remove('token');
     return {
         type: AUTH_REGISTER_USER_FAILURE,
         payload: {

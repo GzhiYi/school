@@ -40,7 +40,7 @@ class PostDetailView extends Component {
     }
 
     render() {
-        let token = sessionStorage.getItem('token');
+        let token = Cookies.get('token');
         return (
             <div>
                 <div className="container">

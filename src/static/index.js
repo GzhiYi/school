@@ -17,16 +17,16 @@ const node = (
     <Root onUpdate={() => window.scrollTo(0, 0) } store={store} history={history} />
 );
 
-const token = sessionStorage.getItem('token');
+const token = Cookies.get('token')
 let user = {};
 try {
-    user = JSON.parse(sessionStorage.getItem('user'));
+    user = JSON.parse(Cookies.get('user'));
 } catch (e) {
     // Failed to parse
 }
 
-if (token !== null) {
-    store.dispatch(authLoginUserSuccess(token, user));
-}
+// if (token !== null) {
+//     store.dispatch(authLoginUserSuccess(token, user));
+// }
 
 ReactDOM.render(node, target);

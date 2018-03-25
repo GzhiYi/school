@@ -81,7 +81,7 @@ class BasicView extends Component {
 			</div>
 		);
 		const imageUrl = this.state.imageUrl;
-		const user = JSON.parse(sessionStorage.getItem('user'));
+		const user = Cookies.get('user');
 		console.log('user', user);
 		return (
 			<div className="basic-view">
