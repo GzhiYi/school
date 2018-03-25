@@ -13,6 +13,7 @@ class AdminIntroduceView extends Component {
     state = {
         showEditor: false,
         editorHtml: "",
+        title: ''
     }
 
     handleEditorChange = (html) => {
@@ -32,17 +33,20 @@ class AdminIntroduceView extends Component {
             console.log("回调", response);
             if (response.length > 0) {
                 this.setState({
-                    editorHtml: response[0].body
+                    editorHtml: response[0].body,
+                    title: response[0].title
                 });
             } else {
                 this.setState({
-                    editorHtml: ''
+                    editorHtml: '',
+                    title: ''
                 });
             }
         });
     }
 
-    componentWillReceiveProps(nextProps) {
+    onTitleChange = (e) => {
+        console.log(e.target.value);
     }
 
     updateIntroduce = () => {
@@ -63,9 +67,20 @@ class AdminIntroduceView extends Component {
                         <Option value="society">社团</Option>
                     </Select>
 
-                    <div className="title">
-                        <Input placeholder="Basic usage" />
-                    </div>
+                    {
+                        this.state.showEditor
+                        ?
+                            <div className="title">
+                                <Input 
+                                    placeholder="标题" 
+                                    onChange={this.onTitleChange} 
+                                    name="title"
+                                    value={this.state.title}
+                                />
+                            </div>
+                        :
+                            ''
+                    }
                 </div>
                 {
                     this.state.showEditor
