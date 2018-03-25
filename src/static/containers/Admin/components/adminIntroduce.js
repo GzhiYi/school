@@ -47,26 +47,21 @@ class AdminIntroduceView extends Component {
     }
 
     onTitleChange = (e) => {
-        console.log(e.target.value);
         this.setState({
             title: e.target.value
         });
     }
 
     updateIntroduce = () => {
-        console.log("提交的内容为:", this.state.editorHtml);
         let token = Cookies.get('token');
         let data = {
             "title": this.state.title,
             "body": this.state.editorHtml
         }
-        console.log("object", this.state.currentTarget);
         this.props.actions.updateIntroduceDetail(token, this.state.currentTarget, data, () => {})
     }
 
     render() {
-        console.log("detail", this.props.introduceDetail);
-        console.log("???", this.state.editorHtml);
         return (
             <div className="admin-introduce">
                 <div className="select-title">
