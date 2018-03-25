@@ -67,7 +67,7 @@ class IntroduceView extends React.Component {
                                     <li className="card-item">
                                         <div className="item">
                                             {
-                                                this.props.isAuthenticated
+                                                Cookies.get('token')
                                                 ?
                                                     <div>
                                                         <div className="tool">
