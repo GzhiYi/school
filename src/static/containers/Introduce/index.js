@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import door from '../../images/door.jpg';
 import build from '../../images/lib.jpg';
 import Button from 'antd/lib/button';
+import Modal from 'antd/lib/modal';
 import _ from 'lodash';
 
 import * as actionCreators from '../../actions/introduce';
@@ -14,8 +15,23 @@ import * as actionCreators from '../../actions/introduce';
 import './style.scss';
 
 class IntroduceView extends React.Component {
-    constructor(props) {
-        super(props);
+    state = { visible: false }
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    }
+    handleOk = (e) => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    }
+    handleCancel = (e) => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
     }
 
     componentDidMount() {
@@ -51,6 +67,7 @@ class IntroduceView extends React.Component {
                 )
             })
         }
+        let user = Cookies.get('user');
         return (
             <div>
                 <div className="introduce-page">
@@ -73,11 +90,9 @@ class IntroduceView extends React.Component {
                                                 Cookies.get('token')
                                                 ?
                                                     <div>
+                                                        <p>您好，{JSON.parse(user).first_name}。您可以：</p>
                                                         <div className="tool">
-                                                            <Button type="primary">查看录取情况</Button>
-                                                        </div>
-                                                        <div className="tool">
-                                                            <Button type="primary">查看个人数据</Button>
+                                                            <Button type="primary" onClick={this.showModal}>查看录取情况</Button>
                                                         </div>
                                                     </div>
                                                 :
@@ -90,6 +105,16 @@ class IntroduceView extends React.Component {
                         </div>
                     </div>
                 </div>   
+                <Modal
+                    title="输入身份证号查看您的录取情况"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                >
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                </Modal>
             </div>
         )
     }
