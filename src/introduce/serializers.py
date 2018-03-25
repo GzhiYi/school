@@ -1,18 +1,45 @@
 
 from rest_framework import serializers
-from .models import Introduce
+from .models import *
 from accounts.serializers import UserSerializer
 
 
-class IntroduceSerializer(serializers.ModelSerializer):
-    # created_by = UserSerializer(read_only=True)
+class IntroduceSchoolSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Introduce
+        model = IntroduceSchool
         fields = ('id', 'title', 'body', 'cover_image', 'date_created', 'date_updated')
 
 
-class BasicIntroduceSerializer(serializers.ModelSerializer):
+class IntroduceProfessionSerializer(serializers.ModelSerializer):
+
     class Meta:
-        model = Introduce
-        fields = ('id', 'title', 'cover_image')
+        model = IntroduceProfession
+        fields = ('id', 'title', 'body', 'cover_image', 'date_created', 'date_updated')
+
+
+class IntroduceTeacherSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = IntroduceTeacher
+        fields = ('id', 'title', 'body', 'cover_image', 'date_created', 'date_updated')
+
+
+class IntroduceSocietySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = IntroduceSociety
+        fields = ('id', 'title', 'body', 'cover_image', 'date_created', 'date_updated')
+
+
+class IntroduceCollegeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = IntroduceCollege
+        fields = ('id', 'title', 'body', 'cover_image', 'date_created', 'date_updated')
+
+
+class IntroduceBaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IntroduceBase
+        fields = ('id', 'title', 'cover_image', 'description',)
