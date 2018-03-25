@@ -30,8 +30,7 @@ export default function authReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 isAuthenticating: false,
                 isAuthenticated: true,
-                token: action.payload.token,
-                userName: action.payload.user.email,
+                auth: action.payload.response,
                 statusText: 'You have been successfully logged in.'
             });
 

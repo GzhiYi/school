@@ -14,14 +14,13 @@ import {
 } from '../constants';
 
 
-export function authLoginUserSuccess(token, user) {
-    sessionStorage.setItem('token', token);
-    sessionStorage.setItem('user', JSON.stringify(user));
+export function authLoginUserSuccess(response) {
+    sessionStorage.setItem('token', response.token);
+    sessionStorage.setItem('user', JSON.stringify(response.user));
     return {
         type: AUTH_LOGIN_USER_SUCCESS,
         payload: {
-            token,
-            user
+            response
         }
     };
 }
@@ -75,7 +74,7 @@ export function authLoginUser(email, password, redirect = '/') {
             .then(checkHttpStatus)
             .then(parseJSON)
             .then((response) => {
-                dispatch(authLoginUserSuccess(response.token, response.user));
+                dispatch(authLoginUserSuccess(response));
                 dispatch(push(redirect));
             })
             .catch((error) => {

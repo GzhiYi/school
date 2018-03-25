@@ -64,6 +64,10 @@ class App extends React.Component {
         this.props.dispatch(push('/profile/basic'));
     }
 
+    goToAdmin = () => {
+        this.props.dispatch(push('/admin/overview'));
+    }
+
     render() {
         const homeClass = classNames({
             active: this.props.location && this.props.location.pathname === '/'
@@ -90,11 +94,27 @@ class App extends React.Component {
                     <li className="avatar-auth-li" onClick={this.goToRegister}><a>注册</a></li>
                 </ul>
             </div>;
+        let user = null;
+        if (sessionStorage.getItem('user')) {
+            user = JSON.parse(sessionStorage.getItem('user'));
+        }
+        console.log(user, user !== null);
         if (this.props.isAuthenticated) {
             content = 
             <div>
                 <ul className="avatar-auth">
                     <li className="avatar-auth-li"><a onClick={this.goToProfile}>个人中心</a></li>
+                    {
+                        user !== null
+                        ?
+                            user.is_superuser
+                            ?
+                                <li className="avatar-auth-li"><a onClick={this.goToAdmin}>管理中心</a></li>
+                            :
+                                ''
+                        :
+                            ''
+                    }
                     <li className="avatar-auth-li" onClick={this.logout}><a>退出登录</a></li>
                 </ul>
             </div>;
