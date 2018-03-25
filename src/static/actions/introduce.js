@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { push } from 'react-router-redux';
-
+import message from 'antd/lib/message';
 import { SERVER_URL } from '../utils/config';
 import { checkHttpStatus, parseJSON } from '../utils';
 import { 
@@ -166,6 +166,7 @@ export function updateIntroduceDetail(token, type, data, callback) {
             .then(checkHttpStatus)
             .then(parseJSON)
             .then((response) => {
+                message.success("更改成功，可到介绍页查看最新介绍内容。")
                 dispatch(updateIntroduceDetailSuccess(response));
                 callback(response)
             })

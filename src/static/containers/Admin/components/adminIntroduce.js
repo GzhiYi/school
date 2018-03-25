@@ -60,6 +60,7 @@ class AdminIntroduceView extends Component {
             "title": this.state.title,
             "body": this.state.editorHtml
         }
+        console.log("object", this.state.currentTarget);
         this.props.actions.updateIntroduceDetail(token, this.state.currentTarget, data, () => {})
     }
 
