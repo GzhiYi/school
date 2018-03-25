@@ -83,3 +83,24 @@
         }
     }
 }
+
+.introduce-content {
+    width: 80%;
+    background: #ffffff;
+    margin: 30px auto;
+    padding: 20px;
+
+    .header {
+        text-align: center;
+    }
+
+    p.date-updated {
+        text-align: right;
+        margin-right: 300px;
+        color: #5d5d5d;
+    }
+
+    .body {
+        margin: 0 40px;
+    }
+}

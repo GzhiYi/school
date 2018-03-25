@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import * as actionCreators from '../../../actions/introduce';
+import moment from 'moment';
 
 
 class IntroduceDetailView extends Component {
@@ -13,9 +14,23 @@ class IntroduceDetailView extends Component {
     }
     
     render() {
+        let detail = this.props.introduceDetail;
+        let title = '';
+        let dateUpdated = '';
+        let body = '';
+        console.log(detail);
+        if (detail && detail.length > 0) {
+            title = detail[0].title;
+            dateUpdated = moment(detail[0].date_updated).format("YYYY-MM-DD");
+            body = detail[0].body;
+        }
         return (
-            <div>
-                dddddd
+            <div className="introduce-content">
+                <h4 className="header">{title}</h4>
+                <p className="date-updated">{dateUpdated}</p>
+                <div className="body" dangerouslySetInnerHTML={{ __html: body}}>
+                    
+                </div>
             </div>
         );
     }
@@ -26,6 +41,7 @@ const mapStateToProps = (state) => {
         isAuthenticated: state.auth.isAuthenticated,
         isAuthenticating: state.auth.isAuthenticating,
         statusText: state.auth.statusText,
+        introduceDetail: state.introduce.introduceDetail,
     };
 };
 

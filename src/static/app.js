@@ -79,7 +79,7 @@ class App extends React.Component {
             active: this.props.location && this.props.location.pathname === '/login'
         });
         const introduceClass = classNames({
-            active: this.props.location && this.props.location.pathname === '/introduce'
+            active: location.pathname.split('/')[1] === 'introduce'
         });
         const surroundingClass = classNames({
             active: location.pathname.split('/')[1] === 'surrounding'
