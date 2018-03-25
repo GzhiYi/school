@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { push } from 'react-router-redux';
-import t from 'tcomb-form';
 import PropTypes from 'prop-types';
 import door from '../../images/door.jpg';
 import build from '../../images/lib.jpg';
@@ -27,12 +26,16 @@ class IntroduceView extends React.Component {
         this.props.dispatch(push('/login'));
     }
 
+    goToDetail = (type) => {
+        this.props.dispatch(push(`/introduce/${type}`));
+    }
+
     render() {
         let renderItems = null;
         if (this.props.introduceBase) {
             renderItems = _.map(this.props.introduceBase, (item, index) => {
                 return (
-                    <li className="card-item" key={index}>
+                    <li className="card-item" key={index} onClick={() => {this.goToDetail(item.introduce_type)}}>
                         <div className="item">
                             <div className="card-pic">
                                 <img src={door} alt="" />

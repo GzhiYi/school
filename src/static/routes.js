@@ -13,6 +13,7 @@ import {
     PostDetailView,
     ProfileView,
     AdminView,
+    IntroduceDetailView,
 
  } from './containers';
 import requireAuthentication from './utils/requireAuthentication';
@@ -30,7 +31,8 @@ export default(
         <Route path="/login" component={LoginView} />
         <Route path="/register" component={RegisterView} />
         <Route path="/protected" component={requireAuthentication(ProtectedView)} />
-        <Route path="/introduce" component={IntroduceView} />
+        <Route exact path="/introduce" component={IntroduceView} />
+        <Route exact path="/introduce/:item" component={IntroduceDetailView} />
         <Route path="/surrounding" component={SurroundingView} />
         <Route path="/forum/detail/:topicId" component={PostDetailView} />
         <Route path="/forum" component={ForumChildRoute} />
