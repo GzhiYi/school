@@ -8,31 +8,19 @@ import PropTypes from 'prop-types';
 import door from '../../images/door.jpg';
 import build from '../../images/lib.jpg';
 import Button from 'antd/lib/button';
+import _ from 'lodash';
 
-import * as actionCreators from '../../actions/auth';
+import * as actionCreators from '../../actions/introduce';
 
 import './style.scss';
 
 class IntroduceView extends React.Component {
-    static propTypes = {
-        dispatch: PropTypes.func.isRequired,
-        isAuthenticated: PropTypes.bool.isRequired,
-        isAuthenticating: PropTypes.bool.isRequired,
-        statusText: PropTypes.string,
-        actions: PropTypes.shape({
-            authLoginUser: PropTypes.func.isRequired
-        }).isRequired,
-        location: PropTypes.shape({
-            search: PropTypes.string.isRequired
-        })
-    };
-
     constructor(props) {
         super(props);
     }
 
     componentDidMount() {
-       
+        this.props.actions.getIntroduceBase();
     }
 
     goToLogin = () => {
@@ -40,6 +28,26 @@ class IntroduceView extends React.Component {
     }
 
     render() {
+        let renderItems = null;
+        if (this.props.introduceBase) {
+            renderItems = _.map(this.props.introduceBase, (item, index) => {
+                return (
+                    <li className="card-item" key={index}>
+                        <div className="item">
+                            <div className="card-pic">
+                                <img src={door} alt="" />
+                            </div>
+                            <div className="card-content">
+                                <h4>{item.title}</h4>
+                            </div>
+                            {/* <div className="card-footer">
+                                                <p>???</p>
+                                            </div> */}
+                        </div>
+                    </li>
+                )
+            })
+        }
         return (
             <div>
                 <div className="introduce-page">
@@ -51,32 +59,7 @@ class IntroduceView extends React.Component {
                             </div> */}
                             <div className="col-md-offset-1 col-md-7">
                                 <ul className="card">
-                                    <li className="card-item"> 
-                                        <div className="item">
-                                            <div className="card-pic">
-                                                <img src={door} alt=""/>
-                                            </div>
-                                            <div className="card-content">
-                                                <h4>关于广东药科大学</h4>
-                                            </div>
-                                            {/* <div className="card-footer">
-                                                <p>???</p>
-                                            </div> */}
-                                        </div>
-                                    </li>
-                                    <li className="card-item">
-                                        <div className="item">
-                                            <div className="card-pic">
-                                                <img src={build} alt="" />
-                                            </div>
-                                            <div className="card-content">
-                                                <h4>学校内各学院介绍</h4>
-                                            </div>
-                                            {/* <div className="card-footer">
-                                                <p>???</p>
-                                            </div> */}
-                                        </div>
-                                    </li>
+                                    {renderItems}                                    
                                 </ul>
                             </div>
                             <div className="col-md-3">
@@ -113,7 +96,8 @@ const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
         isAuthenticating: state.auth.isAuthenticating,
-        statusText: state.auth.statusText
+        statusText: state.auth.statusText,
+        introduceBase: state.introduce.introduceBase
     };
 };
 

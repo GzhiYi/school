@@ -125,6 +125,18 @@ class IntroduceCollegeViewSetWithNoToken(GenericAPIView):
 
 
 #  基本介绍
+class PostBasicIntroduceViewSet(GenericAPIView):
+
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        serializer = IntroduceBaseSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 class BasicIntroduceViewSet(GenericAPIView):
 
     def get(self, request):

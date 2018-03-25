@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^school/$', views.IntroduceSchoolViewSet.as_view(), name='post_introduce'),
     url(r'^school/public/$', views.IntroduceSchoolViewSetWithNoToken.as_view(), name='introduce_with_no_token'),
     url(r'^basic/$', views.BasicIntroduceViewSet.as_view(), name='introduce_in_basic'),
+    url(r'^basic/post/$', views.PostBasicIntroduceViewSet.as_view(), name='introduce_with_no_token'),
 
     url(r'^teacher/$', views.IntroduceTeacherViewSet.as_view(), name='post_introduce1'),
     url(r'^teacher/public/$', views.IntroduceTeacherViewSetWithNoToken.as_view(), name='introduce_with_no_token1'),
