@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import Select from 'antd/lib/select';
+import Input from 'antd/lib/input';
 import Button from 'antd/lib/button';
 import ReactQuill from 'react-quill';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import * as actionCreators from '../../../actions/introduce';
 const Option = Select.Option;
 
 class AdminIntroduceView extends Component {
     state = {
         showEditor: false,
-        editorHtml: ""
+        editorHtml: "",
     }
 
     handleEditorChange = (html) => {
@@ -23,7 +28,21 @@ class AdminIntroduceView extends Component {
                 showEditor: true
             });
         }
-        console.log(`selected ${value}`);
+        this.props.actions.getIntroduceDetail(value, (response) => {
+            console.log("回调", response);
+            if (response.length > 0) {
+                this.setState({
+                    editorHtml: response[0].body
+                });
+            } else {
+                this.setState({
+                    editorHtml: ''
+                });
+            }
+        });
+    }
+
+    componentWillReceiveProps(nextProps) {
     }
 
     updateIntroduce = () => {
@@ -31,14 +50,23 @@ class AdminIntroduceView extends Component {
     }
 
     render() {
+        console.log("detail", this.props.introduceDetail);
+        console.log("???", this.state.editorHtml);
         return (
             <div className="admin-introduce">
-                <Select defaultValue="选择要修改的介绍内容" style={{ width: 220 }} onChange={this.handleChange}>
-                    <Option value="school">学校</Option>
-                    <Option value="college">学院</Option>
-                    <Option value="profession">专业</Option>
-                    <Option value="teachers">老师</Option>
-                </Select>
+                <div className="select-title">
+                    <Select defaultValue="选择要修改的介绍内容" style={{ width: 220 }} onChange={this.handleChange}>
+                        <Option value="school">学校</Option>
+                        <Option value="college">学院</Option>
+                        <Option value="profession">专业</Option>
+                        <Option value="teacher">老师</Option>
+                        <Option value="society">社团</Option>
+                    </Select>
+
+                    <div className="title">
+                        <Input placeholder="Basic usage" />
+                    </div>
+                </div>
                 {
                     this.state.showEditor
                     ?
@@ -46,6 +74,7 @@ class AdminIntroduceView extends Component {
                             <ReactQuill
                                 onChange={this.handleEditorChange}
                                 value={this.state.editorHtml}
+                                defaultValue={this.state.editorDefault}
                                 modules={AdminIntroduceView.modules}
                                 formats={AdminIntroduceView.formats}
                             // bounds={'.app'}
@@ -103,4 +132,22 @@ AdminIntroduceView.formats = [
 AdminIntroduceView.propTypes = {
     placeholder: React.PropTypes.string,
 }
-export default AdminIntroduceView;
+
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.auth.isAuthenticated,
+        isAuthenticating: state.auth.isAuthenticating,
+        statusText: state.auth.statusText,
+        introduceDetail: state.introduce.introduceDetail,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch,
+        actions: bindActionCreators(actionCreators, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminIntroduceView);
+export { AdminIntroduceView };

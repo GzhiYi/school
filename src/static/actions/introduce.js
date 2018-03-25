@@ -77,7 +77,7 @@ export function getIntroduceDetailSuccess(response) {
     };
 }
 
-export function getIntroduceDetailFailure(data) {
+export function getIntroduceDetailFailure(error, message) {
     return {
         type: GET_INTRODUCE_DETAIL_FAILURE,
         payload: {
@@ -93,7 +93,7 @@ export function getIntroduceDetailRequest() {
     };
 }
 
-export function getIntroduceDetail(type) {
+export function getIntroduceDetail(type, callback) {
     return (dispatch, state) => {
         dispatch(getIntroduceDetailSuccess());
         return fetch(`${SERVER_URL}/api/v1/introduce/${type}/public/`, {
@@ -106,6 +106,7 @@ export function getIntroduceDetail(type) {
             .then(parseJSON)
             .then((response) => {
                 dispatch(getIntroduceDetailSuccess(response));
+                callback(response)
             })
             .catch((error) => {
                 if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
