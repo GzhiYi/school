@@ -42,4 +42,4 @@ class IntroduceCollegeSerializer(serializers.ModelSerializer):
 class IntroduceBaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = IntroduceBase
-        fields = ('id', 'title', 'cover_image', 'description',)
+        fields = ('id', 'title', 'cover_image', 'description', 'introduce_type')

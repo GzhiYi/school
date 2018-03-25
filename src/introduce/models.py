@@ -193,6 +193,12 @@ class IntroduceBase(models.Model):
         help_text=_('e.g introduce title')
     )
 
+    introduce_type = models.CharField(max_length=50,
+                                      blank=False,
+                                      null=True,
+                                      default='',
+                                      help_text=_('e.g introduce title'))
+
     cover_image = models.CharField(
         _('URL of image'),
         max_length=1024,
