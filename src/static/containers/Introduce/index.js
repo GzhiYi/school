@@ -18,7 +18,7 @@ import './style.scss';
 class IntroduceView extends React.Component {
     state = { 
         visible: false,
-        idNum: '', 
+		idNum: '', 
     }
     showModal = () => {
         this.setState({
@@ -51,7 +51,7 @@ class IntroduceView extends React.Component {
     }
 
     searchId = () => {
-        console.log(this.state.idNum);
+		this.props.actions.searchAdmission(Cookies.get('token'), this.state.idNum);
     }
 
     handleChange = (e) => {
@@ -81,7 +81,8 @@ class IntroduceView extends React.Component {
                 )
             })
         }
-        let user = Cookies.get('user');
+		let user = Cookies.get('user');
+		let admissionResult = this.props.admissionResult;
         return (
             <div>
                 <div className="introduce-page">
@@ -135,6 +136,20 @@ class IntroduceView extends React.Component {
                         <div>
                             <Button onClick={this.searchId}>查询</Button>
                         </div>
+                        {
+							admissionResult
+							?
+								admissionResult.length > 0
+								?
+									<div className="result">
+										<label >姓名：</label>{admissionResult[0].name} <br />
+										<label >录取情况：</label>{admissionResult[0].status}
+									</div>
+								:
+									''	
+							:
+								''
+						}
                     </Modal>
                 </div>   
             </div>
@@ -147,7 +162,8 @@ const mapStateToProps = (state) => {
         isAuthenticated: state.auth.isAuthenticated,
         isAuthenticating: state.auth.isAuthenticating,
         statusText: state.auth.statusText,
-        introduceBase: state.introduce.introduceBase
+        introduceBase: state.introduce.introduceBase,
+        admissionResult: state.introduce.admissionResult,
     };
 };
 

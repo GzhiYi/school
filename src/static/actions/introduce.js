@@ -14,7 +14,11 @@ import {
 
     UPDATE_INTRODUCE_DETAIL_SUCCESS,
     UPDATE_INTRODUCE_DETAIL_FAILURE,
-    UPDATE_INTRODUCE_DETAIL_REQUEST
+    UPDATE_INTRODUCE_DETAIL_REQUEST,
+
+    SEARCH_ADMISSION_SUCCESS,
+    SEARCH_ADMISSION_FAILURE,
+    SEARCH_ADMISSION_REQUEST
 
 } from '../constants';
 import { authLoginUserFailure } from './auth';
@@ -177,6 +181,61 @@ export function updateIntroduceDetail(token, type, data, callback) {
                 } else {
                     // Most likely connection issues
                     dispatch(updateIntroduceDetailFailure('Connection Error', 'An error occurred while sending your data!'));
+                }
+                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+            });
+    };
+}
+
+// 查询录取情况接口
+export function searchAdmissionSuccess(response) {
+    return {
+        type: SEARCH_ADMISSION_SUCCESS,
+        payload: {
+            response
+        }
+    };
+}
+
+export function searchAdmissionFailure(error, message) {
+    return {
+        type: SEARCH_ADMISSION_FAILURE,
+        payload: {
+            status: error,
+            statusText: message
+        }
+    };
+}
+
+export function searchAdmissionRequest() {
+    return {
+        type: SEARCH_ADMISSION_REQUEST
+    };
+}
+
+export function searchAdmission(token, idNum) {
+    return (dispatch, state) => {
+        dispatch(searchAdmissionSuccess());
+        return fetch(`${SERVER_URL}/api/v1/admission/handler/?id=${idNum}`, {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `token ${token}`
+            },
+        })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then((response) => {
+                dispatch(searchAdmissionSuccess(response));
+            })
+            .catch((error) => {
+                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                    // Server side error
+                    dispatch(searchAdmissionFailure(500, 'A server error occurred while sending your data!'));
+                } else {
+                    // Most likely connection issues
+                    dispatch(searchAdmissionFailure('Connection Error', 'An error occurred while sending your data!'));
                 }
                 return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
             });
