@@ -16,7 +16,10 @@ import * as actionCreators from '../../actions/introduce';
 import './style.scss';
 
 class IntroduceView extends React.Component {
-    state = { visible: false }
+    state = { 
+        visible: false,
+        idNum: '', 
+    }
     showModal = () => {
         this.setState({
             visible: true,
@@ -45,6 +48,16 @@ class IntroduceView extends React.Component {
 
     goToDetail = (type) => {
         this.props.dispatch(push(`/introduce/${type}`));
+    }
+
+    searchId = () => {
+        console.log(this.state.idNum);
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            idNum: e.target.value,
+        });
     }
 
     render() {
@@ -105,23 +118,25 @@ class IntroduceView extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <Modal
+                        title="输入身份证号查看您的录取情况"
+                        visible={this.state.visible}
+                        onOk={this.handleOk}
+                        onCancel={this.handleCancel}
+                    >
+                        <div className="input-id" style={{marginBottom: 20}}>
+                            <Input
+                                placeholder="输入身份证号"
+                                type="number"
+                                onChange={this.handleChange}
+                                name="num"
+                            />
+                        </div>
+                        <div>
+                            <Button onClick={this.searchId}>查询</Button>
+                        </div>
+                    </Modal>
                 </div>   
-                <Modal
-                    title="输入身份证号查看您的录取情况"
-                    visible={this.state.visible}
-                    onOk={this.handleOk}
-                    onCancel={this.handleCancel}
-                >
-                    <div className="input-id">
-                        <Input 
-                            placeholder="输入身份证号" 
-                            type="number"
-                        />
-                    </div>
-                    <div>
-                        <Button>查询</Button>
-                    </div>
-                </Modal>
             </div>
         )
     }
