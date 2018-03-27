@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^api/v1/accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^api/v1/introduce/', include('introduce.urls', namespace='introduce')),
     url(r'^api/v1/getdata/', include('base.urls', namespace='base')),
+    url(r'^api/v1/admission/', include('admission.urls', namespace='admission')),
 
     # catch all others because of how history is handled by react router - cache this page because it will never change
     url(r'', cache_page(settings.PAGE_CACHE_SECONDS)(base_views.IndexView.as_view()), name='index'),
