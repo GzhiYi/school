@@ -9,6 +9,7 @@ import build from '../../images/lib.jpg';
 import Button from 'antd/lib/button';
 import Modal from 'antd/lib/modal';
 import Input from 'antd/lib/input';
+import Alert from 'antd/lib/alert';
 import _ from 'lodash';
 
 import * as actionCreators from '../../actions/introduce';
@@ -125,7 +126,7 @@ class IntroduceView extends React.Component {
                         onOk={this.handleOk}
                         onCancel={this.handleCancel}
                     >
-                        <div className="input-id" style={{marginBottom: 20}}>
+                        <div style={{marginBottom: 20}}>
                             <Input
                                 placeholder="输入身份证号"
                                 type="number"
@@ -133,7 +134,7 @@ class IntroduceView extends React.Component {
                                 name="num"
                             />
                         </div>
-                        <div>
+                        <div style={{marginBottom: 20}}>
                             <Button onClick={this.searchId}>查询</Button>
                         </div>
                         {
@@ -146,7 +147,7 @@ class IntroduceView extends React.Component {
 										<label >录取情况：</label>{admissionResult[0].status}
 									</div>
 								:
-									''	
+									<Alert message="未找到该身份的录取信息。" type="error" showIcon />		
 							:
 								''
 						}
