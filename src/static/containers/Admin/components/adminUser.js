@@ -49,7 +49,6 @@ class AdminUserView extends Component {
         const columns = [{
             title: '用户名',
             dataIndex: 'name',
-            render: text => <a href="#">{text}</a>,
         }, {
             title: '性别',
             dataIndex: 'sex'
