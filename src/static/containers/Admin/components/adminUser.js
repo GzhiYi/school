@@ -8,6 +8,7 @@ import Input from 'antd/lib/input';
 import Button from 'antd/lib/button';
 import Popconfirm from 'antd/lib/popconfirm';
 import message from 'antd/lib/message';
+import Spin from 'antd/lib/spin';
 import moment from 'moment';
 const Search = Input.Search;
 class AdminUserView extends Component {
@@ -15,7 +16,7 @@ class AdminUserView extends Component {
         super(props);
         this.state = {
             selectedRows: [],
-            selectedRowKeys: []
+            selectedRowKeys: [],
         }
     }
 
@@ -76,7 +77,7 @@ class AdminUserView extends Component {
                 'total': userData.count,
                 'pageSize': 20,
                 onChange: (pageNum, num) => {
-                    this.props.actions.getUsers(Cookies.get('token'), null, pageNum)
+                    this.props.actions.getUsers(Cookies.get('token'), null, pageNum);
                 }
             }
             _.map(userData.results, (item, index) => {
@@ -117,12 +118,14 @@ class AdminUserView extends Component {
                         style={{ width: 200 }}
                     />
                 </div>
-                <Table 
-                    rowSelection={rowSelection} 
-                    columns={columns} 
-                    dataSource={data} 
-                    pagination={paginationSetting}
-                />
+                <Spin tip="加载用户数据中..." spinning={this.props.isFetchingUserData}>
+                    <Table
+                        rowSelection={rowSelection}
+                        columns={columns}
+                        dataSource={data}
+                        pagination={paginationSetting}
+                    />
+                </Spin>
             </div>
         );
     }
@@ -134,6 +137,7 @@ const mapStateToProps = (state) => {
         isAuthenticating: state.auth.isAuthenticating,
         statusText: state.auth.statusText,
         userData: state.admin.userData,
+        isFetchingUserData: state.admin.isFetchingUserData
     };
 };
 
