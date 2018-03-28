@@ -23,7 +23,6 @@ class AdmissionStatusViewSet(GenericAPIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request):
-        print(">>", request.query_params.get('id'))
         admission = AdmissionStatus.objects.filter(id_num=request.query_params.get('id'))
         serializer = AdmissionSerializer(admission, many=True)
         return Response(serializer.data)

@@ -90,8 +90,19 @@
     margin: 30px auto;
     padding: 20px;
 
-    .header {
+    h3.header {
+        margin: 40px;
         text-align: center;
+    }
+
+    i.anticon.anticon-home {
+        font-size: 1.4rem;
+        cursor: pointer;
+        transition: .5s all;
+    }
+
+    i.anticon.anticon-home:hover {
+        color: #69c0ff;
     }
 
     p.date-updated {

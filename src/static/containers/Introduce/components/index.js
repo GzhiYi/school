@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import Breadcrumb from 'antd/lib/breadcrumb';
+import Icon from 'antd/lib/icon'; 
 import * as actionCreators from '../../../actions/introduce';
 import moment from 'moment';
 
@@ -11,6 +13,10 @@ class IntroduceDetailView extends Component {
         let type = location.pathname.split('/')[2];
         console.log(type);
         this.props.actions.getIntroduceDetail(type);
+    }
+
+    goHome = () => {
+        this.props.dispatch(push('/introduce'));
     }
     
     render() {
@@ -26,7 +32,12 @@ class IntroduceDetailView extends Component {
         }
         return (
             <div className="introduce-content">
-                <h4 className="header">{title}</h4>
+                <Breadcrumb>
+                    <Breadcrumb.Item onClick={this.goHome}>
+                        <Icon type="home" />
+                    </Breadcrumb.Item>
+                </Breadcrumb>
+                <h3 className="header">{title}</h3>
                 <p className="date-updated">{dateUpdated}</p>
                 <div className="body" dangerouslySetInnerHTML={{ __html: body}}>
                     
