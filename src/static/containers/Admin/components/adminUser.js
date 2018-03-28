@@ -68,6 +68,11 @@ class AdminUserView extends Component {
             title: '上一次登陆',
             dataIndex: 'lastLoginTime',
             sorter: (a, b) => new Date(a.lastLoginTime) - new Date(b.lastLoginTime),
+        }, {
+            title: '已删除？',
+            dataIndex: 'isDelete',
+            sorter: (a, b) => a.isDelete.localeCompare(b.isDelete, 'zh-Hans-CN', { sensitivity: 'accent' }),
+            render: (text) => <a className={text === "已删除" ? "deleted" : 'normal'}>{text}</a>
         }];
         let data = [];
         let userData = this.props.userData;
@@ -88,11 +93,13 @@ class AdminUserView extends Component {
                     email: item.email,
                     phone: item.phone_number === null ? "未填写手机号" : item.phont_number,
                     registerTime: moment(item.date_joined).format("YYYY-MM-DD"),
-                    lastLoginTime: item.last_login === null ? "未登录过" : moment(item.last_login).format("YYYY-MM-DD")
+                    lastLoginTime: item.last_login === null ? "未登录过" : moment(item.last_login).format("YYYY-MM-DD"),
+                    isDelete: item.is_active === true ? "正常" : "已删除"
                 });
             })
         }
         const { selectedRows } = this.state;
+        console.log(data);
         return (
             <div>
                 <div className="search">

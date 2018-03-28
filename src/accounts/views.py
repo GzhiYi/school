@@ -160,3 +160,5 @@ class HandlerUserViewSet(DefaultsMixin):
         page = self.paginate_queryset(users)
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)
+
+    
