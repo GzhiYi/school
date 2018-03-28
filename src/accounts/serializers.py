@@ -85,3 +85,9 @@ class ActivationSerializer(UidAndTokenSerializer):
         if not self.user.is_active:
             return attrs
         raise exceptions.PermissionDenied(self.error_messages['stale_token'])
+
+
+class HandlerUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'

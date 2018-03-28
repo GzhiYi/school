@@ -82,7 +82,8 @@ class IntroduceView extends React.Component {
                 )
             })
         }
-		let user = Cookies.get('user');
+        let user = Cookies.get('user');
+        console.log(user, '......');
 		let admissionResult = this.props.admissionResult;
         return (
             <div>

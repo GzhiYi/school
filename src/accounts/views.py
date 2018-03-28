@@ -8,8 +8,8 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import CreateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework import status, generics, permissions, viewsets
-
+from rest_framework import status, generics, permissions, viewsets, filters
+import django_filters.rest_framework
 from djoser.views import ActivationView as DJActivationView
 from djoser import signals
 from djoser.conf import settings as djoser_settings
@@ -25,11 +25,31 @@ from accounts.models import User
 from accounts.serializers import (
     UserRegistrationSerializer,
     UserSerializer,
+    HandlerUserSerializer,
     ActivationSerializer
 )
 # from lib.utils import AtomicMixin
 import smtplib
 
+class DefaultsMixin(viewsets.ModelViewSet):
+
+    """
+    Default settings for view auth, permissions,
+    filtering and pagination
+    """
+
+    authentication_classes = (
+        TokenAuthentication,
+    )
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
+    paginate_by = 25
+    filter_backends = (
+        django_filters.rest_framework.DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    )
 
 class UserRegisterView(UserCreateView):
     def perform_create(self, serializer):
@@ -99,9 +119,9 @@ class ActivationView(DJActivationView):
     serializer_class = ActivationSerializer
 
 
-class ResentActivationEmailViewSet(generics.CreateAPIView):
-    authentication_classes = (GYAuthentication,)
-    permission_classes = (permissions.IsAuthenticated,)
+    class ResentActivationEmailViewSet(generics.CreateAPIView):
+        authentication_classes = (GYAuthentication,)
+        permission_classes = (permissions.IsAuthenticated,)
 
     def create(self, request, *args, **kwargs):
         is_active = request.user.is_active
@@ -120,3 +140,23 @@ class ResentActivationEmailViewSet(generics.CreateAPIView):
             return Response("Sent Email Error", status=status.HTTP_501_NOT_IMPLEMENTED)
 
         return Response(status=status.HTTP_200_OK)
+
+
+class HandlerUserViewSet(DefaultsMixin):
+
+    """ API endpoint for listing and creating notes """
+    queryset = User.objects.all()
+    serializer_class = HandlerUserSerializer
+    filter_fields = ['first_name', 'email', 'phone_number']
+
+    def list(self, request, *args, **kwargs):
+        first_name = request.GET.get('n', None)
+        if first_name:
+            users = self.queryset.filter(first_name=first_name)
+            page = self.paginate_queryset(users)
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        users = self.queryset.all()
+        page = self.paginate_queryset(users)
+        serializer = self.get_serializer(page, many=True)
+        return self.get_paginated_response(serializer.data)

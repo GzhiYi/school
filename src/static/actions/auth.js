@@ -16,8 +16,8 @@ import {
 
 export function authLoginUserSuccess(response) {
     console.log(response);
-    Cookies.set('user', response.user);
-    Cookies.set('token', response.token)
+    Cookies.set('user', response.user, { expires: 7 });
+    Cookies.set('token', response.token, { expires: 7 })
     return {
         type: AUTH_LOGIN_USER_SUCCESS,
         payload: {
