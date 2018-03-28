@@ -51,9 +51,11 @@ class AdminUserView extends Component {
             dataIndex: 'name',
             render: text => <a href="#">{text}</a>,
         }, {
+            title: '性别',
+            dataIndex: 'sex'
+        }, {
             title: '邮箱',
-            dataIndex: 'email',
-            sorter: (a, b) => a.category.localeCompare(b.category, 'zh-Hans-CN', { sensitivity: 'accent' })
+            dataIndex: 'email'
         }, {
             title: '手机号',
             dataIndex: 'phone',
@@ -62,17 +64,31 @@ class AdminUserView extends Component {
             title: '注册时间',
             dataIndex: 'registerTime',
             sorter: (a, b) => new Date(a.registerTime) - new Date(b.registerTime),
+        }, {
+            title: '上一次登陆',
+            dataIndex: 'lastLoginTime',
+            sorter: (a, b) => new Date(a.lastLoginTime) - new Date(b.lastLoginTime),
         }];
         let data = [];
         let userData = this.props.userData;
+        let paginationSetting = {}
         if (userData) {
+            paginationSetting = {
+                'total': userData.count,
+                'pageSize': 20,
+                onChange: (pageNum, num) => {
+                    this.props.actions.getUsers(Cookies.get('token'), null, pageNum)
+                }
+            }
             _.map(userData.results, (item, index) => {
                 data.push({
                     key: index,
                     name: item.first_name,
+                    sex: item.gender === 'M' ? "男" : "女",
                     email: item.email,
                     phone: item.phone_number === null ? "未填写手机号" : item.phont_number,
-                    registerTime: moment(item.date_joined).format("YYYY-MM-DD")
+                    registerTime: moment(item.date_joined).format("YYYY-MM-DD"),
+                    lastLoginTime: item.last_login === null ? "未登录过" : moment(item.last_login).format("YYYY-MM-DD")
                 });
             })
         }
@@ -102,7 +118,12 @@ class AdminUserView extends Component {
                         style={{ width: 200 }}
                     />
                 </div>
-                <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+                <Table 
+                    rowSelection={rowSelection} 
+                    columns={columns} 
+                    dataSource={data} 
+                    pagination={paginationSetting}
+                />
             </div>
         );
     }

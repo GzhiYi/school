@@ -37,10 +37,10 @@ export function getUsersRequest() {
     };
 }
 
-export function getUsers(token, name=null) {
-    let api = `${SERVER_URL}/api/v1/handler/user/`;
+export function getUsers(token, name=null, page=1) {
+    let api = `${SERVER_URL}/api/v1/handler/user/?page=${page}`;
     if (name !== null) {
-        api = `${api}?n=${name}`;
+        api = `${api}?n=${name}&page=${page}`;
     }
     return (dispatch, state) => {
         dispatch(getUsersSuccess());
