@@ -11,7 +11,7 @@ from accounts.services import check_token
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'is_superuser', 'gender', 'phone_number', 'photo_url')
+        fields = ('id', 'email', 'first_name', 'is_superuser', 'gender', 'phone_number', 'photo_url')
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):

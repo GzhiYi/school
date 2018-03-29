@@ -4,9 +4,11 @@ from django.views.decorators.cache import cache_page
 from rest_framework.routers import DefaultRouter
 from base import views as base_views
 from accounts.views import HandlerUserViewSet
+from forum.views import *
 
 router = DefaultRouter()
 router.register(r'user', HandlerUserViewSet)
+router.register(r'posts', GetPostsViewSet)
 
 
 urlpatterns = [
