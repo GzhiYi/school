@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../../actions/auth';
+import * as actionCreators from '../../../actions/forum';
 import ReactQuill from 'react-quill';
 import Anchor from 'antd/lib/anchor';
 import './style.scss';
 import Img from "../../../images/github.png";
+import moment from 'moment';
 
 const { Link }= Anchor;
 class PostDetailView extends Component {
@@ -19,6 +20,8 @@ class PostDetailView extends Component {
 
     componentDidMount() {
         window.scrollTo(0, 0);
+        let postId = location.pathname.split('/')[3];
+        this.props.actions.listPosts(postId);
     }
     
     handleEditorChange = (html) => {
@@ -41,6 +44,32 @@ class PostDetailView extends Component {
 
     render() {
         let token = Cookies.get('token');
+        let post = this.props.posts;
+        let firstFloor = '';
+        if (post) {
+            firstFloor = 
+                <div id="first-floor" className="post-floor first-floor">
+                    <div className="avatar">
+                        <img src={post.author.photo_url} alt="avatar" />
+                    </div>
+                    <div className="name-time">
+                        <div className="user-name">
+                            <span className="author-name">{post.author.first_name}</span>
+                        </div>
+                        <div className="post-create-time">{moment(post.date_created).format('YYYY-MM-DD')}</div>
+                    </div>
+
+                    <div className="content"dangerouslySetInnerHTML={{ __html: post.content}}>
+                        
+                    </div>
+
+                    <div className="footer">
+                        <i className="fa fa-smile-o" aria-hidden="true"></i> {post.thumbs_up}
+                        &nbsp;
+                        <i className="fa fa-frown-o" aria-hidden="true"></i> {post.step_on}
+                    </div>
+                </div>
+        }
         return (
             <div>
                 <div className="container">
@@ -54,27 +83,7 @@ class PostDetailView extends Component {
                                 </div>
                                 
                                 <div className="col-lg-8">
-                                    <div id="first-floor" className="post-floor first-floor">
-                                        <div className="avatar">
-                                            <img src={Img} alt="avatar"/>
-                                        </div>
-                                        <div className="name-time">
-                                            <div className="user-name">
-                                                <span className="author-name">userName</span>
-                                            </div>
-                                            <div className="post-create-time">2018.1.5</div>
-                                        </div>
-
-                                        <div className="content">
-                                            工作半年多，base上海，会写sql，有点编程基础。现在想学python，但是自律性较差，求队友一起监督
-                                        </div>
-
-                                        <div className="footer">
-                                            <i className="fa fa-smile-o" aria-hidden="true"></i> 330
-                                            &nbsp;
-                                            <i className="fa fa-frown-o" aria-hidden="true"></i> 220
-                                        </div>
-                                    </div>
+                                    {firstFloor}
                                     <div className="post-floor">
                                         <div className="avatar">
                                             <img src={Img} alt="avatar" />
@@ -213,7 +222,8 @@ const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
         isAuthenticating: state.auth.isAuthenticating,
-        statusText: state.auth.statusText
+        statusText: state.auth.statusText,
+        posts: state.forum.posts
     };
 };
 

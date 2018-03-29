@@ -38,10 +38,14 @@ export function listPostsRequest() {
     };
 }
 
-export function listPosts() {
+export function listPosts(postId=null) {
+    let api = `${SERVER_URL}/api/v1/handler/posts/`;
+    if (postId !== null) {
+        api = `${SERVER_URL}/api/v1/handler/posts/${postId}/`
+    }
     return (dispatch, state) => {
         dispatch(listPostsRequest());
-        return fetch(`${SERVER_URL}/api/v1/handler/posts/`, {
+        return fetch(api, {
             method: 'get',
             headers: {
                 'Accept': 'application/json',
