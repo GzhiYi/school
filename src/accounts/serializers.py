@@ -90,4 +90,4 @@ class ActivationSerializer(UidAndTokenSerializer):
 class HandlerUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['first_name', 'gender', 'email', 'phone_number', 'date_joined', 'last_login', 'is_active']
