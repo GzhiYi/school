@@ -62,6 +62,12 @@ class GetPostsViewSet(GetPostsMixin):
 
     def list(self, request, *args, **kwargs):
         posts = self.queryset.all()
+        for post in posts:
+            user = User.objects.filter(id=post.author_id)
+            print(user)
+            # post['author_detail'] = user
+            
+        # print(posts)
         page = self.paginate_queryset(posts)
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)

@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../../actions/auth';
+import * as actionCreators from '../../../actions/forum';
 import Jpg from '../../../images/github.png';
 import _ from 'lodash';
 
 import './style.scss';
 class Posts extends Component {
+
+    componentDidMount() {
+        this.props.actions.listPosts();
+    }
+    
 
     showPostDetail = (index) => {
         this.props.dispatch(push(`/forum/detail/${index}`));

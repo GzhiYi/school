@@ -157,7 +157,7 @@ export function updateIntroduceDetailRequest() {
 
 export function updateIntroduceDetail(token, type, data, callback) {
     return (dispatch, state) => {
-        dispatch(updateIntroduceDetailSuccess());
+        dispatch(updateIntroduceDetailRequest());
         return fetch(`${SERVER_URL}/api/v1/introduce/${type}/`, {
             method: 'post',
             headers: {
@@ -215,7 +215,7 @@ export function searchAdmissionRequest() {
 
 export function searchAdmission(token, idNum) {
     return (dispatch, state) => {
-        dispatch(searchAdmissionSuccess());
+        dispatch(searchAdmissionRequest());
         return fetch(`${SERVER_URL}/api/v1/admission/handler/?id=${idNum}`, {
             method: 'get',
             headers: {
