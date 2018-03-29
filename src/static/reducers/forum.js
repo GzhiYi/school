@@ -3,6 +3,10 @@ import {
     LIST_POSTS_FAILURE,
     LIST_POSTS_REQUEST,
 
+    LIST_TOP_POSTS_SUCCESS,
+    LIST_TOP_POSTS_FAILURE,
+    LIST_TOP_POSTS_REQUEST,
+
     LIST_COMMENTS_SUCCESS,
     LIST_COMMENTS_FAILURE,
     LIST_COMMENTS_REQUEST,
@@ -35,10 +39,28 @@ export default function forumReducer(state = initialState, action) {
                 isFetchingPosts: false,
                 posts: action.payload.response,
             });
-            LIST_COMMENTS_FAILURE
+            
         case LIST_POSTS_FAILURE:
             return Object.assign({}, state, {
                 isFetchingPosts: false,
+                statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
+            });
+
+        // 列出置顶的帖子
+        case LIST_TOP_POSTS_REQUEST:
+            return Object.assign({}, state, {
+                isFetchingTopPosts: true,
+                statusText: null
+            });
+
+        case LIST_TOP_POSTS_SUCCESS:
+            return Object.assign({}, state, {
+                isFetchingTopPosts: false,
+                topPosts: action.payload.response,
+            });
+        case LIST_TOP_POSTS_FAILURE:
+            return Object.assign({}, state, {
+                isFetchingTopPosts: false,
                 statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
             });
 

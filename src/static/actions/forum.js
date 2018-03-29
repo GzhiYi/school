@@ -18,7 +18,11 @@ import {
 
     ADD_POST_SUCCESS,
     ADD_POST_FAILURE,
-    ADD_POST_REQUEST
+    ADD_POST_REQUEST,
+
+    LIST_TOP_POSTS_SUCCESS,
+    LIST_TOP_POSTS_FAILURE,
+    LIST_TOP_POSTS_REQUEST
 
 } from '../constants';
 import { authLoginUserFailure } from './auth';
@@ -82,6 +86,59 @@ export function listPosts(postId=null) {
     };
 }
 
+// list置顶帖子
+export function listTopPostsSuccess(response) {
+    return {
+        type: LIST_TOP_POSTS_SUCCESS,
+        payload: {
+            response
+        }
+    };
+}
+
+export function listTopPostsFailure(error, message) {
+    return {
+        type: LIST_TOP_POSTS_FAILURE,
+        payload: {
+            status: error,
+            statusText: message
+        }
+    };
+}
+
+export function listTopPostsRequest() {
+    return {
+        type: LIST_TOP_POSTS_REQUEST
+    };
+}
+
+export function listTopPosts(postId = null) {
+    return (dispatch, state) => {
+        dispatch(listTopPostsRequest());
+        return fetch(`${SERVER_URL}/api/v1/handler/posts_top/`, {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then((response) => {
+                dispatch(listTopPostsSuccess(response));
+            })
+            .catch((error) => {
+                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                    // Server side error
+                    dispatch(listTopPostsFailure(500, 'A server error occurred while sending your data!'));
+                } else {
+                    // Most likely connection issues
+                    dispatch(listTopPostsFailure('Connection Error', 'An error occurred while sending your data!'));
+                }
+                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+            });
+    };
+}
 // 发一个帖子
 export function addPostSuccess(response) {
     return {

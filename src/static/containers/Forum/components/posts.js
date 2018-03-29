@@ -4,6 +4,7 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../../actions/forum';
 import Jpg from '../../../images/github.png';
+import Tag from 'antd/lib/tag';
 import _ from 'lodash';
 import moment from 'moment';
 
@@ -12,6 +13,7 @@ class Posts extends Component {
 
     componentDidMount() {
         this.props.actions.listPosts();
+        this.props.actions.listTopPosts();
     }
     
 
@@ -19,15 +21,41 @@ class Posts extends Component {
         this.props.dispatch(push(`/forum/detail/${index}`));
     }
 
-    renderPosts(data) {
+    renderPosts(data, isTop=false) {
         return (
             _.map(data, (item, index) => {
+                let postType = '';
+                let color = '';
+                switch (item.post_type) {
+                    case 1:
+                        postType = "交流";
+                        color = 'green';
+                        break;
+                    case 2:
+                        postType = "分享";
+                        color = 'blue';
+                        break;
+                    case 3:
+                        postType = "求助";
+                        color = 'orange';
+                        break;
+                    default:
+                        break;
+                }
                 return (
                     <div className="list-item" key={index}>
                         <a href="#" className="list-item-avatar">
                             <img src={item.author.photo_url} alt="头像" />
                         </a>
                         <div className="list-content">
+                            {
+                                isTop
+                                ?
+                                    <Tag color="volcano">置顶</Tag>
+                                :
+                                    ''
+                            }
+                            <Tag color={color}>{postType}</Tag>
                             <a
                              className="list-title"
                              onClick={() => this.showPostDetail(item.id)}
@@ -75,14 +103,17 @@ class Posts extends Component {
         if (this.props.posts) {
             let postsData = this.props.posts;
             _.map(postsData.results, (post, index) => {
-                if (post.is_top) {
-                    testTop.push(post);
-                } else {
-                    test.push(post);
-                }
+                test.push(post);
             });
-            renderTopPosts = this.renderPosts(testTop);
             renderPosts = this.renderPosts(test);
+        }
+
+        if (this.props.topPosts) {
+            let postsData = this.props.topPosts;
+            _.map(postsData.results, (post, index) => {
+                testTop.push(post);
+            });
+            renderTopPosts = this.renderPosts(testTop, true);
         }
         
         console.log('render');
@@ -112,6 +143,7 @@ const mapStateToProps = (state) => {
         isAuthenticating: state.auth.isAuthenticating,
         statusText: state.auth.statusText,
         posts: state.forum.posts,
+        topPosts: state.forum.topPosts,
     };
 };
 

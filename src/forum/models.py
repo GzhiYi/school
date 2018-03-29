@@ -68,7 +68,7 @@ class Posts(models.Model):
     post_type = models.IntegerField(
         blank=False,
         null=False,
-        default=0,
+        default=1,
         help_text=_('e.g posts type')
     )
 
