@@ -9,7 +9,7 @@ from forum.views import *
 router = DefaultRouter()
 router.register(r'user', HandlerUserViewSet)
 router.register(r'posts', GetPostsViewSet)
-router.register(r'add', AddPostsDataViewSet)
+router.register(r'add_post', AddPostsDataViewSet)
 router.register(r'comments', GetCommentsView)
 router.register(r'add_comments', AddCommentsViewSet)
 

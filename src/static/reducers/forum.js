@@ -9,7 +9,11 @@ import {
 
     ADD_COMMENTS_SUCCESS,
     ADD_COMMENTS_FAILURE,
-    ADD_COMMENTS_REQUEST
+    ADD_COMMENTS_REQUEST,
+
+    ADD_POST_SUCCESS,
+    ADD_POST_FAILURE,
+    ADD_POST_REQUEST
 
 } from '../constants';
 
@@ -31,7 +35,7 @@ export default function forumReducer(state = initialState, action) {
                 isFetchingPosts: false,
                 posts: action.payload.response,
             });
-
+            LIST_COMMENTS_FAILURE
         case LIST_POSTS_FAILURE:
             return Object.assign({}, state, {
                 isFetchingPosts: false,
@@ -54,6 +58,25 @@ export default function forumReducer(state = initialState, action) {
         case LIST_COMMENTS_FAILURE:
             return Object.assign({}, state, {
                 isFetchingComments: false,
+                statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
+            });
+
+        // 发一个帖子
+        case ADD_POST_REQUEST:
+            return Object.assign({}, state, {
+                isAddingPost: true,
+                statusText: null
+            });
+
+        case ADD_POST_SUCCESS:
+            return Object.assign({}, state, {
+                isAddingPost: false,
+                addPost: action.payload.response,
+            });
+
+        case ADD_POST_FAILURE:
+            return Object.assign({}, state, {
+                isAddingPost: false,
                 statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
             });
 

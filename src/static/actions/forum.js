@@ -14,7 +14,11 @@ import {
 
     ADD_COMMENTS_SUCCESS,
     ADD_COMMENTS_FAILURE,
-    ADD_COMMENTS_REQUEST
+    ADD_COMMENTS_REQUEST,
+
+    ADD_POST_SUCCESS,
+    ADD_POST_FAILURE,
+    ADD_POST_REQUEST
 
 } from '../constants';
 import { authLoginUserFailure } from './auth';
@@ -72,6 +76,64 @@ export function listPosts(postId=null) {
                 } else {
                     // Most likely connection issues
                     dispatch(listPostsFailure('Connection Error', 'An error occurred while sending your data!'));
+                }
+                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+            });
+    };
+}
+
+// 发一个帖子
+export function addPostSuccess(response) {
+    return {
+        type: ADD_POST_SUCCESS,
+        payload: {
+            response
+        }
+    };
+}
+
+export function addPostFailure(error, message) {
+    return {
+        type: ADD_POST_FAILURE,
+        payload: {
+            status: error,
+            statusText: message
+        }
+    };
+}
+
+export function addPostRequest() {
+    return {
+        type: ADD_POST_REQUEST
+    };
+}
+
+export function addPost(token, data) {
+    return (dispatch, state) => {
+        dispatch(addPostRequest());
+        return fetch(`${SERVER_URL}/api/v1/handler/add_post/`, {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `token ${token}`
+            },
+            body: JSON.stringify(data),
+        })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then((response) => {
+                dispatch(addPostSuccess(response));
+                message.success("发帖成功。")
+                dispatch(push('/forum'));
+            })
+            .catch((error) => {
+                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                    // Server side error
+                    dispatch(addPostFailure(500, 'A server error occurred while sending your data!'));
+                } else {
+                    // Most likely connection issues
+                    dispatch(addPostFailure('Connection Error', 'An error occurred while sending your data!'));
                 }
                 return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
             });

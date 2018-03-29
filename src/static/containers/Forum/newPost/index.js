@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
+import Button from 'antd/lib/button';
+import message from 'antd/lib/message';
 import ReactQuill from 'react-quill';
-import * as actionCreators from '../../../actions/auth';
+import * as actionCreators from '../../../actions/forum';
 
 import './style.scss';
 class NewPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            postType: "2",
+            postType: "1",
             postTitle: "",
             editorHtml: ""
         }
@@ -18,7 +20,16 @@ class NewPost extends Component {
 
     handleChange = (e) => {
         console.log('e', e.target.value);
-    }    
+        this.setState({
+            postType: e.target.value
+        });
+    }   
+    
+    handleTitleChange = (e) => {
+        this.setState({
+            postTitle: e.target.value
+        });
+    }
     
     handleEditorChange = (html) => {
         this.setState({
@@ -28,6 +39,22 @@ class NewPost extends Component {
 
     back = () => {
         this.props.dispatch(push("/forum"));
+    }
+
+    addPost = () => {
+        console.log(this.state);
+        if (this.state.postTitle === '') {
+            message.error("等等，你漏了标题啊！")
+        } else {
+            let user = JSON.parse(Cookies.get('user'));
+            let data = {
+                "title": this.state.postTitle,
+                "author": user.id,
+                "content": this.state.editorHtml,
+                "post_type": Number(this.state.postType)
+            }
+            this.props.actions.addPost(Cookies.get('token'), data);
+        }
     }
 
     render() {
@@ -48,10 +75,10 @@ class NewPost extends Component {
                                             value={this.state.postType}
                                             onChange={this.handleChange}
                                         >
-                                            <option>选择主题分类</option>
-                                            <option value="1">选项1</option>
-                                            <option value="2">选项2</option>
-                                            <option value="3">选项3</option>
+                                            <option disabled>选择主题分类</option>
+                                            <option value="1">交流</option>
+                                            <option value="2">分享</option>
+                                            <option value="3">求助</option>
                                         </select>
                                     </div>
 
@@ -61,7 +88,8 @@ class NewPost extends Component {
                                             name="postTitle"
                                             className="post-title-input"
                                             value={this.state.postTitle}
-                                            onChange={this.handleChange}
+                                            placeholder="帖子标题"
+                                            onChange={this.handleTitleChange}
                                         />
                                     </div>
                                 </div>
@@ -77,8 +105,14 @@ class NewPost extends Component {
                                 </div>
 
                                 <div className="post-buttons">
-                                    <button type="button" className="btn save-draft" disabled>保存草稿</button>
-                                    <button type="button" className="btn publish">发布帖子</button>
+                                    {/* <button type="button" className="btn save-draft" disabled>保存草稿</button> */}
+                                    <Button 
+                                        onClick={this.addPost} 
+                                        type="primary"
+                                        disabled={this.state.editorHtml === "" || this.state.editorHtml === '<p><br></p>' ? true : false}
+                                    >
+                                        发布帖子
+                                    </Button>
                                 </div>
                             </div>
                         </div>

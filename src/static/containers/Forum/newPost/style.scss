@@ -46,17 +46,8 @@
     }
 
     .post-buttons {
-        margin-top: 59px;
-        text-align: right;
-        
-        button.btn.save-draft {
-            background: #ccc;
-            margin-right: 20px;
-        }
-
-        button.btn.publish {
-            color: #ffffff;
-            background: #329aeb;
-        }
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 57px;
     }
 }
