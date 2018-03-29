@@ -107,6 +107,13 @@ class User(AbstractBaseUser):
     date_updated = models.DateTimeField(_('date updated'), auto_now=True)
 
     activation_key = models.UUIDField(unique=True, default=uuid.uuid4)  # email
+    photo_url = models.CharField(
+        _('URL of image'),
+        max_length=1024,
+        default='https://files.jb51.net/file_images/game/201610/20161015204638166.jpg',
+        blank=True,
+        null=True
+    )
 
     phone_number = models.CharField( # phoneNumber
         _('phone number'),
