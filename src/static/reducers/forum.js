@@ -21,7 +21,7 @@ const initialState = {
     isGettingIntroduceBase: false
 };
 
-export default function introduceReducer(state = initialState, action) {
+export default function forumReducer(state = initialState, action) {
     switch (action.type) {
         // 查询录取结果
         case SEARCH_ADMISSION_REQUEST:
