@@ -69,3 +69,58 @@ export function listPosts(postId=null) {
             });
     };
 }
+
+
+// list所有评论
+export function listPostsSuccess(response) {
+    return {
+        type: LIST_POSTS_SUCCESS,
+        payload: {
+            response
+        }
+    };
+}
+
+export function listPostsFailure(error, message) {
+    return {
+        type: LIST_POSTS_FAILURE,
+        payload: {
+            status: error,
+            statusText: message
+        }
+    };
+}
+
+export function listPostsRequest() {
+    return {
+        type: LIST_POSTS_REQUEST
+    };
+}
+
+export function listComments(postId) {
+    return (dispatch, state) => {
+        dispatch(listPostsRequest());
+        return fetch(`${SERVER_URL}/api/v1/handler/comments/?post_id=${postId}`, {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then((response) => {
+                dispatch(listPostsSuccess(response));
+            })
+            .catch((error) => {
+                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                    // Server side error
+                    dispatch(listPostsFailure(500, 'A server error occurred while sending your data!'));
+                } else {
+                    // Most likely connection issues
+                    dispatch(listPostsFailure('Connection Error', 'An error occurred while sending your data!'));
+                }
+                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+            });
+    };
+}

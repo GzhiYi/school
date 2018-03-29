@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import *
 from accounts.serializers import UserSerializer
+# from forum.serializers import PostsSerializer
 
 
 class PostsSerializer(serializers.ModelSerializer):
@@ -20,7 +21,14 @@ class PostsAddDataSerializer(serializers.ModelSerializer):
 
 
 class CommentsSerializer(serializers.ModelSerializer):
-
+    # post = PostsSerializer(read_only=True)
     class Meta:
         model = Comments
-        fields = ('id', 'post', 'thumbs_up', 'author', 'date_created')
+        fields = ('id', 'post', 'thumbs_up', 'author', 'date_created', 'content')
+
+
+class AddCommentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comments
+
+        fields = ('id', 'post', 'thumbs_up', 'author', 'date_created', 'content')

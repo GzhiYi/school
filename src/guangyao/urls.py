@@ -10,7 +10,8 @@ router = DefaultRouter()
 router.register(r'user', HandlerUserViewSet)
 router.register(r'posts', GetPostsViewSet)
 router.register(r'add', AddPostsDataViewSet)
-
+router.register(r'comments', GetCommentsView)
+router.register(r'add_comments', AddCommentsViewSet)
 
 urlpatterns = [
     url(r'^api/v1/accounts/', include('accounts.urls', namespace='accounts')),

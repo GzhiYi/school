@@ -46,7 +46,8 @@ class PostDetailView extends Component {
         let token = Cookies.get('token');
         let post = this.props.posts;
         let firstFloor = '';
-        if (post) {
+        console.log("?????", post);
+        if (post && !_.has(post, 'results')) {
             firstFloor = 
                 <div id="first-floor" className="post-floor first-floor">
                     <div className="avatar">

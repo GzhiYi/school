@@ -65,7 +65,6 @@ class GetPostsViewSet(GetPostsMixin):
         comments = list(posts)
         for item in comments:
             comment_data = Comments.objects.filter(post_id=item.id)
-            print("&&&&&&", comment_data)
             item.comment = len(comment_data)  #  呵呵。转成list再判断长度，好像不用
         page = self.paginate_queryset(comments)
         serializer = self.get_serializer(page, many=True)
@@ -75,3 +74,22 @@ class GetPostsViewSet(GetPostsMixin):
 class AddPostsDataViewSet(viewsets.ModelViewSet):
     queryset = Posts.objects.all()
     serializer_class = PostsAddDataSerializer
+
+
+class GetCommentsView(GetPostsMixin):
+    queryset = Comments.objects.all()
+    serializer_class = CommentsSerializer
+
+    def list(self, request, *args, **kwargs):
+        comments = self.queryset.all()
+        comments = list(comments)
+        comments = [item for item in comments if str(item.post.id) == request.query_params.get('id')]  # 遍历找出该帖子的id
+        page = self.paginate_queryset(comments)
+        serializer = self.get_serializer(page, many=True)
+        return self.get_paginated_response(serializer.data)
+            
+
+
+class AddCommentsViewSet(GetPostsMixin):
+    queryset = Comments.objects.all()
+    serializer_class = AddCommentsSerializer

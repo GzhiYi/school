@@ -74,6 +74,13 @@ class Comments(models.Model):
         help_text=_('e.g posts thumbs_up')
     )
 
+    content = models.TextField(
+        blank=False,
+        null=False,
+        default='',
+        help_text=_('e.g comment content')
+    )
+
     author = models.ForeignKey(User)
 
     date_created = models.DateTimeField(
