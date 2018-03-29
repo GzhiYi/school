@@ -22,6 +22,7 @@ class PostDetailView extends Component {
         window.scrollTo(0, 0);
         let postId = location.pathname.split('/')[3];
         this.props.actions.listPosts(postId);
+        this.props.actions.listComments(postId);
     }
     
     handleEditorChange = (html) => {
@@ -45,8 +46,10 @@ class PostDetailView extends Component {
     render() {
         let token = Cookies.get('token');
         let post = this.props.posts;
+        let comments = this.props.comments;
         let firstFloor = '';
-        console.log("?????", post);
+        let renderComments = '';
+        // console.log("?????", post);
         if (post && !_.has(post, 'results')) {
             firstFloor = 
                 <div id="first-floor" className="post-floor first-floor">
@@ -60,7 +63,7 @@ class PostDetailView extends Component {
                         <div className="post-create-time">{moment(post.date_created).format('YYYY-MM-DD')}</div>
                     </div>
 
-                    <div className="content"dangerouslySetInnerHTML={{ __html: post.content}}>
+                    <div className="content" dangerouslySetInnerHTML={{ __html: post.content}}>
                         
                     </div>
 
@@ -70,6 +73,34 @@ class PostDetailView extends Component {
                         <i className="fa fa-frown-o" aria-hidden="true"></i> {post.step_on}
                     </div>
                 </div>
+        }
+        if (comments) {
+            renderComments = _.map(comments.results, (comment, index) => {
+                return (
+                    <div className="post-floor" key={index}>
+                        <div className="avatar">
+                            <img src={comment.author.photo_url} alt="avatar" />
+                        </div>
+                        <div className="name-time">
+                            <div className="user-name">
+                                <span className="author-name">{comment.author.first_name}</span>
+                            </div>
+                            <div className="post-create-time">{moment(comment.date_created).format('YYYY-MM-DDD')}</div>
+                        </div>
+
+                        <div className="content" dangerouslySetInnerHTML={{ __html: comment.content }}>
+                            
+                        </div>
+
+                        <a className="reply">
+                            <i className="fa fa-reply" aria-hidden="true"></i> 回复
+                                        </a>
+                        <div className="footer">
+                            <i className="fa fa-heart" aria-hidden="true"></i> {comment.thumbs_up}
+                        </div>
+                    </div>
+                )
+            })
         }
         return (
             <div>
@@ -85,49 +116,7 @@ class PostDetailView extends Component {
                                 
                                 <div className="col-lg-8">
                                     {firstFloor}
-                                    <div className="post-floor">
-                                        <div className="avatar">
-                                            <img src={Img} alt="avatar" />
-                                        </div>
-                                        <div className="name-time">
-                                            <div className="user-name">
-                                                <span className="author-name">userName</span>
-                                            </div>
-                                            <div className="post-create-time">2018.1.5</div>
-                                        </div>
-
-                                        <div className="content">
-                                           我是2楼楼
-                                        </div>
-
-                                        <a className="reply">
-                                            <i className="fa fa-reply" aria-hidden="true"></i> 回复
-                                        </a>
-                                        <div className="footer">
-                                            <i className="fa fa-heart" aria-hidden="true"></i> 98
-                                        </div>
-                                    </div>
-                                    <div className="post-floor">
-                                        <div className="avatar">
-                                            <img src={Img} alt="avatar" />
-                                        </div>
-                                        <div className="name-time">
-                                            <div className="user-name">
-                                                <span className="author-name">userName</span>
-                                            </div>
-                                            <div className="post-create-time">2018.1.5</div>
-                                        </div>
-
-                                        <div className="content">
-                                            地板  
-                                        </div>
-                                        <a className="reply">
-                                            <i className="fa fa-reply" aria-hidden="true"></i> 回复
-                                        </a>
-                                        <div className="footer">
-                                            <i className="fa fa-heart" aria-hidden="true"></i> 44
-                                        </div>
-                                    </div>
+                                    {renderComments}
                                 </div>
 
                                 <div className="col-lg-offset-1 col-lg-2">
@@ -224,7 +213,8 @@ const mapStateToProps = (state) => {
         isAuthenticated: state.auth.isAuthenticated,
         isAuthenticating: state.auth.isAuthenticating,
         statusText: state.auth.statusText,
-        posts: state.forum.posts
+        posts: state.forum.posts,
+        comments: state.forum.comments,
     };
 };
 

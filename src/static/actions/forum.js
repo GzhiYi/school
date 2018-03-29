@@ -6,7 +6,11 @@ import { checkHttpStatus, parseJSON } from '../utils';
 import {
     LIST_POSTS_SUCCESS,
     LIST_POSTS_FAILURE,
-    LIST_POSTS_REQUEST
+    LIST_POSTS_REQUEST,
+
+    LIST_COMMENTS_SUCCESS,
+    LIST_COMMENTS_FAILURE,
+    LIST_COMMENTS_REQUEST
 
 } from '../constants';
 import { authLoginUserFailure } from './auth';
@@ -72,18 +76,18 @@ export function listPosts(postId=null) {
 
 
 // list所有评论
-export function listPostsSuccess(response) {
+export function listCommentsSuccess(response) {
     return {
-        type: LIST_POSTS_SUCCESS,
+        type: LIST_COMMENTS_SUCCESS,
         payload: {
             response
         }
     };
 }
 
-export function listPostsFailure(error, message) {
+export function listCommentsFailure(error, message) {
     return {
-        type: LIST_POSTS_FAILURE,
+        type: LIST_COMMENTS_FAILURE,
         payload: {
             status: error,
             statusText: message
@@ -91,16 +95,16 @@ export function listPostsFailure(error, message) {
     };
 }
 
-export function listPostsRequest() {
+export function listCommentsRequest() {
     return {
-        type: LIST_POSTS_REQUEST
+        type: LIST_COMMENTS_REQUEST
     };
 }
 
 export function listComments(postId) {
     return (dispatch, state) => {
-        dispatch(listPostsRequest());
-        return fetch(`${SERVER_URL}/api/v1/handler/comments/?post_id=${postId}`, {
+        dispatch(listCommentsRequest());
+        return fetch(`${SERVER_URL}/api/v1/handler/comments/?id=${postId}`, {
             method: 'get',
             headers: {
                 'Accept': 'application/json',
@@ -110,15 +114,15 @@ export function listComments(postId) {
             .then(checkHttpStatus)
             .then(parseJSON)
             .then((response) => {
-                dispatch(listPostsSuccess(response));
+                dispatch(listCommentsSuccess(response));
             })
             .catch((error) => {
                 if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
                     // Server side error
-                    dispatch(listPostsFailure(500, 'A server error occurred while sending your data!'));
+                    dispatch(listCommentsFailure(500, 'A server error occurred while sending your data!'));
                 } else {
                     // Most likely connection issues
-                    dispatch(listPostsFailure('Connection Error', 'An error occurred while sending your data!'));
+                    dispatch(listCommentsFailure('Connection Error', 'An error occurred while sending your data!'));
                 }
                 return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
             });

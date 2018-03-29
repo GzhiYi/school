@@ -22,6 +22,7 @@ class PostsAddDataSerializer(serializers.ModelSerializer):
 
 class CommentsSerializer(serializers.ModelSerializer):
     # post = PostsSerializer(read_only=True)
+    author = UserSerializer(read_only=True)
     class Meta:
         model = Comments
         fields = ('id', 'post', 'thumbs_up', 'author', 'date_created', 'content')
