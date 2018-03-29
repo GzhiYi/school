@@ -49,7 +49,6 @@ class PostDetailView extends Component {
         let comments = this.props.comments;
         let firstFloor = '';
         let renderComments = '';
-        // console.log("?????", post);
         if (post && !_.has(post, 'results')) {
             firstFloor = 
                 <div id="first-floor" className="post-floor first-floor">
@@ -85,7 +84,7 @@ class PostDetailView extends Component {
                             <div className="user-name">
                                 <span className="author-name">{comment.author.first_name}</span>
                             </div>
-                            <div className="post-create-time">{moment(comment.date_created).format('YYYY-MM-DDD')}</div>
+                            <div className="post-create-time">{moment(comment.date_created).format('YYYY-MM-DD')}</div>
                         </div>
 
                         <div className="content" dangerouslySetInnerHTML={{ __html: comment.content }}>
