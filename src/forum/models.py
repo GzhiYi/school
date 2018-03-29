@@ -30,7 +30,9 @@ class Posts(models.Model):
 
     last_comment = models.DateTimeField(
         _('last_comment'),
-        default=None
+        null=False,
+        blank=False,
+        auto_now=True
     )
 
     date_created = models.DateTimeField(
@@ -54,7 +56,7 @@ class Posts(models.Model):
 
     content = models.TextField(
         blank=False,
-        null=True,
+        null=False,
         default='',
         help_text=_('e.g post content')
     )

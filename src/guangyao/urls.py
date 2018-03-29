@@ -9,6 +9,7 @@ from forum.views import *
 router = DefaultRouter()
 router.register(r'user', HandlerUserViewSet)
 router.register(r'posts', GetPostsViewSet)
+router.register(r'add', AddPostsDataViewSet)
 
 
 urlpatterns = [

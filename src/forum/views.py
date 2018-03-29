@@ -70,3 +70,8 @@ class GetPostsViewSet(GetPostsMixin):
         page = self.paginate_queryset(comments)
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)
+
+
+class AddPostsDataViewSet(viewsets.ModelViewSet):
+    queryset = Posts.objects.all()
+    serializer_class = PostsAddDataSerializer

@@ -164,7 +164,6 @@ class HandlerUserViewSet(DefaultsMixin):
     def put(self, request, *args, **kwargs):
         request_data = request.data['id']
         method = request.data['method']
-        print("啦啦啦", method)
         if method == 0:
             for item in request_data:
                 put_target = User.objects.get(id=item)

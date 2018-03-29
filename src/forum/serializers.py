@@ -11,6 +11,13 @@ class PostsSerializer(serializers.ModelSerializer):
         fields = ('id', 'comment', 'last_comment', 'title', 'author', 'visited',
                   'date_created', 'thumbs_up', 'step_on', 'content', 'is_top')
 
+class PostsAddDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Posts
+        
+        fields = ('id', 'title', 'author', 'visited',
+                    'date_created', 'thumbs_up', 'step_on', 'content', 'is_top')
+
 
 class CommentsSerializer(serializers.ModelSerializer):
 
