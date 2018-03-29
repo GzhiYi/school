@@ -58,8 +58,8 @@ export function listPostsRequest() {
     };
 }
 
-export function listPosts(postId=null) {
-    let api = `${SERVER_URL}/api/v1/handler/posts/`;
+export function listPosts(postId = null, page = 1, callback) {
+    let api = `${SERVER_URL}/api/v1/handler/posts/?page=${page}`;
     if (postId !== null) {
         api = `${SERVER_URL}/api/v1/handler/posts/${postId}/`
     }
@@ -76,14 +76,19 @@ export function listPosts(postId=null) {
             .then(parseJSON)
             .then((response) => {
                 dispatch(listPostsSuccess(response));
+                callback(response)
             })
             .catch((error) => {
                 if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
                     // Server side error
                     dispatch(listPostsFailure(500, 'A server error occurred while sending your data!'));
+                } else if (error && typeof error.response !== 'undefined' && error.response.status === 404) {
+                    // Most likely connection issues
+                    dispatch(listPostsFailure('Connection Error', error));
+                    message.warning("没有更多啦！")
                 } else {
                     // Most likely connection issues
-                    dispatch(listPostsFailure('Connection Error', 'An error occurred while sending your data!'));
+                    dispatch(listPostsFailure('Connection Error', error));
                 }
                 return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
             });
