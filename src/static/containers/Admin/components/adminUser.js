@@ -69,7 +69,7 @@ class AdminUserView extends Component {
             dataIndex: 'lastLoginTime',
             sorter: (a, b) => new Date(a.lastLoginTime) - new Date(b.lastLoginTime),
         }, {
-            title: '已删除？',
+            title: '状态',
             dataIndex: 'isDelete',
             sorter: (a, b) => a.isDelete.localeCompare(b.isDelete, 'zh-Hans-CN', { sensitivity: 'accent' }),
             render: (text) => <a className={text === "已删除" ? "deleted" : 'normal'}>{text}</a>

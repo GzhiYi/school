@@ -142,7 +142,7 @@ class App extends React.Component {
                                         <span className="icon-bar" />
                                     </button>
                                     <a className="navbar-brand">
-                                        <Popover placement="bottomLeft" content={content} title={this.props.isAuthenticated ? "你好,gzhiyi!" : "游客，你好！"} trigger="hover">
+                                        <Popover placement="bottomLeft" content={content} title={Cookies.get('token') ? `你好,${user.first_name}!` : "游客，你好！"} trigger="hover">
                                             <Avatar size="large" icon="user" />
                                         </Popover>
                                     </a>

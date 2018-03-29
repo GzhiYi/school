@@ -161,7 +161,8 @@ class HandlerUserViewSet(DefaultsMixin):
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)
 
-
-    # def post(self, request, *args, **kwargs):
-    #     print("????????")
-    #     return self.create(request, *args, **kwargs)
+    def put(self, request, *args, **kwargs):
+        put_target = User.objects.get(id=request.data['id'])
+        put_target.is_active = True 
+        put_target.save()
+        return Response("success", status=status.HTTP_200_OK)
