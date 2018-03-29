@@ -22,7 +22,11 @@ import {
 
     LIST_TOP_POSTS_SUCCESS,
     LIST_TOP_POSTS_FAILURE,
-    LIST_TOP_POSTS_REQUEST
+    LIST_TOP_POSTS_REQUEST,
+
+    LIST_RECOMMENDED_POSTS_SUCCESS,
+    LIST_RECOMMENDED_POSTS_FAILURE,
+    LIST_RECOMMENDED_POSTS_REQUEST
 
 } from '../constants';
 import { authLoginUserFailure } from './auth';
@@ -139,6 +143,61 @@ export function listTopPosts(postId = null) {
             });
     };
 }
+// list推荐帖子
+export function listRecommendedPostsSuccess(response) {
+    return {
+        type: LIST_RECOMMENDED_POSTS_SUCCESS,
+        payload: {
+            response
+        }
+    };
+}
+
+export function listRecommendedPostsFailure(error, message) {
+    return {
+        type: LIST_RECOMMENDED_POSTS_FAILURE,
+        payload: {
+            status: error,
+            statusText: message
+        }
+    };
+}
+
+export function listRecommendedPostsRequest() {
+    return {
+        type: LIST_RECOMMENDED_POSTS_REQUEST
+    };
+}
+
+export function listRecommendedPosts(postId = null) {
+    return (dispatch, state) => {
+        dispatch(listRecommendedPostsRequest());
+        return fetch(`${SERVER_URL}/api/v1/handler/posts_recommended/`, {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then((response) => {
+                dispatch(listRecommendedPostsSuccess(response));
+            })
+            .catch((error) => {
+                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                    // Server side error
+                    dispatch(listRecommendedPostsFailure(500, 'A server error occurred while sending your data!'));
+                } else {
+                    // Most likely connection issues
+                    dispatch(listRecommendedPostsFailure('Connection Error', 'An error occurred while sending your data!'));
+                }
+                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+            });
+    };
+}
+
+
 // 发一个帖子
 export function addPostSuccess(response) {
     return {

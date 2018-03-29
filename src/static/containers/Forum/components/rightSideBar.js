@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
+import * as actionCreators from '../../../actions/forum';
 import { connect } from 'react-redux';
 import Input from 'antd/lib/input';
 import Carousel from 'antd/lib/carousel';
@@ -12,6 +13,11 @@ class RightSideBar extends Component {
         super(props);
     }
 
+    componentDidMount() {
+        this.props.actions.listRecommendedPosts();
+    }
+    
+
     onChange = (a, b, c) => {
         // console.log(a, b, c);
     }
@@ -22,6 +28,18 @@ class RightSideBar extends Component {
     }
 
     render() {
+        let recommended = '';
+        let recommendedData = this.props.recommendedPosts;
+        if (recommendedData) {
+            recommended = _.map(recommendedData.results, (post, index) => {
+                return (
+                    <li key={index}>
+                        <span className="recommend1">{index + 1}</span>
+                        <a>{post.title}</a>
+                    </li>
+                )
+            })
+        }
         return (
             <div>
                 <div className="search">
@@ -57,22 +75,7 @@ class RightSideBar extends Component {
                         <div className="title">推荐帖子</div>
                         <div className="recommend-posts-list">
                             <ul>
-                                <li>
-                                    <span className="recommend1">1</span>
-                                    <a>标题1</a>
-                                </li>
-                                <li>
-                                    <span className="recommend2">2</span>
-                                    <a>标题2</a>
-                                </li>
-                                <li>
-                                    <span className="recommend3">3</span>
-                                    <a>标题3</a>
-                                </li>
-                                <li>
-                                    <span className="recommend4">4</span>
-                                    <a>标题4</a>
-                                </li>
+                                {recommended}
                             </ul>
                         </div>
                     </div>
@@ -82,11 +85,21 @@ class RightSideBar extends Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
-        location: state.routing.location
+        isAuthenticating: state.auth.isAuthenticating,
+        statusText: state.auth.statusText,
+        recommendedPosts: state.forum.recommendedPosts
     };
 };
 
-export default connect(mapStateToProps)(RightSideBar);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch,
+        actions: bindActionCreators(actionCreators, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RightSideBar);
+export { RightSideBar };

@@ -85,6 +85,22 @@ class GetTopPostsViewSet(GetPostsMixin):
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)
 
+
+class GetRecommendedPostsViewSet(GetPostsMixin):
+    queryset = Posts.objects.filter(is_recommended=True)
+    serializer_class = PostsSerializer
+
+    def list(self, request, *args, **kwargs):
+        posts = self.queryset.all()
+        print(posts)
+        comments = list(posts)
+        for item in comments:
+            comment_data = Comments.objects.filter(post_id=item.id)
+            item.comment = len(comment_data)  # 呵呵。转成list再判断长度，好像不用
+        page = self.paginate_queryset(comments)
+        serializer = self.get_serializer(page, many=True)
+        return self.get_paginated_response(serializer.data)
+
 class AddPostsDataViewSet(viewsets.ModelViewSet):
     queryset = Posts.objects.all()
     serializer_class = PostsAddDataSerializer

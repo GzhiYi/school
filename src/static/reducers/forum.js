@@ -7,6 +7,10 @@ import {
     LIST_TOP_POSTS_FAILURE,
     LIST_TOP_POSTS_REQUEST,
 
+    LIST_RECOMMENDED_POSTS_SUCCESS,
+    LIST_RECOMMENDED_POSTS_FAILURE,
+    LIST_RECOMMENDED_POSTS_REQUEST,
+
     LIST_COMMENTS_SUCCESS,
     LIST_COMMENTS_FAILURE,
     LIST_COMMENTS_REQUEST,
@@ -80,6 +84,25 @@ export default function forumReducer(state = initialState, action) {
         case LIST_COMMENTS_FAILURE:
             return Object.assign({}, state, {
                 isFetchingComments: false,
+                statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
+            });
+
+        // 列出推荐帖子
+        case LIST_RECOMMENDED_POSTS_REQUEST:
+            return Object.assign({}, state, {
+                isFeching: true,
+                statusText: null
+            });
+
+        case LIST_RECOMMENDED_POSTS_SUCCESS:
+            return Object.assign({}, state, {
+                isFeching: false,
+                recommendedPosts: action.payload.response,
+            });
+
+        case LIST_RECOMMENDED_POSTS_FAILURE:
+            return Object.assign({}, state, {
+                isFeching: false,
                 statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
             });
 
