@@ -3,7 +3,6 @@ from django.utils import timezone
 from accounts.models import User
 from django.utils.translation import ugettext_lazy as _
 
-
 class Posts(models.Model):
     title = models.CharField(
         max_length=50,
@@ -22,9 +21,12 @@ class Posts(models.Model):
         help_text=_('e.g posts visited count')
     )
 
-    # comments = models.ForeignKey('Comments')
-    #
-    # last_comment = models.ForeignKey('Comments')
+    comment = models.IntegerField(
+        blank=False,
+        null=False,
+        default=0,
+        help_text=_('e.g posts comments_count')
+    )
 
     date_created = models.DateTimeField(
         _('date created'),

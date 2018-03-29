@@ -62,12 +62,10 @@ class GetPostsViewSet(GetPostsMixin):
 
     def list(self, request, *args, **kwargs):
         posts = self.queryset.all()
-        for post in posts:
-            user = User.objects.filter(id=post.author_id)
-            print(user)
-            # post['author_detail'] = user
-            
-        # print(posts)
-        page = self.paginate_queryset(posts)
+        comments = list(posts)
+        for item in comments:
+            comment_data = Comments.objects.filter(post_id=item.id)
+            item.comment = len(comment_data)  #  呵呵。转成list再判断长度，好像不用
+        page = self.paginate_queryset(comments)
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)
