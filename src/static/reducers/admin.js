@@ -1,7 +1,12 @@
 import {
     GET_USERS_SUCCESS,
     GET_USERS_FAILURE,
-    GET_USERS_REQUEST
+    GET_USERS_REQUEST,
+
+    DEL_USERS_SUCCESS,
+    DEL_USERS_FAILURE,
+    DEL_USERS_REQUEST,
+
 
 } from '../constants';
 
@@ -27,6 +32,25 @@ export default function adminReducer(state = initialState, action) {
         case GET_USERS_FAILURE:
             return Object.assign({}, state, {
                 isFetchingUserData: false,
+                statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
+            });
+
+        // 删除用户数据
+        case GET_USERS_REQUEST:
+            return Object.assign({}, state, {
+                isDeleteUserData: true,
+                statusText: null
+            });
+
+        case GET_USERS_SUCCESS:
+            return Object.assign({}, state, {
+                isDeleteUserData: false,
+                delResponse: action.payload.response,
+            });
+
+        case GET_USERS_FAILURE:
+            return Object.assign({}, state, {
+                isDeleteUserData: false,
                 statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
             });
 

@@ -162,7 +162,17 @@ class HandlerUserViewSet(DefaultsMixin):
         return self.get_paginated_response(serializer.data)
 
     def put(self, request, *args, **kwargs):
-        put_target = User.objects.get(id=request.data['id'])
-        put_target.is_active = True 
-        put_target.save()
+        request_data = request.data['id']
+        method = request.data['method']
+        print("啦啦啦", method)
+        if method == 0:
+            for item in request_data:
+                put_target = User.objects.get(id=item)
+                put_target.is_active = False
+                put_target.save()
+        else:
+            for item in request_data:
+                put_target = User.objects.get(id=item)
+                put_target.is_active = True
+                put_target.save()
         return Response("success", status=status.HTTP_200_OK)
