@@ -28,6 +28,11 @@ class Posts(models.Model):
         help_text=_('e.g posts comments_count')
     )
 
+    last_comment = models.DateTimeField(
+        _('last_comment'),
+        default=None
+    )
+
     date_created = models.DateTimeField(
         _('date created'),
         default=timezone.now

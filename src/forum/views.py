@@ -65,6 +65,7 @@ class GetPostsViewSet(GetPostsMixin):
         comments = list(posts)
         for item in comments:
             comment_data = Comments.objects.filter(post_id=item.id)
+            print("&&&&&&", comment_data)
             item.comment = len(comment_data)  #  呵呵。转成list再判断长度，好像不用
         page = self.paginate_queryset(comments)
         serializer = self.get_serializer(page, many=True)
