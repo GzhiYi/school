@@ -91,6 +91,12 @@
         margin-bottom: 20px;
     }
 
+    .button-area {
+        display: flex;
+        justify-content: flex-end;
+        margin: 20px 0;
+    }
+
     .load-more:hover {
         color: #337ab7;
     }

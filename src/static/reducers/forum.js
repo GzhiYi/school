@@ -5,7 +5,11 @@ import {
 
     LIST_COMMENTS_SUCCESS,
     LIST_COMMENTS_FAILURE,
-    LIST_COMMENTS_REQUEST
+    LIST_COMMENTS_REQUEST,
+
+    ADD_COMMENTS_SUCCESS,
+    ADD_COMMENTS_FAILURE,
+    ADD_COMMENTS_REQUEST
 
 } from '../constants';
 
@@ -50,6 +54,25 @@ export default function forumReducer(state = initialState, action) {
         case LIST_COMMENTS_FAILURE:
             return Object.assign({}, state, {
                 isFetchingComments: false,
+                statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
+            });
+
+        // 新建评论
+        case ADD_COMMENTS_REQUEST:
+            return Object.assign({}, state, {
+                isAddingComments: true,
+                statusText: null
+            });
+
+        case ADD_COMMENTS_SUCCESS:
+            return Object.assign({}, state, {
+                isAddingComments: false,
+                addComments: action.payload.response,
+            });
+
+        case ADD_COMMENTS_FAILURE:
+            return Object.assign({}, state, {
+                isAddingComments: false,
                 statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
             });
         default:

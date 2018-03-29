@@ -10,7 +10,11 @@ import {
 
     LIST_COMMENTS_SUCCESS,
     LIST_COMMENTS_FAILURE,
-    LIST_COMMENTS_REQUEST
+    LIST_COMMENTS_REQUEST,
+
+    ADD_COMMENTS_SUCCESS,
+    ADD_COMMENTS_FAILURE,
+    ADD_COMMENTS_REQUEST
 
 } from '../constants';
 import { authLoginUserFailure } from './auth';
@@ -128,3 +132,60 @@ export function listComments(postId) {
             });
     };
 }
+
+// 新建评论
+export function addCommentsSuccess(response) {
+    return {
+        type: ADD_COMMENTS_SUCCESS,
+        payload: {
+            response
+        }
+    };
+}
+
+export function addCommentsFailure(error, message) {
+    return {
+        type: ADD_COMMENTS_FAILURE,
+        payload: {
+            status: error,
+            statusText: message
+        }
+    };
+}
+
+export function addCommentsRequest() {
+    return {
+        type: ADD_COMMENTS_REQUEST
+    };
+}
+
+export function addComments(token, data, postId) {
+    return (dispatch, state) => {
+        dispatch(listCommentsRequest());
+        return fetch(`${SERVER_URL}/api/v1/handler/add_comments/`, {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then((response) => {
+                dispatch(addCommentsSuccess(response));
+                dispatch(listComments(postId))
+            })
+            .catch((error) => {
+                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                    // Server side error
+                    dispatch(addCommentsFailure(500, 'A server error occurred while sending your data!'));
+                } else {
+                    // Most likely connection issues
+                    dispatch(addCommentsFailure('Connection Error', 'An error occurred while sending your data!'));
+                }
+                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+            });
+    };
+}
+

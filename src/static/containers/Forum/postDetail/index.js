@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../../../actions/forum';
 import ReactQuill from 'react-quill';
 import Anchor from 'antd/lib/anchor';
+import Button from 'antd/lib/button';
 import './style.scss';
 import Img from "../../../images/github.png";
 import moment from 'moment';
@@ -43,12 +44,27 @@ class PostDetailView extends Component {
         this.props.dispatch(push('/register'));
     }
 
+    addComments = () => {
+        let user = JSON.parse(Cookies.get('user'));
+        console.log("what in user", user);
+        let data = {
+            'post': location.pathname.split('/')[3],
+            'author': JSON.parse(Cookies.get('user')).id,
+            'content': this.state.editorHtml
+        }
+        this.props.actions.addComments(Cookies.get('token'), data, location.pathname.split('/')[3]);
+        this.setState({
+            editorHtml: '',
+        });
+    }
+
     render() {
         let token = Cookies.get('token');
         let post = this.props.posts;
         let comments = this.props.comments;
         let firstFloor = '';
         let renderComments = '';
+        console.log(this.state.editorHtml);
         if (post && !_.has(post, 'results')) {
             firstFloor = 
                 <div id="first-floor" className="post-floor first-floor">
@@ -150,7 +166,11 @@ class PostDetailView extends Component {
                                                     </p>
                                                 </div>
                                         }
+                                        <div className="button-area">
+                                            <Button type="primary" onClick={this.addComments} disabled={this.state.editorHtml === "" || this.state.editorHtml === '<p><br></p>' ? true : false}>评论</Button>
+                                        </div>
                                     </div>
+                                    
                                     <div className="col-lg-3">
                                         <div className="replyer-avatar">
                                             <img 
