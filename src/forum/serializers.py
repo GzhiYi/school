@@ -10,14 +10,14 @@ class PostsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Posts
         fields = ('id', 'comment', 'last_comment', 'title', 'author', 'visited',
-                  'date_created', 'thumbs_up', 'step_on', 'content', 'is_top')
+                  'date_created', 'thumbs_up', 'step_on', 'content', 'is_top', 'is_recommended', 'post_type')
 
 class PostsAddDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = Posts
         
         fields = ('id', 'title', 'author', 'visited',
-                    'date_created', 'thumbs_up', 'step_on', 'content', 'is_top')
+                  'date_created', 'thumbs_up', 'step_on', 'content', 'is_top', 'post_type')
 
 
 class CommentsSerializer(serializers.ModelSerializer):

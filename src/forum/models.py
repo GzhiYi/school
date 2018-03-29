@@ -63,6 +63,15 @@ class Posts(models.Model):
 
     is_top = models.BooleanField(default=False)
 
+    is_recommended = models.BooleanField(default=False)
+
+    post_type = models.IntegerField(
+        blank=False,
+        null=False,
+        default=0,
+        help_text=_('e.g posts type')
+    )
+
 
 class Comments(models.Model):
     post = models.ForeignKey(Posts)
