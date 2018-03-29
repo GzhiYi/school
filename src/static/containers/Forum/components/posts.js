@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../../../actions/forum';
 import Jpg from '../../../images/github.png';
 import _ from 'lodash';
+import moment from 'moment';
 
 import './style.scss';
 class Posts extends Component {
@@ -24,38 +25,38 @@ class Posts extends Component {
                 return (
                     <div className="list-item" key={index}>
                         <a href="#" className="list-item-avatar">
-                            <img src={Jpg} alt="头像" />
+                            <img src={item.author.photo_url} alt="头像" />
                         </a>
                         <div className="list-content">
                             <a
                              className="list-title"
-                             onClick={() => this.showPostDetail(index)}
+                             onClick={() => this.showPostDetail(item.id)}
                             >
-                                标题标题
+                                {item.title}
                             </a>
                         </div>
                         <div className="list-footer">
                             <div className="author">
-                                <a href="#">author</a>
+                                <a href="#">{item.author.first_name}</a>
                             </div>
                             <div className="read-count">
                                 <i className="fa fa-eye" aria-hidden="true"></i>
-                                <span>20</span>
+                                <span>{item.visited}</span>
                             </div>
                             <div className="comment-count">
                                 <i className="fa fa-comment" aria-hidden="true"></i>
-                                <span>2022</span>
+                                <span>{item.comment}</span>
                             </div>
                             <div className="last-comment">
                                 <div className="last-commenter">
                                     gzhiyi
                                 </div>
                                 <div className="last-comment-time">
-                                    2017-12-31 20:59
+                                    {moment(item.last_comment).format("YYYY-MM-DD")}
                                 </div>
                             </div>
                             <div className="post-time">
-                                2017-12-31
+                                {moment(item.date_created).format("YYYY-MM-DD")}
                             </div>
                         </div>
                     </div>
@@ -69,10 +70,21 @@ class Posts extends Component {
         let renderTopPosts = null;
         let test = [];
         let testTop = [];
-        testTop.length = 5;
-        test.length = 30;
-        renderTopPosts = this.renderPosts(testTop);
-        renderPosts = this.renderPosts(test);
+        // testTop.length = 5;
+        // test.length = 30;
+        if (this.props.posts) {
+            let postsData = this.props.posts;
+            _.map(postsData.results, (post, index) => {
+                if (post.is_top) {
+                    testTop.push(post);
+                } else {
+                    test.push(post);
+                }
+            });
+            renderTopPosts = this.renderPosts(testTop);
+            renderPosts = this.renderPosts(test);
+        }
+        
         console.log('render');
         return (
             <div className="posts">
@@ -98,7 +110,8 @@ const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
         isAuthenticating: state.auth.isAuthenticating,
-        statusText: state.auth.statusText
+        statusText: state.auth.statusText,
+        posts: state.forum.posts,
     };
 };
 
