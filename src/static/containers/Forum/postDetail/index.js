@@ -6,6 +6,7 @@ import * as actionCreators from '../../../actions/forum';
 import ReactQuill from 'react-quill';
 import Anchor from 'antd/lib/anchor';
 import Button from 'antd/lib/button';
+import Spin from 'antd/lib/spin';
 import './style.scss';
 import Img from "../../../images/github.png";
 import moment from 'moment';
@@ -60,11 +61,11 @@ class PostDetailView extends Component {
 
     render() {
         let token = Cookies.get('token');
+        let user = JSON.parse(Cookies.get('user'));
         let post = this.props.posts;
         let comments = this.props.comments;
         let firstFloor = '';
         let renderComments = '';
-        console.log(this.state.editorHtml);
         if (post && !_.has(post, 'results')) {
             firstFloor = 
                 <div id="first-floor" className="post-floor first-floor">
@@ -125,7 +126,7 @@ class PostDetailView extends Component {
                             <div>
                                 <div className="title">
                                     <span className="post-back" onClick={this.back}>返回</span> / <span className="post-detail-title">
-                                    这是一个毕业设计
+                                        {post && !_.has(post, 'results') ? post.title : ""}
                                     </span> 
                                 </div>
                                 
@@ -152,13 +153,15 @@ class PostDetailView extends Component {
                                         {
                                             token 
                                             ?
-                                                <ReactQuill
-                                                    onChange={this.handleEditorChange}
-                                                    value={this.state.editorHtml}
-                                                    modules={PostDetailView.modules}
-                                                    formats={PostDetailView.formats}
-                                                // bounds={'.app'}
-                                                />
+                                                <Spin spinning={this.props.isAddingComments ? this.props.isAddingComments : false}>
+                                                    <ReactQuill
+                                                        onChange={this.handleEditorChange}
+                                                        value={this.state.editorHtml}
+                                                        modules={PostDetailView.modules}
+                                                        formats={PostDetailView.formats}
+                                                    // bounds={'.app'}
+                                                    />
+                                                </Spin>
                                             :
                                                 <div className="notify-login">
                                                     <p>
@@ -175,12 +178,12 @@ class PostDetailView extends Component {
                                         <div className="replyer-avatar">
                                             <img 
                                                 className="replyer-avatar-img"
-                                                src="http://pic.qqtn.com/up/2016-10/14762726302464719.jpg" 
-                                                alt=""                                            
+                                                src={user ? user.photo_url : ''} 
+                                                alt="头像啦"                                            
                                             />
                                         </div>
                                         <div>
-                                            <p className="replyer">GzhiYi</p>
+                                            <p className="replyer">{user ? user.first_name : ''}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -234,6 +237,7 @@ const mapStateToProps = (state) => {
         statusText: state.auth.statusText,
         posts: state.forum.posts,
         comments: state.forum.comments,
+        isAddingComments: state.forum.isAddingComments
     };
 };
 

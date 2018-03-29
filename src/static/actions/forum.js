@@ -161,7 +161,7 @@ export function addCommentsRequest() {
 
 export function addComments(token, data, postId) {
     return (dispatch, state) => {
-        dispatch(listCommentsRequest());
+        dispatch(addCommentsRequest());
         return fetch(`${SERVER_URL}/api/v1/handler/add_comments/`, {
             method: 'post',
             headers: {
