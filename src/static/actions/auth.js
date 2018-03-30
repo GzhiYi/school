@@ -134,7 +134,7 @@ export function authRegisterUserRequest() {
     };
 }
 
-export function authRegisterUser(email, password) {
+export function authRegisterUser(email, password, userName, phoneNumber) {
     return (dispatch) => {
         dispatch(authRegisterUserRequest());
         return fetch(`${SERVER_URL}/api/v1/accounts/register/`, {
@@ -145,7 +145,9 @@ export function authRegisterUser(email, password) {
             },
             body: JSON.stringify({
                 'email': email,
-                'password': password
+                'password': password,
+                'first_name': userName,
+                'phone_number': phoneNumber,
             }),
         })
             .then(checkHttpStatus)

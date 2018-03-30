@@ -191,7 +191,7 @@ class LoginView extends React.Component {
 
                     <form className="login-form" onSubmit={this.login}>
                         <div className="login-type">
-                            <div className="btn-group login-btn-gup">
+                            {/* <div className="btn-group login-btn-gup">
                                 <a
                                     className={`btn email ${this.state.emailActive}`}
                                     onClick={this.showEmail}
@@ -200,7 +200,7 @@ class LoginView extends React.Component {
                                     className={`btn phone ${this.state.phoneActive}`}
                                     onClick={this.showPhone}
                                 >手机号</a>
-                            </div>
+                            </div> */}
                         </div>
                         {this.renderForm()}
                         <button disabled={this.props.isAuthenticating}

@@ -15,6 +15,8 @@ const Form = t.form.Form;
 
 const RegisterForm = t.struct({
     email: t.String,
+    userName: t.String,
+    phone: t.String,
     password: t.String,
 });
 
@@ -25,6 +27,18 @@ const RegiserFormOptions = {
             type: 'password',
             attrs: {
                 placeholder: "请输入密码"
+            }
+        },
+        userName: {
+            type: 'text',
+            attrs: {
+                placeholder: "用户名"
+            }
+        },
+        phone: {
+            type: 'number',
+            attrs: {
+                placeholder: "手机号"
             }
         },
         email: {
@@ -53,7 +67,9 @@ class RegisterView extends React.Component {
         this.state = {
             formValues: {
                 email: '',
-                password: ''
+                password: '',
+                phoneNumber: '',
+                userName: '',
             },
             redirectTo: redirectRoute,
             showStatusText: true,
@@ -94,6 +110,7 @@ class RegisterView extends React.Component {
     register = (e) => {
         e.preventDefault();
         const value = this.registerForm.getValue();
+        console.log(value);
         if (value) {
             // if (this.state.emailActive) {
             //     this.props.actions.authLoginUser(value.email, value.password, this.state.redirectTo);
@@ -101,7 +118,7 @@ class RegisterView extends React.Component {
                 //phone api goes here
             // }
             console.log(value);
-            this.props.actions.authRegisterUser(value.email, value.password);
+            this.props.actions.authRegisterUser(value.email, value.password, value.userName, value.phoneNumber);
 
         }
         this.setState({
