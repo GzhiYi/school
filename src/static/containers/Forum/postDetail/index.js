@@ -102,6 +102,13 @@ class PostDetailView extends Component {
         });
     }
 
+    replySomeone = (author)=> {
+        this.setState({
+            editorHtml: `<p>@${author.first_name}&nbsp;</p>`,
+        });
+        window.scrollTo(0, document.documentElement.scrollHeight);
+    }
+
     render() {
         let token = Cookies.get('token');
         let user = JSON.parse(Cookies.get('user'));
@@ -160,9 +167,9 @@ class PostDetailView extends Component {
                             
                         </div>
 
-                        <a className="reply">
+                        <a className="reply" onClick={() => {this.replySomeone(comment.author)}}>
                             <i className="fa fa-reply" aria-hidden="true"></i> 回复
-                                        </a>
+                        </a>
                         {/* <div className="footer"> 暂时隐藏
                             <i className="fa fa-heart" aria-hidden="true"></i> {comment.thumbs_up}
                         </div> */}
