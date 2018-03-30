@@ -3,11 +3,12 @@ from django.conf.urls import include, url
 from django.views.decorators.cache import cache_page
 from rest_framework.routers import DefaultRouter
 from base import views as base_views
-from accounts.views import HandlerUserViewSet
+from accounts.views import HandlerUserViewSet, UserUpdateView
 from forum.views import *
 
 router = DefaultRouter()
 router.register(r'user', HandlerUserViewSet)
+router.register(r'user_update', UserUpdateView)
 router.register(r'posts', GetPostsViewSet)
 router.register(r'posts_top', GetTopPostsViewSet)
 router.register(r'posts_recommended', GetRecommendedPostsViewSet)

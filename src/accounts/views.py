@@ -81,6 +81,29 @@ class UserLoginView(GenericAPIView):
         })
 
 
+class UserUpdateView(DefaultsMixin):
+    queryset = User.objects.all()
+    serializer_class = HandlerUserSerializer
+
+    def list(self, request, *args, **kwargs):
+        return Response(self.get_serializer(request.user).data)
+
+
+    def put(self, request, *args, **kwargs):
+        uid = request.data['id']
+        first_name = request.data['first_name']
+        phone_number = request.data['phone_number']
+        gender = request.data['gender']
+        put_target = User.objects.get(id=uid)
+        put_target.first_name = first_name
+        put_target.phone_number = phone_number
+        put_target.gender = gender
+        put_target.save()
+        return Response({
+            'user': self.get_serializer(request.user).data
+        })
+
+
 class UserConfirmEmailView(GenericAPIView):
     serializer_class = None
     authentication_classes = ()
