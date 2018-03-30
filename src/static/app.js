@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Avatar  from 'antd/lib/avatar';
 import Popover from 'antd/lib/popover';
+import Icon from 'antd/lib/icon';
 
 import { authLogoutAndRedirect } from './actions/auth';
 import './styles/main.scss';
@@ -104,19 +105,19 @@ class App extends React.Component {
             content = 
             <div>
                 <ul className="avatar-auth">
-                    <li className="avatar-auth-li"><a onClick={this.goToProfile}>个人中心</a></li>
+                    <li className="avatar-auth-li"><a onClick={this.goToProfile}><Icon type="user"></Icon>&nbsp;&nbsp;个人中心</a></li>
                     {
                         user !== undefined && user !== null
                         ?
                             user.is_superuser
                             ?
-                                <li className="avatar-auth-li"><a onClick={this.goToAdmin}>管理中心</a></li>
+                                <li className="avatar-auth-li"><a style={{ color: '#1890ff' }} onClick={this.goToAdmin}><Icon type="dashboard"></Icon>&nbsp;&nbsp;管理中心</a></li>
                             :
                                 ''
                         :
                             ''
                     }
-                    <li className="avatar-auth-li" onClick={this.logout}><a>退出登录</a></li>
+                    <li className="avatar-auth-li" onClick={this.logout}><a><Icon type="logout"></Icon>&nbsp;&nbsp;退出登录</a></li>
                 </ul>
             </div>;
         }
