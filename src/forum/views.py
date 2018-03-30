@@ -57,7 +57,7 @@ class GetPostsMixin(viewsets.ModelViewSet):
 
 
 class GetPostsViewSet(GetPostsMixin):
-    queryset = Posts.objects.filter(is_top=False).order_by('-date_created')
+    queryset = Posts.objects.all().order_by('-date_created')
     serializer_class = PostsSerializer
 
     def list(self, request, *args, **kwargs):

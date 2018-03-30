@@ -18,7 +18,6 @@ class Posts extends Component {
     }
     componentDidMount() {
         this.props.actions.listPosts(null, 1, (response) => {
-            console.log("??????????", response);
             let currentPost = this.state.currentPost;
             _.map(response.results, item => {
                 currentPost.push(item)
@@ -38,7 +37,6 @@ class Posts extends Component {
     getNext = () => {
         let currentPage = this.state.currentPage;
         currentPage ++;
-        this.setState({currentPage});
         this.props.actions.listPosts(null, currentPage, (response) => {
             console.log("??????????", response);
             let currentPost = this.state.currentPost;
@@ -46,7 +44,8 @@ class Posts extends Component {
                 currentPost.push(item)
             })
             this.setState({
-                currentPost
+                currentPost,
+                currentPage
             });
         });
     }

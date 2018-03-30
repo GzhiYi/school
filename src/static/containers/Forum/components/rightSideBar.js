@@ -22,6 +22,10 @@ class RightSideBar extends Component {
         // console.log(a, b, c);
     }
 
+    showPostDetail = (index) => {
+        this.props.dispatch(push(`/forum/detail/${index}`));
+    }
+
     createPost = () => {
         console.log('???');
         this.props.dispatch(push('/forum/new-post'));
@@ -35,7 +39,7 @@ class RightSideBar extends Component {
                 return (
                     <li key={index}>
                         <span className="recommend1">{index + 1}</span>
-                        <a>{post.title}</a>
+                        <a onClick={() => this.showPostDetail(post.id)}>{post.title}</a>
                     </li>
                 )
             })
