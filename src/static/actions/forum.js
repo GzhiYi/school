@@ -291,10 +291,14 @@ export function listCommentsRequest() {
     };
 }
 
-export function listComments(postId, page = 1, callback) {
+export function listComments(postId=null, authorId = null, page = 1, callback) {
+    let api = `${SERVER_URL}/api/v1/handler/comments/?id=${postId}&page=${page}`;
+    if (authorId !== null) {
+        api = `${SERVER_URL}/api/v1/handler/comments/?au=${authorId}&page=${page}`;
+    }
     return (dispatch, state) => {
         dispatch(listCommentsRequest());
-        return fetch(`${SERVER_URL}/api/v1/handler/comments/?id=${postId}&page=${page}`, {
+        return fetch(api, {
             method: 'get',
             headers: {
                 'Accept': 'application/json',

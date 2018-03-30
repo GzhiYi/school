@@ -120,7 +120,10 @@ class GetCommentsView(GetPostsMixin):
     def list(self, request, *args, **kwargs):
         comments = self.queryset.all()
         comments = list(comments)
-        comments = [item for item in comments if str(item.post.id) == request.query_params.get('id')]  # 遍历找出该帖子的id
+        if request.query_params.get('id'):
+            comments = [item for item in comments if str(item.post.id) == request.query_params.get('id')]  # 遍历找出该帖子的id
+        elif request.query_params.get('au'):
+            comments = [item for item in comments if str(item.author_id) == request.query_params.get('au')]  # 遍历找出该帖子的id
         page = self.paginate_queryset(comments)
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)

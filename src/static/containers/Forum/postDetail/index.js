@@ -27,7 +27,7 @@ class PostDetailView extends Component {
         window.scrollTo(0, 0);
         let postId = location.pathname.split('/')[3];
         this.props.actions.listPosts(postId);
-        this.props.actions.listComments(postId, 1, (response) => {
+        this.props.actions.listComments(postId, null,  1, (response) => {
             let currentComments = this.state.currentComments;
             _.map(response.results, item => {
                 currentComments.push(item)
@@ -59,7 +59,7 @@ class PostDetailView extends Component {
     getNext = () => {
         let currentPage = this.state.currentPage;
         currentPage++;
-        this.props.actions.listComments(location.pathname.split('/')[3], currentPage, (response) => {
+        this.props.actions.listComments(location.pathname.split('/')[3], null,  currentPage, (response) => {
             let currentComments = this.state.currentComments;
             _.map(response.results, item => {
                 currentComments.push(item)
@@ -73,7 +73,7 @@ class PostDetailView extends Component {
 
     getLast = () => {
         let currentPage = this.state.currentPage;
-        this.props.actions.listComments(location.pathname.split('/')[3], currentPage, (response) => {
+        this.props.actions.listComments(location.pathname.split('/')[3], null,  currentPage, (response) => {
             let currentComments = this.state.currentComments;
             _.map(response.results, (item, index) => {
                 if (index + 1 === response.results.length) {
