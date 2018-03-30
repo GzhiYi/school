@@ -190,6 +190,10 @@ class PostDetailView extends Component {
 
                                 <div className="col-lg-offset-1 col-lg-2">
                                     <Anchor>
+                                        <span className="go-back" title="查看全部帖子" onClick={this.back}>
+                                            <Icon type="left-circle" />&nbsp;&nbsp;
+                                            全部帖子
+                                        </span>
                                         <Link href="#first-floor" title="一楼" />
                                         <Link href="#take-a-comment" title="回复本帖" />
                                     </Anchor>
