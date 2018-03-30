@@ -63,6 +63,9 @@ class GetPostsViewSet(GetPostsMixin):
     def list(self, request, *args, **kwargs):
         if request.query_params.get('id'):
             posts = self.queryset.filter(id=request.query_params.get('id'))
+            for post in posts:
+                post.visited += 1
+                post.save()
         else:
             posts = self.queryset.all()
         print("?????", request.query_params.get('id'))
