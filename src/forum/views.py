@@ -63,12 +63,11 @@ class GetPostsViewSet(GetPostsMixin):
     def list(self, request, *args, **kwargs):
         if request.query_params.get('id'):
             posts = self.queryset.filter(id=request.query_params.get('id'))
-            for post in posts:
-                post.visited += 1
+            for post in posts:  # querySet是多个object的集合，所以不能用save方法。
+                post.visited += 1 # 正确是遍历queryset然后对应的save方法实现链接点击自增
                 post.save()
         else:
             posts = self.queryset.all()
-        print("?????", request.query_params.get('id'))
         comments = list(posts)
         for item in comments:
             comment_data = Comments.objects.filter(post_id=item.id)
