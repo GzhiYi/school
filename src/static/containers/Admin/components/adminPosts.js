@@ -69,6 +69,10 @@ class AdminPostsView extends Component {
             title: '推荐？',
             dataIndex: 'recommended',
             render: (text, index) => <a onClick={()=>{this.confirmRecovery(text, index)}} className={text === false ? "deleted" : 'normal'}>{text ? "没错" : "不是" }</a>
+        },{
+            title: '已删除？',
+            dataIndex: 'deleted',
+            render: (text, index) => <a onClick={()=>{this.confirmRecovery(text, index)}} className={text === true ? "deleted" : 'normal'}>{text ? "没错" : "正常" }</a>
         }];
         let data = [];
         const posts = this.props.posts;
@@ -97,6 +101,7 @@ class AdminPostsView extends Component {
                     category: postType,
                     top: post.is_top,
                     recommended: post.is_recommended,
+                    deleted: post.is_deleted,
                 });
             })
         }

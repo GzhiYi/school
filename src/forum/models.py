@@ -72,6 +72,8 @@ class Posts(models.Model):
         help_text=_('e.g posts type')
     )
 
+    is_deleted = models.BooleanField(default=False)
+
 
 class Comments(models.Model):
     post = models.ForeignKey(Posts)
