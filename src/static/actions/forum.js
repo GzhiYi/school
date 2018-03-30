@@ -288,10 +288,10 @@ export function listCommentsRequest() {
     };
 }
 
-export function listComments(postId) {
+export function listComments(postId, page = 1, callback) {
     return (dispatch, state) => {
         dispatch(listCommentsRequest());
-        return fetch(`${SERVER_URL}/api/v1/handler/comments/?id=${postId}`, {
+        return fetch(`${SERVER_URL}/api/v1/handler/comments/?id=${postId}&page=${page}`, {
             method: 'get',
             headers: {
                 'Accept': 'application/json',
@@ -302,11 +302,16 @@ export function listComments(postId) {
             .then(parseJSON)
             .then((response) => {
                 dispatch(listCommentsSuccess(response));
+                callback(response);
             })
             .catch((error) => {
                 if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
                     // Server side error
                     dispatch(listCommentsFailure(500, 'A server error occurred while sending your data!'));
+                } else if (error && typeof error.response !== 'undefined' && error.response.status === 404) {
+                    // Most likely connection issues
+                    dispatch(listCommentsFailure('Connection Error', error));
+                    message.warning("没有更多啦！")
                 } else {
                     // Most likely connection issues
                     dispatch(listCommentsFailure('Connection Error', 'An error occurred while sending your data!'));

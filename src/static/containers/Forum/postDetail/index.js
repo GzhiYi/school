@@ -7,6 +7,7 @@ import ReactQuill from 'react-quill';
 import Anchor from 'antd/lib/anchor';
 import Button from 'antd/lib/button';
 import Spin from 'antd/lib/spin';
+import Icon from 'antd/lib/icon';
 import './style.scss';
 import Img from "../../../images/github.png";
 import moment from 'moment';
@@ -16,7 +17,9 @@ class PostDetailView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            editorHtml: ""
+            editorHtml: "",
+            currentPage: 1,
+            currentComments: [],
         }
     }
 
@@ -24,7 +27,15 @@ class PostDetailView extends Component {
         window.scrollTo(0, 0);
         let postId = location.pathname.split('/')[3];
         this.props.actions.listPosts(postId);
-        this.props.actions.listComments(postId);
+        this.props.actions.listComments(postId, 1, (response) => {
+            let currentComments = this.state.currentComments;
+            _.map(response.results, item => {
+                currentComments.push(item)
+            })
+            this.setState({
+                currentComments
+            });
+        });
     }
     
     handleEditorChange = (html) => {
@@ -43,6 +54,21 @@ class PostDetailView extends Component {
 
     goToRegister = () => {
         this.props.dispatch(push('/register'));
+    }
+
+    getNext = () => {
+        let currentPage = this.state.currentPage;
+        currentPage++;
+        this.props.actions.listComments(location.pathname.split('/')[3], currentPage, (response) => {
+            let currentComments = this.state.currentComments;
+            _.map(response.results, item => {
+                currentComments.push(item)
+            })
+            this.setState({
+                currentComments,
+                currentPage
+            });
+        });
     }
 
     addComments = () => {
@@ -91,7 +117,7 @@ class PostDetailView extends Component {
                 </div>
         }
         if (comments) {
-            renderComments = _.map(comments.results, (comment, index) => {
+            renderComments = _.map(this.state.currentComments, (comment, index) => {
                 return (
                     <div className="post-floor" key={index}>
                         <div className="avatar">
@@ -118,6 +144,7 @@ class PostDetailView extends Component {
                 )
             })
         }
+        const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
         return (
             <div>
                 <div className="container">
@@ -143,8 +170,14 @@ class PostDetailView extends Component {
                                 </div>
 
                                 <div className="col-lg-8">
-                                    <div className="load-more">
-                                        更多
+                                    <div className="fresh">
+                                        {
+                                            this.props.isFetchingComments
+                                                ?
+                                                <Spin indicator={antIcon} />
+                                                :
+                                                <a onClick={this.getNext}>更多</a>
+                                        }
                                     </div>
                                 </div>
 
@@ -237,7 +270,8 @@ const mapStateToProps = (state) => {
         statusText: state.auth.statusText,
         posts: state.forum.posts,
         comments: state.forum.comments,
-        isAddingComments: state.forum.isAddingComments
+        isAddingComments: state.forum.isAddingComments,
+        isFetchingComments: state.forum.isFetchingComments,
     };
 };
 

@@ -68,7 +68,7 @@ export default function forumReducer(state = initialState, action) {
                 statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
             });
 
-        // 列出所有的帖子
+        // 列出所有的评论
         case LIST_COMMENTS_REQUEST:
             return Object.assign({}, state, {
                 isFetchingComments: true,
