@@ -22,7 +22,7 @@ class AdminPostsView extends Component {
     }
 
     componentDidMount() {
-        this.props.actions.listPosts(null, 1, (response) => {
+        this.props.actions.listPosts(null, null, 1, (response) => {
             console.log("nothing");
         })
     }

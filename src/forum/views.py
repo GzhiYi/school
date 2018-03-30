@@ -66,6 +66,8 @@ class GetPostsViewSet(GetPostsMixin):
             for post in posts:  # querySet是多个object的集合，所以不能用save方法。
                 post.visited += 1 # 正确是遍历queryset然后对应的save方法实现链接点击自增
                 post.save()
+        elif request.query_params.get('au'):
+            posts = self.queryset.filter(author_id=request.query_params.get('au'))
         else:
             posts = self.queryset.all()
         comments = list(posts)

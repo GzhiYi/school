@@ -83,7 +83,7 @@ class ProfileView extends Component {
                                 </SubMenu>
 
                                 <SubMenu key="sub3" title={<span><Icon type="mail" /><span>安全</span></span>}>
-                                    <Menu.Item key={TAB.mail_phone}>更换手机号</Menu.Item>
+                                    {/* <Menu.Item key={TAB.mail_phone}>更换手机号</Menu.Item> */}
                                     <Menu.Item key={TAB.password}>修改密码</Menu.Item>
                                 </SubMenu>
                                 {/* <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>

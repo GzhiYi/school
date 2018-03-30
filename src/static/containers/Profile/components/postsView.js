@@ -1,45 +1,16 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import * as actionCreators from '../../../actions/forum';
 import Table from 'antd/lib/table';
 import Input from 'antd/lib/input';
 import Button from 'antd/lib/button';
 import Popconfirm from 'antd/lib/popconfirm';
 import message from 'antd/lib/message';
+import Spin from 'antd/lib/spin';
+import moment from 'moment';
 const Search = Input.Search;
-
-const columns = [{
-	title: '标题',
-	dataIndex: 'title',
-	render: text => <a href="#">{text}</a>,
-}, {
-	title: '发帖时间',
-	dataIndex: 'time',
-	sorter: (a, b) => new Date(a.time) - new Date(b.time),
-}, {
-	title: '类别',
-	dataIndex: 'category',
-	sorter: (a, b) => a.category.localeCompare(b.category,  'zh-Hans-CN', {sensitivity: 'accent'})
-}];
-const data = [{
-	key: '1',
-	title: '今天天气不错',
-	time: '2018-2-2',
-	category: '问答',
-}, {
-	key: '2',
-	title: '今天天气不错',
-	time: '2018-2-1',
-	category: '求助',
-}, {
-	key: '3',
-	title: '今天天气不错',
-	time: '2018-2-23',
-	category: '帮忙',
-}, {
-	key: '4',
-	title: '今天天气不错',
-	time: '2018-2-3',
-	category: '问答',
-}];
 
 class PostsView extends Component {
 	constructor(props) {
@@ -49,6 +20,13 @@ class PostsView extends Component {
 			selectedRowKeys: []
 		}
 	}
+
+	componentDidMount() {
+		let user = Cookies.get('user');
+		this.props.actions.listPosts(null, JSON.parse(user).id, 1, () => {})
+	}
+	
+
 	confirm = (e) => {
 		console.log(e);
 		message.success('已经删除');
@@ -57,6 +35,10 @@ class PostsView extends Component {
 	cancel = (e) => {
 		console.log(e);
 		message.error('选择取消');
+	}
+
+	goToPostDetail = () => {
+		window.open(`/forum/detail/${index.key}`)
 	}
 	render() {
 		const rowSelection = {
@@ -72,6 +54,46 @@ class PostsView extends Component {
 				name: record.name,
 			}),
 		};
+
+		const columns = [{
+			title: '标题',
+			dataIndex: 'title',
+			render: (text, index) => <a onClick={() => this.goToPostDetail(index)}>{text}</a>
+		}, {
+			title: '发帖时间',
+			dataIndex: 'time',
+			sorter: (a, b) => new Date(a.time) - new Date(b.time),
+		}, {
+			title: '类别',
+			dataIndex: 'category',
+			sorter: (a, b) => a.category.localeCompare(b.category, 'zh-Hans-CN', { sensitivity: 'accent' })
+		}];
+		let posts = this.props.posts;
+		let data = [];
+		if (posts) {
+			_.map(posts.results, (post, index) => {
+				let postType = '';
+				switch (post.post_type) {
+					case 1:
+						postType = "交流";
+						break;
+					case 2:
+						postType = "分享";
+						break;
+					case 3:
+						postType = "求助";
+						break;
+					default:
+						break;
+				}
+				data.push({
+					key: post.id,
+					title: post.title,
+					time: moment(post.date_created).format('YYYY-MM-DD HH:mm'),
+					category: postType,
+				});
+			})
+		}
 		const { selectedRows } = this.state;
 		return (
 			<div>
@@ -98,10 +120,27 @@ class PostsView extends Component {
 						style={{ width: 200 }}
 					/>
 				</div>
-				<Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+				<Spin tip="加载帖子数据中..." spinning={this.props.isFetchingPosts}>
+					<Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+				</Spin>
 			</div>
 		);
 	}
 }
 
-export default PostsView;
+const mapStateToProps = (state) => {
+	return {
+		isFetchingPosts: state.forum.isFetchingPosts,
+		posts: state.forum.posts
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		dispatch,
+		actions: bindActionCreators(actionCreators, dispatch)
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostsView);
+export { PostsView };
