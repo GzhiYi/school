@@ -10,4 +10,12 @@
     background-image: url('../../images/home.jpg');
     background-position: 50% 50%;
     background-size: cover;
+
+
+    .content {
+      display: flex;
+      justify-content: center;
+      margin-top: 25px;
+      padding: 50px;
+  }
 }

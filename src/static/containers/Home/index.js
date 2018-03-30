@@ -28,7 +28,7 @@ class HomeView extends React.Component {
             <div className="container home">
                 <div className="content">
                     <Zoom>
-                        <p>Markup that will be revealed on scroll</p>
+                        <h1>欢迎来到广东药科大学！</h1>
                     </Zoom>
                 </div>
             </div>
