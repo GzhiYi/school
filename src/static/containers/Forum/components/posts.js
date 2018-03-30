@@ -177,9 +177,6 @@ class Posts extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuthenticated: state.auth.isAuthenticated,
-        isAuthenticating: state.auth.isAuthenticating,
-        statusText: state.auth.statusText,
         posts: state.forum.posts,
         topPosts: state.forum.topPosts,
         isFetchingPosts: state.forum.isFetchingPosts
