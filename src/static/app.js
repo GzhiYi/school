@@ -201,7 +201,7 @@ class App extends React.Component {
                     {this.props.children}
                 </div>
                 {
-                    (this.props.location && this.props.location.pathname === '/forum')
+                    (this.props.location && this.props.location.pathname === '/forum') || location.pathname.split('/')[1] == ''
                     ?
                         ""
                     :

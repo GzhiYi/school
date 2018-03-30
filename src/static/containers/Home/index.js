@@ -2,7 +2,7 @@ import React from 'react';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
+import Zoom from 'react-reveal/Zoom';
 import './style.scss';
 import reactLogo from './images/react-logo.png';
 import reduxLogo from './images/redux-logo.png';
@@ -26,34 +26,10 @@ class HomeView extends React.Component {
     render() {
         return (
             <div className="container home">
-                {/* <div className="margin-top-medium text-center">
-                    <img className="page-logo margin-bottom-medium"
-                        src={reactLogo}
-                        alt="ReactJs"
-                    />
-                    <img className="page-logo margin-bottom-medium"
-                        src={reduxLogo}
-                        alt="Redux"
-                    />
-                </div>
-                <div className="text-center">
-                    <h1>Django React Redux Demo</h1>
-                    <h4>Hello, {this.props.userName || 'guest'}.</h4>
-                </div>
-                <div className="margin-top-medium text-center">
-                    <p>Attempt to access some <a onClick={this.goToProtected}><b>protected content</b></a>.</p>
-                </div>
-                <div className="margin-top-medium">
-                    {this.props.statusText ?
-                        <div className="alert alert-info">
-                            {this.props.statusText}
-                        </div>
-                        :
-                        null
-                    }
-                </div> */}
                 <div className="content">
-
+                    <Zoom>
+                        <p>Markup that will be revealed on scroll</p>
+                    </Zoom>
                 </div>
             </div>
         );
