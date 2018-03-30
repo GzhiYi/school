@@ -107,7 +107,7 @@ class IntroduceView extends React.Component {
                                                 Cookies.get('token')
                                                 ?
                                                     <div>
-                                                        <p>您好，{JSON.parse(user).first_name}。您可以：</p>
+                                                        <p>您好，{JSON.parse(user).first_name}</p>
                                                         <div className="tool">
                                                             <Button type="primary" onClick={this.showModal}>查看录取情况</Button>
                                                         </div>
@@ -145,7 +145,7 @@ class IntroduceView extends React.Component {
 								?
 									<div className="result">
 										<label >姓名：</label>{admissionResult[0].name} <br />
-										<label >录取情况：</label>{admissionResult[0].status}
+										<label >录取情况：</label>{admissionResult[0].status} 专业
 									</div>
 								:
 									<Alert message="未找到该身份的录取信息。" type="error" showIcon />		

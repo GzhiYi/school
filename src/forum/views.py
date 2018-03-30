@@ -61,7 +61,11 @@ class GetPostsViewSet(GetPostsMixin):
     serializer_class = PostsSerializer
 
     def list(self, request, *args, **kwargs):
-        posts = self.queryset.all()
+        if request.query_params.get('id'):
+            posts = self.queryset.filter(id=request.query_params.get('id'))
+        else:
+            posts = self.queryset.all()
+        print("?????", request.query_params.get('id'))
         comments = list(posts)
         for item in comments:
             comment_data = Comments.objects.filter(post_id=item.id)
@@ -76,7 +80,6 @@ class GetTopPostsViewSet(GetPostsMixin):
 
     def list(self, request, *args, **kwargs):
         posts = self.queryset.all()
-        print(posts)
         comments = list(posts)
         for item in comments:
             comment_data = Comments.objects.filter(post_id=item.id)

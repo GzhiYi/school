@@ -92,7 +92,8 @@ class PostDetailView extends Component {
         let comments = this.props.comments;
         let firstFloor = '';
         let renderComments = '';
-        if (post && !_.has(post, 'results')) {
+        if (post) {
+            post = post.results[0];
             firstFloor = 
                 <div id="first-floor" className="post-floor first-floor">
                     <div className="avatar">
@@ -145,6 +146,7 @@ class PostDetailView extends Component {
             })
         }
         const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
+        console.log("tiezi", this.props.posts);
         return (
             <div>
                 <div className="container">

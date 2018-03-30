@@ -26,9 +26,10 @@ class AdmissionStatus(models.Model):
         help_text=_('e.g admission id')
     )
 
-    status = models.IntegerField(
+    status = models.CharField(
+        max_length=100,
         blank=False,
-        null=False,
-        default=0,
+        null=True,
+        default='',
         help_text=_('e.g admission status')
     )

@@ -50,6 +50,7 @@ class AdminUserView extends Component {
     }
 
     confirmRecovery = (text, value) => {
+        console.log(value);
         let putData = {};
         if (text !== "正常") {
             putData = {

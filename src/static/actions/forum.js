@@ -61,7 +61,7 @@ export function listPostsRequest() {
 export function listPosts(postId = null, page = 1, callback) {
     let api = `${SERVER_URL}/api/v1/handler/posts/?page=${page}`;
     if (postId !== null) {
-        api = `${SERVER_URL}/api/v1/handler/posts/${postId}/`
+        api = `${SERVER_URL}/api/v1/handler/posts/?id=${postId}`
     }
     return (dispatch, state) => {
         dispatch(listPostsRequest());

@@ -8,6 +8,7 @@ import Input from 'antd/lib/input';
 import Button from 'antd/lib/button';
 import Popconfirm from 'antd/lib/popconfirm';
 import message from 'antd/lib/message';
+import Spin from 'antd/lib/spin';
 import moment from 'moment';
 const Search = Input.Search;
 
@@ -145,7 +146,9 @@ class AdminPostsView extends Component {
                         style={{ width: 200 }}
                     />
                 </div>
-                <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+                <Spin tip="加载帖子数据中..." spinning={this.props.isFetchingPosts}>
+                    <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+                </Spin>
             </div>
         );
     }
