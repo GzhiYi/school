@@ -154,6 +154,8 @@ export function authRegisterUser(email, password, userName, phoneNumber) {
             .then(parseJSON)
             .then((response) => {
                 dispatch(authRegisterUserSuccess(response));
+                message.success(`注册成功，可以用${email}进行登录。`)
+                dispatch(push('/login'));
             })
             .catch((error) => {
                 if (error && typeof error.response !== 'undefined' && error.response.status === 401) {

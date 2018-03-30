@@ -20,7 +20,7 @@ from djoser.views import PasswordResetView as DJPasswordResetView
 from .authentication import GYAuthentication
 from .services import ActivationEmail
 from django.conf import settings
-
+from lib.utils import AtomicMixin
 from accounts.models import User
 from accounts.serializers import (
     UserRegistrationSerializer,
@@ -51,19 +51,14 @@ class DefaultsMixin(viewsets.ModelViewSet):
         filters.OrderingFilter,
     )
 
-class UserRegisterView(UserCreateView):
-    def perform_create(self, serializer):
-        user = serializer.save()
-        signals.user_registered.send(
-            sender=self.__class__, user=user, request=self.request
-        )
 
-        context = {'user': user, 'domain': djoser_settings.DOMAIN}
-        to = [get_user_email(user)]
-        if djoser_settings.SEND_ACTIVATION_EMAIL:
-            djoser_settings.EMAIL.activation(self.request, context).send(to)
-        elif djoser_settings.SEND_CONFIRMATION_EMAIL:
-            djoser_settings.EMAIL.confirmation(self.request, context).send(to)
+class UserRegisterView(AtomicMixin, CreateModelMixin, GenericAPIView):
+    serializer_class = UserRegistrationSerializer
+    authentication_classes = ()
+
+    def post(self, request):
+        """User registration view."""
+        return self.create(request)
 
 
 class UserLoginView(GenericAPIView):
@@ -87,7 +82,6 @@ class UserUpdateView(DefaultsMixin):
 
     def list(self, request, *args, **kwargs):
         return Response(self.get_serializer(request.user).data)
-
 
     def put(self, request, *args, **kwargs):
         uid = request.data['id']
@@ -140,7 +134,6 @@ class ActivationView(DJActivationView):
     Use this endpoint to activate user account.
     """
     serializer_class = ActivationSerializer
-
 
     class ResentActivationEmailViewSet(generics.CreateAPIView):
         authentication_classes = (GYAuthentication,)

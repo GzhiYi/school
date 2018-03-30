@@ -16,7 +16,7 @@ const Form = t.form.Form;
 const RegisterForm = t.struct({
     email: t.String,
     userName: t.String,
-    phone: t.String,
+    phoneNumber: t.String,
     password: t.String,
 });
 
@@ -35,7 +35,7 @@ const RegiserFormOptions = {
                 placeholder: "用户名"
             }
         },
-        phone: {
+        phoneNumber: {
             type: 'number',
             attrs: {
                 placeholder: "手机号"
@@ -193,7 +193,7 @@ class RegisterView extends React.Component {
                         <a onClick={this.goToSignIn} className="login-more-sign-up">立即登录</a>
                     </div>
                 </div>
-                <Modal
+                {/* <Modal
                     title="激活提示"
                     visible={this.state.visible}
                     onCancel={this.handleCancel}
@@ -204,7 +204,7 @@ class RegisterView extends React.Component {
                     ]}
                 >
                     <p>您的账号已经注册，请到<span style={{color: 'red'}}>{this.state.formValues.email}</span>激活邮箱。</p>
-                </Modal>
+                </Modal> */}
             </div>
         );
     }
