@@ -12,6 +12,7 @@ import {
     AUTH_REGISTER_USER_SUCCESS,
     AUTH_REGISTER_USER_FAILURE
 } from '../constants';
+import message from 'antd/lib/message';
 
 
 export function authLoginUserSuccess(response) {
@@ -76,12 +77,14 @@ export function authLoginUser(email, password, redirect = '/') {
             .then(parseJSON)
             .then((response) => {
                 dispatch(authLoginUserSuccess(response));
+                message.success("登陆成功！")
                 dispatch(push(redirect));
             })
             .catch((error) => {
                 if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
                     // Invalid authentication credentials
                     return error.response.json().then((data) => {
+                        message.error("登陆失败，检查您的帐号和密码对不对。")
                         dispatch(authLoginUserFailure(401, data.non_field_errors[0]));
                     });
                 } else if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
