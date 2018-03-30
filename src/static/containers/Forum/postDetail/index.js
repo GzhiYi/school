@@ -152,7 +152,7 @@ class PostDetailView extends Component {
                         <div className="col-lg-offset-1 col-lg-10 post-detail">
                             <div>
                                 <div className="title">
-                                    <span className="post-back" onClick={this.back}>返回</span> / <span className="post-detail-title">
+                                    <span className="post-back" onClick={this.back}>全部帖子</span> / <span className="post-detail-title">
                                         {post && !_.has(post, 'results') ? post.title : ""}
                                     </span> 
                                 </div>
