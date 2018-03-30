@@ -347,7 +347,7 @@ export function addCommentsRequest() {
     };
 }
 
-export function addComments(token, data, postId) {
+export function addComments(token, data, postId, callback) {
     return (dispatch, state) => {
         dispatch(addCommentsRequest());
         return fetch(`${SERVER_URL}/api/v1/handler/add_comments/`, {
@@ -362,7 +362,9 @@ export function addComments(token, data, postId) {
             .then(parseJSON)
             .then((response) => {
                 dispatch(addCommentsSuccess(response));
-                dispatch(listComments(postId))
+                message.success("评论成功！")
+                callback(response)
+                // dispatch(push(`/forum/detail/${postId}`))
             })
             .catch((error) => {
                 if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {

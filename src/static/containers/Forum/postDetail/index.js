@@ -71,15 +71,32 @@ class PostDetailView extends Component {
         });
     }
 
+    getLast = () => {
+        let currentPage = this.state.currentPage;
+        this.props.actions.listComments(location.pathname.split('/')[3], currentPage, (response) => {
+            let currentComments = this.state.currentComments;
+            _.map(response.results, (item, index) => {
+                if (index + 1 === response.results.length) {
+                    currentComments.push(item)
+                }
+            })
+            this.setState({
+                currentComments,
+                currentPage
+            });
+        });
+    }
+
     addComments = () => {
         let user = JSON.parse(Cookies.get('user'));
-        console.log("what in user", user);
         let data = {
             'post': location.pathname.split('/')[3],
             'author': JSON.parse(Cookies.get('user')).id,
             'content': this.state.editorHtml
         }
-        this.props.actions.addComments(Cookies.get('token'), data, location.pathname.split('/')[3]);
+        this.props.actions.addComments(Cookies.get('token'), data, location.pathname.split('/')[3], () => {
+            this.getLast()
+        });
         this.setState({
             editorHtml: '',
         });
@@ -110,11 +127,11 @@ class PostDetailView extends Component {
                         
                     </div>
 
-                    <div className="footer">
+                    {/* <div className="footer"> 暂时隐藏
                         <i className="fa fa-smile-o" aria-hidden="true"></i> {post.thumbs_up}
                         &nbsp;
                         <i className="fa fa-frown-o" aria-hidden="true"></i> {post.step_on}
-                    </div>
+                    </div> */}
                 </div>
         }
         if (comments) {
@@ -128,7 +145,15 @@ class PostDetailView extends Component {
                             <div className="user-name">
                                 <span className="author-name">{comment.author.first_name}</span>
                             </div>
-                            <div className="post-create-time">{moment(comment.date_created).format('YYYY-MM-DD')}</div>
+                            <div className="post-create-time">
+                                {
+                                    moment(comment.date_created).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD') 
+                                    ?
+                                        moment(comment.date_created).format('HH:mm')
+                                    :
+                                        moment(comment.date_created).format('YYYY-MM-DD HH:mm')
+                                }
+                            </div>
                         </div>
 
                         <div className="content" dangerouslySetInnerHTML={{ __html: comment.content }}>
@@ -138,15 +163,14 @@ class PostDetailView extends Component {
                         <a className="reply">
                             <i className="fa fa-reply" aria-hidden="true"></i> 回复
                                         </a>
-                        <div className="footer">
+                        {/* <div className="footer"> 暂时隐藏
                             <i className="fa fa-heart" aria-hidden="true"></i> {comment.thumbs_up}
-                        </div>
+                        </div> */}
                     </div>
                 )
             })
         }
         const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
-        console.log("tiezi", this.props.posts);
         return (
             <div>
                 <div className="container">
