@@ -190,7 +190,7 @@ class BasicView extends Component {
 									onClick={this.updateProfile}
 								>
 									{
-										this.props.isUpdatingProfile
+										this.props.isUpdatingUser
 											?
 											"上传中..."
 											:
@@ -216,7 +216,8 @@ const mapStateToProps = (state) => {
 		isAuthenticated: state.auth.isAuthenticated,
 		isAuthenticating: state.auth.isAuthenticating,
 		statusText: state.auth.statusText,
-		user: state.auth.user
+		user: state.auth.user,
+		isUpdatingUser: state.auth.isUpdatingUser
 	};
 };
 

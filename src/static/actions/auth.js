@@ -235,6 +235,7 @@ export function updateUser(token, data) {
 
 // 获取个人资料
 export function getUserSuccess(response) {
+    Cookies.set('user', response, { expires: 7 });
     return {
         type: GET_USER_SUCCESS,
         payload: {
