@@ -5,26 +5,60 @@ from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from .models import *
+import django_filters.rest_framework
 from .serializers import *
 from knox.auth import TokenAuthentication
 
-# Create your views here.
+
+class DefaultsMixin(viewsets.ModelViewSet):
+
+    """
+    Default settings for view auth, permissions,
+    filtering and pagination
+    """
+
+    authentication_classes = (
+        TokenAuthentication,
+    )
+    permission_classes = (
+        permissions.IsAuthenticated,
+    )
+    paginate_by = 25
+    filter_backends = (
+        django_filters.rest_framework.DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    )
 
 
-class QuickNewViewSet(GenericAPIView):
+class GetNewMinxin(viewsets.ModelViewSet):
+    paginate_by = 25
+    filter_backends = (
+        django_filters.rest_framework.DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    )
 
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)
 
-    def post(self, request):
-        serializer = QuickNewSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class QuickNewViewSet(DefaultsMixin):
 
-    def get(self, request):
-        news = QuickNew.objects.all()
-        serializer = QuickNew(news, many=True)
-        return Response(serializer.data)
+    queryset = QuickNew.objects.all().order_by('-date_created')
+    serializer_class = QuickNewSerializer
+
+    # def list(self, request, *args, **kwargs):
+    #     news = self.queryset.all()
+    #     page = self.paginate_queryset(news)
+    #     serializer = self.get_serializer(page, many=True)
+    #     return self.get_paginated_response(serializer.data)
+
+
+class GetQuickNewViewSet(GetNewMinxin):
+
+    queryset = QuickNew.objects.all().order_by('-date_created')
+    serializer_class = QuickNewSerializer
+
+    def list(self, request, *args, **kwargs):
+        news = self.queryset.all()
+        page = self.paginate_queryset(news)
+        serializer = self.get_serializer(page, many=True)
+        return self.get_paginated_response(serializer.data)

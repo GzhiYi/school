@@ -16,7 +16,8 @@ router.register(r'posts_recommended', GetRecommendedPostsViewSet)
 router.register(r'add_post', AddPostsDataViewSet)
 router.register(r'comments', GetCommentsView)
 router.register(r'add_comments', AddCommentsViewSet)
-router.register(r'quick_new', QuickNewViewSet)
+router.register(r'quick_new', QuickNewViewSet, base_name='quick new api')
+router.register(r'get_quick_new', GetQuickNewViewSet, base_name='get quick new api')
 
 urlpatterns = [
     url(r'^api/v1/accounts/', include('accounts.urls', namespace='accounts')),

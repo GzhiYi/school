@@ -26,6 +26,7 @@ from forum.serializers import *
 # from lib.utils import AtomicMixin
 import smtplib
 
+
 class DefaultsMixin(viewsets.ModelViewSet):
 
     """
@@ -78,6 +79,7 @@ class GetPostsViewSet(GetPostsMixin):
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)
 
+
 class GetTopPostsViewSet(GetPostsMixin):
     queryset = Posts.objects.filter(is_top=True)
     serializer_class = PostsSerializer
@@ -108,6 +110,7 @@ class GetRecommendedPostsViewSet(GetPostsMixin):
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)
 
+
 class AddPostsDataViewSet(viewsets.ModelViewSet):
     queryset = Posts.objects.all()
     serializer_class = PostsAddDataSerializer
@@ -128,7 +131,6 @@ class GetCommentsView(GetPostsMixin):
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)
             
-
 
 class AddCommentsViewSet(GetPostsMixin):
     queryset = Comments.objects.all()
