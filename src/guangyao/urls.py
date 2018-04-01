@@ -6,6 +6,7 @@ from base import views as base_views
 from accounts.views import HandlerUserViewSet, UserUpdateView
 from forum.views import *
 from quicknew.views import *
+from eat.views import *
 
 router = DefaultRouter()
 router.register(r'user', HandlerUserViewSet)
@@ -18,6 +19,8 @@ router.register(r'comments', GetCommentsView)
 router.register(r'add_comments', AddCommentsViewSet)
 router.register(r'quick_new', QuickNewViewSet, base_name='quick new api')
 router.register(r'get_quick_new', GetQuickNewViewSet, base_name='get quick new api')
+router.register(r'eat', EatViewSet, base_name='quick eat api')
+router.register(r'get_eat', GetEatViewSet, base_name='get eat api')
 
 urlpatterns = [
     url(r'^api/v1/accounts/', include('accounts.urls', namespace='accounts')),

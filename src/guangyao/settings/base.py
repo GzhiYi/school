@@ -31,6 +31,7 @@ INSTALLED_APPS = (
     'admission',
     'forum',
     'quicknew',
+    'eat',
 
 
 )

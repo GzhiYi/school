@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
 // import Select from 'antd/lib/select';
+import { Map, Marker } from 'react-amap';
 
 // const Option = Select.Option;
 class SurroundingTrafficView extends Component {
-    // handleCityChange = (value) => {
-    //     console.log(`selected ${value}`);
-    // }
+    constructor() {
+        super();
+        this.toolEvents = {
+            created: (tool) => {
+                this.tool = tool;
+            }
+        }
+        this.mapPlugins = ['ToolBar'];
+        this.mapCenter = { longitude: 113.414378, latitude: 22.475931 };
+        this.markerPosition = { longitude: 113.414378, latitude: 22.475931 };
+    }
     render() {
+        const mapKey = '457dc70511a9df03ba1c4932c93eeb30';
         return (
-            <div>
-                {/* <Select defaultValue="你在哪个校区呢？" style={{ width: 120 }} onChange={this.handleCityChange}>
-                    <Option value="guangzhou">广州校区</Option>
-                    <Option value="zhongshan">中山校区</Option>
-                </Select> */}
+            <div className="a-map">
+                <Map 
+                    plugins={this.mapPlugins}
+                    center={this.mapCenter}
+                    zoom={16}
+                >
+                    <Marker position={this.markerPosition} />
+                </Map>
             </div>
         );
     }

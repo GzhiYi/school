@@ -77,12 +77,6 @@ class SurroundingNewView extends Component {
     }
 
     render() {
-        const text = `
-            A dog is a type of domesticated animal.
-            Known for its loyalty and faithfulness,
-            it can be found as a welcome guest in many households across the world.
-            `;
-
         const customPanelStyle = {
             background: '#f7f7f7',
             borderRadius: 4,
@@ -92,7 +86,6 @@ class SurroundingNewView extends Component {
         };
         let quickNew = this.props.quickNew;
         let user = Cookies.get('user');
-        console.log(JSON.parse(user));
         let renderQuickNew = '';
         if (quickNew) {
             renderQuickNew = _.map(quickNew.results, (item, index) => {

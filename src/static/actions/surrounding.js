@@ -10,7 +10,15 @@ import {
 
     ADD_QUICK_NEW_SUCCESS,
     ADD_QUICK_NEW_REQUEST,
-    ADD_QUICK_NEW_FAILURE
+    ADD_QUICK_NEW_FAILURE,
+
+    GET_EAT_SUCCESS,
+    GET_EAT_REQUEST,
+    GET_EAT_FAILURE,
+
+    ADD_EAT_SUCCESS,
+    ADD_EAT_REQUEST,
+    ADD_EAT_FAILURE
 
 } from '../constants';
 import { authLoginUserFailure } from './auth';
@@ -121,6 +129,119 @@ export function addQuickNew(token, data) {
                 } else {
                     // Most likely connection issues
                     dispatch(addQuickNewFailure('Connection Error', error));
+                }
+                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+            });
+    };
+}
+
+
+// 获取吃喝数据
+export function getEatSuccess(response) {
+    return {
+        type: GET_EAT_SUCCESS,
+        payload: {
+            response
+        }
+    };
+}
+
+export function getEatFailure(error, message) {
+    return {
+        type:  GET_EAT_FAILURE,
+        payload: {
+            status: error,
+            statusText: message
+        }
+    };
+}
+
+export function getEatRequest() {
+    return {
+        type:  GET_EAT_REQUEST
+    };
+}
+
+export function getEat(page = 1) {
+    return (dispatch, state) => {
+        dispatch(getEatRequest());
+        return fetch(`${SERVER_URL}/api/v1/handler/get_eat/?page=${page}`, {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then((response) => {
+                dispatch(getEatSuccess(response));
+            })
+            .catch((error) => {
+                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                    // Server side error
+                    dispatch(getEatFailure(500, 'A server error occurred while sending your data!'));
+                } else {
+                    // Most likely connection issues
+                    dispatch(getEatFailure('Connection Error', error));
+                }
+                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+            });
+    };
+}
+
+
+// 新建一条吃喝数据
+export function addEatSuccess(response) {
+    return {
+        type: ADD_EAT_SUCCESS,
+        payload: {
+            response
+        }
+    };
+}
+
+export function addEatFailure(error, message) {
+    return {
+        type: ADD_EAT_FAILURE,
+        payload: {
+            status: error,
+            statusText: message
+        }
+    };
+}
+
+export function addEatRequest() {
+    return {
+        type: ADD_EAT_REQUEST
+    };
+}
+
+export function addEat(token, data) {
+    return (dispatch, state) => {
+        dispatch(addEatRequest());
+        return fetch(`${SERVER_URL}/api/v1/handler/eat/`, {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token}`
+            },
+            body: JSON.stringify(data)
+        })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then((response) => {
+                dispatch(addEatSuccess(response));
+                dispatch(getEat());
+            })
+            .catch((error) => {
+                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                    // Server side error
+                    dispatch(addEatFailure(500, 'A server error occurred while sending your data!'));
+                } else {
+                    // Most likely connection issues
+                    dispatch(addEatFailure('Connection Error', error));
                 }
                 return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
             });
