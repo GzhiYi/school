@@ -66,7 +66,7 @@ class RightSideBar extends Component {
                     </button>
                 </div>
                 <div className="recommend-posts">
-                    <Carousel
+                    {/* <Carousel
                         afterChange={this.onChange}
                         autoplay
                     >
@@ -74,7 +74,7 @@ class RightSideBar extends Component {
                         <div><h3>2</h3></div>
                         <div><h3>3</h3></div>
                         <div><h3>4</h3></div>
-                    </Carousel>
+                    </Carousel> */}
                     <div className="carousel-below">
                         <div className="title">推荐帖子</div>
                         <div className="recommend-posts-list">

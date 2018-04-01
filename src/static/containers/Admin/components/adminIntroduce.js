@@ -28,9 +28,11 @@ class AdminIntroduceView extends Component {
         if (!showEditor) {
             this.setState({
                 showEditor: true,
-                currentTarget: value
             });
         }
+        this.setState({
+            currentTarget: value,
+        });
         this.props.actions.getIntroduceDetail(value, (response) => {
             if (response.length > 0) {
                 this.setState({
@@ -58,6 +60,7 @@ class AdminIntroduceView extends Component {
             "title": this.state.title,
             "body": this.state.editorHtml
         }
+        console.log("what in current target", this.state.currentTarget);
         this.props.actions.updateIntroduceDetail(token, this.state.currentTarget, data, () => {})
     }
 
