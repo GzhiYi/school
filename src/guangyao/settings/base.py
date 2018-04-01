@@ -30,6 +30,8 @@ INSTALLED_APPS = (
     'introduce',
     'admission',
     'forum',
+    'quicknew',
+
 
 )
 

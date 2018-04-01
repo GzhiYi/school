@@ -5,6 +5,7 @@ from rest_framework.routers import DefaultRouter
 from base import views as base_views
 from accounts.views import HandlerUserViewSet, UserUpdateView
 from forum.views import *
+from quicknew.views import *
 
 router = DefaultRouter()
 router.register(r'user', HandlerUserViewSet)
@@ -15,6 +16,7 @@ router.register(r'posts_recommended', GetRecommendedPostsViewSet)
 router.register(r'add_post', AddPostsDataViewSet)
 router.register(r'comments', GetCommentsView)
 router.register(r'add_comments', AddCommentsViewSet)
+router.register(r'quick_new', QuickNewViewSet)
 
 urlpatterns = [
     url(r'^api/v1/accounts/', include('accounts.urls', namespace='accounts')),
