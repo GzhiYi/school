@@ -1,8 +1,66 @@
 import React, { Component } from 'react';
 import Collapse from 'antd/lib/collapse';
+import Button from 'antd/lib/button';
+import Modal from 'antd/lib/modal';
+import Input from 'antd/lib/input';
+import Alert from 'antd/lib/alert';
+import message from 'antd/lib/message';
+const { TextArea } = Input;
 
 const Panel = Collapse.Panel;
 class SurroundingNewView extends Component {
+    state = { 
+        visible: false,
+        title: '',
+        content: '', 
+    }
+
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    }
+
+    handleOk = (e) => {
+        let title = this.state.title;
+        let content = this.state.content;
+        if (title === '') {
+            message.error("请输入标题！");
+        } else if (content === '') {
+            message.error("请输入内容!");
+        } else {
+            console.log(title, content);
+            this.setState({
+                visible: false,
+            });
+        }
+    }
+
+    handleCancel = (e) => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    }
+
+    onInputChange = (e) => {
+        console.log(e.target.value);
+        switch (e.target.name) {
+            case 'title':
+                this.setState({
+                    title: e.target.value,
+                });
+                break;
+            case 'content':
+                this.setState({
+                    content: e.target.value,
+                });
+                break;
+            default:
+                break;
+        }
+    }
+
     render() {
         const text = `
             A dog is a type of domesticated animal.
@@ -19,6 +77,9 @@ class SurroundingNewView extends Component {
         };
         return (
             <div>
+                <div className="button-area">
+                    <Button type="primary" onClick={this.showModal}>添加快讯</Button>
+                </div>
                 <Collapse bordered={false} defaultActiveKey={['1']}>
                     <Panel header={<h6>当你看到这条信息的时候，就知道可以点开看了。<span className="panel-time">time</span></h6>} key="1" style={customPanelStyle}>
                         <p>{text}</p>
@@ -30,7 +91,36 @@ class SurroundingNewView extends Component {
                     <Panel header="这是第三条消息。" key="3" style={customPanelStyle}>
                         <p>{text}</p>
                     </Panel>
-                </Collapse> 
+                </Collapse>
+                {
+                    this.state.visible
+                    ?
+                        <Modal
+                            title="发布一条快讯"
+                            visible={this.state.visible}
+                            onOk={this.handleOk}
+                            onCancel={this.handleCancel}
+                        >
+                            <Input
+                                name="title"
+                                placeholder="快讯标题"
+                                onChange={this.onInputChange}
+                                style={{ marginBottom: 20 }}
+                            />
+
+                            <TextArea
+                                placeholder="输入内容"
+                                name="content"
+                                autosize={{ minRows: 5, maxRows: 10 }}
+                                style={{ marginBottom: 20 }}
+                                onChange={this.onInputChange}
+                            />
+                            <Alert message="注意，发布的快讯将公布于所有人，请确保信息的准确性。" type="info" showIcon />
+                        </Modal>
+                    :
+                        ''
+                } 
+                
             </div>
         );
     }

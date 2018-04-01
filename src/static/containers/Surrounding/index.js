@@ -69,7 +69,7 @@ class SurroundingView extends React.Component {
                     activeKey={String(activeKey)}
                     onChange={this.onTabChange}
                 >
-                    <TabPane tab={<span><Icon type="team" />周边听闻</span>} key="1">
+                    <TabPane tab={<span><Icon type="team" />校内快讯</span>} key="1">
                         <SurroundingNewView />
                     </TabPane>
                     <TabPane tab={<span><Icon type="shop" />吃的喝的</span>} key="2">
