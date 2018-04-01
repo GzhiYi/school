@@ -121,7 +121,7 @@ class AdminUserView extends Component {
                         name: item.first_name,
                         sex: item.gender === 'M' ? "男" : "女",
                         email: item.email,
-                        phone: item.phone_number === null ? "未填写手机号" : item.phont_number,
+                        phone: item.phone_number === null ? "未填写手机号" : item.phone_number,
                         registerTime: moment(item.date_joined).format("YYYY-MM-DD"),
                         lastLoginTime: item.last_login === null ? "未登录过" : moment(item.last_login).format("YYYY-MM-DD"),
                         isDelete: item.is_active === true ? "正常" : "已删除"

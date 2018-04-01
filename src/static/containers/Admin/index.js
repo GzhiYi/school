@@ -118,10 +118,10 @@ class AdminView extends Component {
                             onClick={this.changeMenu}
                             selectedKeys={[`${this.state.openKey}`]}
                         >
-                            <Menu.Item key="overview">
+                            {/* <Menu.Item key="overview">
                                 <Icon type="pie-chart" />
                                 <span>概览</span>
-                            </Menu.Item>
+                            </Menu.Item> */}
                             <Menu.Item key="user">
                                 <Icon type="user" />
                                 <span>用户管理</span>

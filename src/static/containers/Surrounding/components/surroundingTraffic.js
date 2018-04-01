@@ -26,6 +26,9 @@ class SurroundingTrafficView extends Component {
                 >
                     <Marker position={this.markerPosition} />
                 </Map>
+                <div className="hot">
+                    {/* <h5>学校附近热门地点</h5> */}
+                </div>
             </div>
         );
     }

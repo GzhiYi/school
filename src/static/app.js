@@ -66,7 +66,7 @@ class App extends React.Component {
     }
 
     goToAdmin = () => {
-        this.props.dispatch(push('/admin/overview'));
+        this.props.dispatch(push('/admin/user'));
     }
 
     render() {
