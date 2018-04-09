@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import * as actionCreators from '../../../actions/forum';
 import List from 'antd/lib/list';
 import Icon from 'antd/lib/icon';
 import Input from 'antd/lib/input';
+import Spin from 'antd/lib/spin';
+import moment from 'moment';
 
 const Search = Input.Search;
 class CommentsView extends Component {
@@ -9,41 +15,29 @@ class CommentsView extends Component {
         super(props);
     }
 
+    componentDidMount() {
+        let user = Cookies.get('user');
+        this.props.actions.listComments(null, JSON.parse(user).id, 1, () => {});
+    }
+
+    goToDetail = (postId) => {
+        window.open(`/forum/detail/${postId}`);
+    }
+    
+
     render() {
-        const data = [
-            {
-                title: '这是一个毕业设计',
-                postTime: '2018-2-2',
-            },
-            {
-                title: '今天有谁上课的？',
-                postTime: '2018-2-2'
-            },
-            {
-                title: '哇，外面天气真不错',
-                postTime: '2018-2-2'
-            },
-            {
-                title: '来来来',
-                postTime: '2018-2-2'
-            },
-            {
-                title: '哇，外面天气真不错',
-                postTime: '2018-2-2'
-            },
-            {
-                title: '来来来',
-                postTime: '2018-2-2'
-            },
-            {
-                title: '哇，外面天气真不错',
-                postTime: '2018-2-2'
-            },
-            {
-                title: '来来来',
-                postTime: '2018-2-2'
-            },
-        ];
+        let comments = this.props.comments;
+        let data = [];
+        if (comments) {
+            _.map(comments.results, (comment, index) => {
+                data.push({
+                    title: comment.post.title,
+                    postId: comment.post.id,
+                    postTime: moment(comment.date_created).format('YYYY-MM-DD HH:mm:ss'),
+                    content: comment.content,
+                });
+            })
+        }
         return (
             <div>
                 <div className="search">
@@ -54,32 +48,35 @@ class CommentsView extends Component {
                     />
                 </div>
                 <div className="comments-view-page">
-                    <List
-                        itemLayout="horizontal"
-                        dataSource={data}
-                        renderItem={item => (
-                            <List.Item>
-                                <List.Item.Meta
-                                    description={[
-                                        <a
-                                            className="origin-post"
-                                            key="1"
-                                        >
-                                            原贴: {item.title}
-                                            <Icon type="link" />
-                                        </a>,
-                                        <span
-                                            className="post-time"
-                                            key="2"
-                                        >
-                                            {item.postTime}
-                                        </span>
-                                    ]}
-                                    title="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                />
-                            </List.Item>
-                        )}
-                    />
+                    <Spin tip="加载评论数据中..." spinning={this.props.isFetchingComments}>
+                        <List
+                            itemLayout="horizontal"
+                            dataSource={data}
+                            renderItem={item => (
+                                <List.Item>
+                                    <List.Item.Meta
+                                        description={[
+                                            <a
+                                                className="origin-post"
+                                                key="1"
+                                                onClick={() => {this.goToDetail(item.postId)}}
+                                            >
+                                                原贴: {item.title}
+                                                <Icon type="link" />
+                                            </a>,
+                                            <span
+                                                className="post-time"
+                                                key="2"
+                                            >
+                                                {item.postTime}
+                                            </span>
+                                        ]}
+                                        title={<div dangerouslySetInnerHTML={{ __html: item.content}}></div>}
+                                    />
+                                </List.Item>
+                            )}
+                        />
+                        </Spin>
                 </div>
                 
                 <div className="view-more">
@@ -90,4 +87,19 @@ class CommentsView extends Component {
     }
 }
 
-export default CommentsView;
+const mapStateToProps = (state) => {
+    return {
+        isFetchingComments: state.forum.isFetchingComments,
+        comments: state.forum.comments
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch,
+        actions: bindActionCreators(actionCreators, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommentsView);
+export { CommentsView };

@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import { push } from 'react-router-redux';
 import t from 'tcomb-form';
 import PropTypes from 'prop-types';
-import message from 'antd/lib/message';
 
 import * as actionCreators from '../../actions/auth';
 
@@ -182,27 +181,6 @@ class LoginView extends React.Component {
 
     render() {
         let statusText = null;
-        if (this.props.statusText && this.state.showStatusText) {
-            message.error(this.props.statusText);
-            this.setState({
-                showStatusText: false
-            });
-            const statusTextClassNames = classNames({
-                'alert': true,
-                'alert-danger': this.props.statusText.indexOf('Authentication Error') === 0,
-                'alert-success': this.props.statusText.indexOf('Authentication Error') !== 0
-            });
-
-            statusText = (
-                <div className="row">
-                    <div className="col-sm-12">
-                        <div className={statusTextClassNames}>
-                            {this.props.statusText}
-                        </div>
-                    </div>
-                </div>
-            );
-        }
 
         return (
             <div className="container login">
@@ -213,7 +191,7 @@ class LoginView extends React.Component {
 
                     <form className="login-form" onSubmit={this.login}>
                         <div className="login-type">
-                            <div className="btn-group login-btn-gup">
+                            {/* <div className="btn-group login-btn-gup">
                                 <a
                                     className={`btn email ${this.state.emailActive}`}
                                     onClick={this.showEmail}
@@ -222,7 +200,7 @@ class LoginView extends React.Component {
                                     className={`btn phone ${this.state.phoneActive}`}
                                     onClick={this.showPhone}
                                 >手机号</a>
-                            </div>
+                            </div> */}
                         </div>
                         {this.renderForm()}
                         <button disabled={this.props.isAuthenticating}

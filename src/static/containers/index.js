@@ -10,3 +10,4 @@ export ForumNewPostView from './Forum/newPost/index';
 export NotFoundView from './NotFound/index';
 export ProfileView from './Profile/index';
 export AdminView from './Admin/index';
+export IntroduceDetailView from './Introduce/components/index';

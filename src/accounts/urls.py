@@ -10,6 +10,10 @@ urlpatterns = [
     url(_(r'^login/$'),
         accounts.views.UserLoginView.as_view(),
         name='login'),
+    url(_(r'^users/activate/$'),
+        accounts.views.ActivationView.as_view(),
+        name='activate'),
+
     url(_(r'^confirm/email/(?P<activation_key>.*)/$'),
         accounts.views.UserConfirmEmailView.as_view(),
         name='confirm_email'),

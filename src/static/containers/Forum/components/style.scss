@@ -24,6 +24,7 @@
                 img {
                     width: 50px;
                     margin-top: 12px;
+                    border: 2px solid #eee;
                 }
             }
 
@@ -90,4 +91,8 @@
             border-bottom: 1px solid #eee;
         }
     }
+}
+.fresh {
+    padding: 20px;
+    text-align: center;
 }

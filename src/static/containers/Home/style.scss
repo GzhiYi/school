@@ -3,11 +3,33 @@
 }
 
 .home {
-    height: 642px;
+    height: 708px;
     width: 100%;
     margin-top: -19px;
     margin-bottom: -46px;
-    background-image: url('../../images/home.jpg');
     background-position: 50% 50%;
     background-size: cover;
+
+
+    // .content {
+    //     display: flex;
+    //     justify-content: center;
+    //     margin-top: 25px;
+    //     padding: 50px;
+    // }
+    .container-fluid {
+      padding: 0 !important;
+    }
 }
+
+  .ant-carousel .slick-slide {
+    text-align: center;
+    height: 460px;
+    line-height: 160px;
+    background: #364d79;
+    overflow: hidden;
+  }
+
+  .ant-carousel .slick-slide h3 {
+    color: #fff;
+  }

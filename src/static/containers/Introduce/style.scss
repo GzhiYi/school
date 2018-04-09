@@ -78,8 +78,40 @@
         }
 
         .tool {
-            text-align: center;
+            // text-align: center;
             padding: 10px 0;
         }
+    }
+}
+
+.introduce-content {
+    width: 80%;
+    background: #ffffff;
+    margin: 30px auto;
+    padding: 20px;
+
+    h3.header {
+        margin: 40px;
+        text-align: center;
+    }
+
+    i.anticon.anticon-home {
+        font-size: 1.4rem;
+        cursor: pointer;
+        transition: .5s all;
+    }
+
+    i.anticon.anticon-home:hover {
+        color: #69c0ff;
+    }
+
+    p.date-updated {
+        text-align: right;
+        margin-right: 300px;
+        color: #5d5d5d;
+    }
+
+    .body {
+        margin: 0 40px;
     }
 }

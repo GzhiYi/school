@@ -50,11 +50,7 @@ class ForumView extends React.Component {
                         </div>
                     </div>
                 </div>
-                <BackTop>
-                    <div className="top-up">
-                        <i className="fa fa-arrow-up" aria-hidden="true"></i>
-                    </div>
-                </BackTop> 
+                <BackTop /> 
             </div>
         )
     }

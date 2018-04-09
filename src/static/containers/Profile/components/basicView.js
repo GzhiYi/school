@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import * as actionCreators from '../../../actions/auth';
 import Icon from 'antd/lib/icon';
 import Upload from 'antd/lib/upload';
 import message from 'antd/lib/message';
@@ -28,6 +32,11 @@ class BasicView extends Component {
 			},
 		}
 	}
+
+	componentDidMount() {
+		this.props.actions.getUser(Cookies.get('token'));
+	}
+	
 
 	getBase64 = (img, callback) => {
 		const reader = new FileReader();
@@ -70,7 +79,20 @@ class BasicView extends Component {
 	}
 
 	updateProfile = () => {
-
+		let formValues = this.state.formValues;
+		let user = this.props.user;
+		let postData = {
+			"first_name": user.first_name,
+			"gender": user.gender,
+			"phone_number": user.phone_number,
+			"id": user.id
+		}
+		_.map(formValues, (value, key) => {
+			if (value !== null && value !== '') {
+				postData[`${_.snakeCase(key)}`] = value
+			}
+		})
+		this.props.actions.updateUser(Cookies.get('token'), postData);
 	}
 
 	render() {
@@ -81,10 +103,10 @@ class BasicView extends Component {
 			</div>
 		);
 		const imageUrl = this.state.imageUrl;
-		const user = JSON.parse(sessionStorage.getItem('user'));
-		console.log('user', user);
-		return (
-			<div className="basic-view">
+		let user = this.props.user;
+		let renderInfo = '';
+		if (user) {
+			renderInfo = <div>
 				<div className="avatar-upload">
 					<Upload
 						name="avatar"
@@ -95,7 +117,8 @@ class BasicView extends Component {
 						beforeUpload={this.beforeUpload}
 						onChange={this.handleAvatarChange}
 					>
-						{imageUrl ? <img src={imageUrl} alt="" /> : uploadButton}
+						{/* {imageUrl ? <img src={JSON.parse(user).photo_url} alt="" /> : uploadButton} */}
+						<img src={user.photo_url} alt="" />
 					</Upload>
 				</div>
 				<div className="basic-form">
@@ -128,7 +151,7 @@ class BasicView extends Component {
 								<Input
 									name="phoneNumber"
 									placeholder="Phone"
-									// defaultValue={user.phone_number}
+									defaultValue={user.phone_number}
 									className="profile-input"
 									onChange={this.onInputChange}
 									type="number"
@@ -140,16 +163,16 @@ class BasicView extends Component {
 							<div className="col-md-5">
 								<RadioGroup
 									onChange={this.onInputChange}
-									// defaultValue={user.gender}
+									defaultValue={user.gender}
 									name="gender"
 								>
-									<Radio value='male'>男</Radio>
-									<Radio value='femile'>女</Radio>
+									<Radio value='M'>男</Radio>
+									<Radio value='F'>女</Radio>
 								</RadioGroup>
 							</div>
 						</div>
 
-						<div className="form-group">
+						{/* <div className="form-group">
 							<label className="col-md-4 control-label">出生日期</label>
 							<div className="col-md-5">
 								<DatePicker
@@ -158,7 +181,7 @@ class BasicView extends Component {
 									placeholder="选择出生日期"
 								/>
 							</div>
-						</div>
+						</div> */}
 
 						<div className="form-group">
 							<div className="col-md-9 text-right">
@@ -167,7 +190,7 @@ class BasicView extends Component {
 									onClick={this.updateProfile}
 								>
 									{
-										this.props.isUpdatingProfile
+										this.props.isUpdatingUser
 											?
 											"上传中..."
 											:
@@ -179,8 +202,31 @@ class BasicView extends Component {
 					</div>
 				</div>
 			</div>
+		}
+		return (
+			<div className="basic-view">
+				{renderInfo}
+			</div>
 		);
 	}
 }
 
-export default BasicView;
+const mapStateToProps = (state) => {
+	return {
+		isAuthenticated: state.auth.isAuthenticated,
+		isAuthenticating: state.auth.isAuthenticating,
+		statusText: state.auth.statusText,
+		user: state.auth.user,
+		isUpdatingUser: state.auth.isUpdatingUser
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		dispatch,
+		actions: bindActionCreators(actionCreators, dispatch)
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BasicView);
+export { BasicView };

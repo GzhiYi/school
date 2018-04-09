@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
+import * as actionCreators from '../../actions/auth';
+import { authLogoutAndRedirect } from '../../actions/auth';
 import { connect } from 'react-redux';
 import Button from 'antd/lib/button';
 import Icon from 'antd/lib/icon';
@@ -52,6 +54,10 @@ class AdminView extends Component {
         this.props.dispatch(push(directTo));
     } 
 
+    logOut = () => {
+        this.props.dispatch(authLogoutAndRedirect())
+    }
+
     render() {
         const menu = (
             <Menu>
@@ -66,6 +72,9 @@ class AdminView extends Component {
                 </Menu.Item>
                 <Menu.Item>
                     <a onClick={() => {this.goTo('/forum')}}><Icon type="compass" /> 交流</a>
+                </Menu.Item>
+                <Menu.Item>
+                    <a style={{color: 'red'}} onClick={this.logOut}><Icon type="logout" /> 退出</a>
                 </Menu.Item>
             </Menu>
         );
@@ -109,10 +118,10 @@ class AdminView extends Component {
                             onClick={this.changeMenu}
                             selectedKeys={[`${this.state.openKey}`]}
                         >
-                            <Menu.Item key="overview">
+                            {/* <Menu.Item key="overview">
                                 <Icon type="pie-chart" />
                                 <span>概览</span>
-                            </Menu.Item>
+                            </Menu.Item> */}
                             <Menu.Item key="user">
                                 <Icon type="user" />
                                 <span>用户管理</span>
@@ -155,11 +164,19 @@ class AdminView extends Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
-        location: state.routing.location
+        isAuthenticating: state.auth.isAuthenticating,
     };
 };
 
-export default connect(mapStateToProps)(AdminView);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch,
+        actions: bindActionCreators(actionCreators, dispatch)
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminView);
+export { AdminView };

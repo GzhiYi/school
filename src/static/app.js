@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Avatar  from 'antd/lib/avatar';
 import Popover from 'antd/lib/popover';
+import Icon from 'antd/lib/icon';
 
 import { authLogoutAndRedirect } from './actions/auth';
 import './styles/main.scss';
@@ -64,6 +65,10 @@ class App extends React.Component {
         this.props.dispatch(push('/profile/basic'));
     }
 
+    goToAdmin = () => {
+        this.props.dispatch(push('/admin/user'));
+    }
+
     render() {
         const homeClass = classNames({
             active: this.props.location && this.props.location.pathname === '/'
@@ -75,13 +80,13 @@ class App extends React.Component {
             active: this.props.location && this.props.location.pathname === '/login'
         });
         const introduceClass = classNames({
-            active: this.props.location && this.props.location.pathname === '/introduce'
+            active: location.pathname.split('/')[1] === 'introduce'
         });
         const surroundingClass = classNames({
             active: location.pathname.split('/')[1] === 'surrounding'
         });
         const forumClass = classNames({
-            active: (this.props.location && this.props.location.pathname === '/forum') || (this.props.location && this.props.location.pathname === '/forum/new-post')
+            active: location.pathname.split('/')[1] === 'forum'
         });
         let content = 
             <div>
@@ -90,12 +95,29 @@ class App extends React.Component {
                     <li className="avatar-auth-li" onClick={this.goToRegister}><a>注册</a></li>
                 </ul>
             </div>;
-        if (this.props.isAuthenticated) {
+        let user = null;
+        console.log(Cookies.get('user') == undefined);
+        if (Cookies.get('user') !== undefined) {
+            user = JSON.parse(Cookies.get('user'));
+        }
+        console.log(user, user !== null);
+        if (user) {
             content = 
             <div>
                 <ul className="avatar-auth">
-                    <li className="avatar-auth-li"><a onClick={this.goToProfile}>个人中心</a></li>
-                    <li className="avatar-auth-li" onClick={this.logout}><a>退出登录</a></li>
+                    <li className="avatar-auth-li"><a onClick={this.goToProfile}><Icon type="user"></Icon>&nbsp;&nbsp;个人中心</a></li>
+                    {
+                        user !== undefined && user !== null
+                        ?
+                            user.is_superuser
+                            ?
+                                <li className="avatar-auth-li"><a style={{ color: '#1890ff' }} onClick={this.goToAdmin}><Icon type="dashboard"></Icon>&nbsp;&nbsp;管理中心</a></li>
+                            :
+                                ''
+                        :
+                            ''
+                    }
+                    <li className="avatar-auth-li" onClick={this.logout}><a><Icon type="logout"></Icon>&nbsp;&nbsp;退出登录</a></li>
                 </ul>
             </div>;
         }
@@ -121,8 +143,8 @@ class App extends React.Component {
                                         <span className="icon-bar" />
                                     </button>
                                     <a className="navbar-brand">
-                                        <Popover placement="bottomLeft" content={content} title={this.props.isAuthenticated ? "你好,gzhiyi!" : "游客，你好！"} trigger="hover">
-                                            <Avatar size="large" icon="user" />
+                                        <Popover placement="bottomLeft" content={content} title={Cookies.get('token') ? `你好,${user.first_name}!` : "游客，你好！"} trigger="hover">
+                                            <Avatar size="large" src={ user ? user.photo_url : ''} icon="user" />
                                         </Popover>
                                     </a>
                                 </div>
@@ -179,7 +201,7 @@ class App extends React.Component {
                     {this.props.children}
                 </div>
                 {
-                    (this.props.location && this.props.location.pathname === '/forum')
+                    (this.props.location && this.props.location.pathname === '/forum') || location.pathname.split('/')[1] == ''
                     ?
                         ""
                     :

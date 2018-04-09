@@ -36,4 +36,25 @@
             margin-top: 20px;
         }
     }
+
+    .select-title {
+        display: flex;
+        .title {
+            width: 50.8%;
+            margin-left: 20px;
+        }
+    }
+    a.deleted {
+        background: #ccc;
+        color: #ffff;
+        font-size: 0.8rem;
+        padding: 8px;
+    }
+    a.normal {
+        background: #8ec767;
+        color: #ffff;
+        font-size: 0.8rem;
+        padding: 8px;
+        cursor: default;
+    }
 }

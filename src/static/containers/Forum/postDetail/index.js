@@ -2,23 +2,40 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../../actions/auth';
+import * as actionCreators from '../../../actions/forum';
 import ReactQuill from 'react-quill';
 import Anchor from 'antd/lib/anchor';
+import Button from 'antd/lib/button';
+import Spin from 'antd/lib/spin';
+import Icon from 'antd/lib/icon';
 import './style.scss';
 import Img from "../../../images/github.png";
+import moment from 'moment';
 
 const { Link }= Anchor;
 class PostDetailView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            editorHtml: ""
+            editorHtml: "",
+            currentPage: 1,
+            currentComments: [],
         }
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);
+        let postId = location.pathname.split('/')[3];
+        this.props.actions.listPosts(postId);
+        this.props.actions.listComments(postId, null,  1, (response) => {
+            let currentComments = this.state.currentComments;
+            _.map(response.results, item => {
+                currentComments.push(item)
+            })
+            this.setState({
+                currentComments
+            });
+        });
     }
     
     handleEditorChange = (html) => {
@@ -39,8 +56,128 @@ class PostDetailView extends Component {
         this.props.dispatch(push('/register'));
     }
 
+    getNext = () => {
+        let currentPage = this.state.currentPage;
+        currentPage++;
+        this.props.actions.listComments(location.pathname.split('/')[3], null,  currentPage, (response) => {
+            let currentComments = this.state.currentComments;
+            _.map(response.results, item => {
+                currentComments.push(item)
+            })
+            this.setState({
+                currentComments,
+                currentPage
+            });
+        });
+    }
+
+    getLast = () => {
+        let currentPage = this.state.currentPage;
+        this.props.actions.listComments(location.pathname.split('/')[3], null,  currentPage, (response) => {
+            let currentComments = this.state.currentComments;
+            _.map(response.results, (item, index) => {
+                if (index + 1 === response.results.length) {
+                    currentComments.push(item)
+                }
+            })
+            this.setState({
+                currentComments,
+                currentPage
+            });
+        });
+    }
+
+    addComments = () => {
+        let user = JSON.parse(Cookies.get('user'));
+        let data = {
+            'post': location.pathname.split('/')[3],
+            'author': JSON.parse(Cookies.get('user')).id,
+            'content': this.state.editorHtml
+        }
+        this.props.actions.addComments(Cookies.get('token'), data, location.pathname.split('/')[3], () => {
+            this.getLast()
+        });
+        this.setState({
+            editorHtml: '',
+        });
+    }
+
+    replySomeone = (author)=> {
+        this.setState({
+            editorHtml: `<p>@${author.first_name}&nbsp;</p>`,
+        });
+        window.scrollTo(0, document.documentElement.scrollHeight);
+    }
+
     render() {
-        let token = sessionStorage.getItem('token');
+        let token = Cookies.get('token');
+        let user = JSON.parse(Cookies.get('user'));
+        let post = this.props.posts;
+        let comments = this.props.comments;
+        let firstFloor = '';
+        let renderComments = '';
+        if (post) {
+            post = post.results[0];
+            firstFloor = 
+                <div id="first-floor" className="post-floor first-floor">
+                    <div className="avatar">
+                        <img src={post.author.photo_url} alt="avatar" />
+                    </div>
+                    <div className="name-time">
+                        <div className="user-name">
+                            <span className="author-name">{post.author.first_name}</span>
+                        </div>
+                        <div className="post-create-time">{moment(post.date_created).format('YYYY-MM-DD')}</div>
+                    </div>
+
+                    <div className="content" dangerouslySetInnerHTML={{ __html: post.content}}>
+                        
+                    </div>
+
+                    {/* <div className="footer"> 暂时隐藏
+                        <i className="fa fa-smile-o" aria-hidden="true"></i> {post.thumbs_up}
+                        &nbsp;
+                        <i className="fa fa-frown-o" aria-hidden="true"></i> {post.step_on}
+                    </div> */}
+                </div>
+        }
+        if (comments) {
+            renderComments = _.map(this.state.currentComments, (comment, index) => {
+                return (
+                    <div className="post-floor" key={index}>
+                        <div className="avatar">
+                            <img src={comment.author.photo_url} alt="avatar" />
+                        </div>
+                        <div className="name-time">
+                            <div className="user-name">
+                                <span className="author-name">{comment.author.first_name}</span>
+                            </div>
+                            <div className="post-create-time">
+                                {
+                                    moment(comment.date_created).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD') 
+                                    ?
+                                        moment(comment.date_created).format('HH:mm')
+                                    :
+                                        moment(comment.date_created).format('YYYY-MM-DD HH:mm')
+                                }
+                            </div>
+                        </div>
+
+                        <div className="content" dangerouslySetInnerHTML={{ __html: comment.content }}>
+                            
+                        </div>
+
+                        <a className="reply" onClick={() => {this.replySomeone(comment.author)}}>
+                            <i className="fa fa-reply" aria-hidden="true"></i> 回复
+                        </a>
+                        {/* <div className="footer"> 暂时隐藏
+                            <i className="fa fa-heart" aria-hidden="true"></i> {comment.thumbs_up}
+                        </div> */}
+                    </div>
+                )
+            })
+        }
+        const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
         return (
             <div>
                 <div className="container">
@@ -48,88 +185,36 @@ class PostDetailView extends Component {
                         <div className="col-lg-offset-1 col-lg-10 post-detail">
                             <div>
                                 <div className="title">
-                                    <span className="post-back" onClick={this.back}>返回</span> / <span className="post-detail-title">
-                                    这是一个毕业设计
+                                    <span className="post-back" onClick={this.back}>全部帖子</span> / <span className="post-detail-title">
+                                        {post && !_.has(post, 'results') ? post.title : ""}
                                     </span> 
                                 </div>
                                 
                                 <div className="col-lg-8">
-                                    <div id="first-floor" className="post-floor first-floor">
-                                        <div className="avatar">
-                                            <img src={Img} alt="avatar"/>
-                                        </div>
-                                        <div className="name-time">
-                                            <div className="user-name">
-                                                <span className="author-name">userName</span>
-                                            </div>
-                                            <div className="post-create-time">2018.1.5</div>
-                                        </div>
-
-                                        <div className="content">
-                                            工作半年多，base上海，会写sql，有点编程基础。现在想学python，但是自律性较差，求队友一起监督
-                                        </div>
-
-                                        <div className="footer">
-                                            <i className="fa fa-smile-o" aria-hidden="true"></i> 330
-                                            &nbsp;
-                                            <i className="fa fa-frown-o" aria-hidden="true"></i> 220
-                                        </div>
-                                    </div>
-                                    <div className="post-floor">
-                                        <div className="avatar">
-                                            <img src={Img} alt="avatar" />
-                                        </div>
-                                        <div className="name-time">
-                                            <div className="user-name">
-                                                <span className="author-name">userName</span>
-                                            </div>
-                                            <div className="post-create-time">2018.1.5</div>
-                                        </div>
-
-                                        <div className="content">
-                                           我是2楼楼
-                                        </div>
-
-                                        <a className="reply">
-                                            <i className="fa fa-reply" aria-hidden="true"></i> 回复
-                                        </a>
-                                        <div className="footer">
-                                            <i className="fa fa-heart" aria-hidden="true"></i> 98
-                                        </div>
-                                    </div>
-                                    <div className="post-floor">
-                                        <div className="avatar">
-                                            <img src={Img} alt="avatar" />
-                                        </div>
-                                        <div className="name-time">
-                                            <div className="user-name">
-                                                <span className="author-name">userName</span>
-                                            </div>
-                                            <div className="post-create-time">2018.1.5</div>
-                                        </div>
-
-                                        <div className="content">
-                                            地板  
-                                        </div>
-                                        <a className="reply">
-                                            <i className="fa fa-reply" aria-hidden="true"></i> 回复
-                                        </a>
-                                        <div className="footer">
-                                            <i className="fa fa-heart" aria-hidden="true"></i> 44
-                                        </div>
-                                    </div>
+                                    {firstFloor}
+                                    {renderComments}
                                 </div>
 
                                 <div className="col-lg-offset-1 col-lg-2">
                                     <Anchor>
+                                        <span className="go-back" title="查看全部帖子" onClick={this.back}>
+                                            <Icon type="left-circle" />&nbsp;&nbsp;
+                                            全部帖子
+                                        </span>
                                         <Link href="#first-floor" title="一楼" />
                                         <Link href="#take-a-comment" title="回复本帖" />
                                     </Anchor>
                                 </div>
 
                                 <div className="col-lg-8">
-                                    <div className="load-more">
-                                        更多
+                                    <div className="fresh">
+                                        {
+                                            this.props.isFetchingComments
+                                                ?
+                                                <Spin indicator={antIcon} />
+                                                :
+                                                <a onClick={this.getNext}>更多</a>
+                                        }
                                     </div>
                                 </div>
 
@@ -138,13 +223,15 @@ class PostDetailView extends Component {
                                         {
                                             token 
                                             ?
-                                                <ReactQuill
-                                                    onChange={this.handleEditorChange}
-                                                    value={this.state.editorHtml}
-                                                    modules={PostDetailView.modules}
-                                                    formats={PostDetailView.formats}
-                                                // bounds={'.app'}
-                                                />
+                                                <Spin spinning={this.props.isAddingComments ? this.props.isAddingComments : false}>
+                                                    <ReactQuill
+                                                        onChange={this.handleEditorChange}
+                                                        value={this.state.editorHtml}
+                                                        modules={PostDetailView.modules}
+                                                        formats={PostDetailView.formats}
+                                                    // bounds={'.app'}
+                                                    />
+                                                </Spin>
                                             :
                                                 <div className="notify-login">
                                                     <p>
@@ -152,17 +239,21 @@ class PostDetailView extends Component {
                                                     </p>
                                                 </div>
                                         }
+                                        <div className="button-area">
+                                            <Button type="primary" onClick={this.addComments} disabled={this.state.editorHtml === "" || this.state.editorHtml === '<p><br></p>' ? true : false}>评论</Button>
+                                        </div>
                                     </div>
+                                    
                                     <div className="col-lg-3">
                                         <div className="replyer-avatar">
                                             <img 
                                                 className="replyer-avatar-img"
-                                                src="http://pic.qqtn.com/up/2016-10/14762726302464719.jpg" 
-                                                alt=""                                            
+                                                src={user ? user.photo_url : ''} 
+                                                alt="头像啦"                                            
                                             />
                                         </div>
                                         <div>
-                                            <p className="replyer">GzhiYi</p>
+                                            <p className="replyer">{user ? user.first_name : ''}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -213,7 +304,11 @@ const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
         isAuthenticating: state.auth.isAuthenticating,
-        statusText: state.auth.statusText
+        statusText: state.auth.statusText,
+        posts: state.forum.posts,
+        comments: state.forum.comments,
+        isAddingComments: state.forum.isAddingComments,
+        isFetchingComments: state.forum.isFetchingComments,
     };
 };
 

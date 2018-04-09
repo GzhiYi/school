@@ -1,0 +1,29 @@
+{% load i18n %}
+
+{% block subject %}
+{% blocktrans %}{{ site_name }} 激活帐号邮件{% endblocktrans %}
+{% endblock subject %}
+
+{% block text_body %}
+{% blocktrans %}You're receiving this email because you need to finish activation process on {{ site_name }}.{% endblocktrans %}
+
+{% trans "Please go to the following page to activate account:" %}
+{{ protocol }}://{{ domain }}/{{ url }}
+
+{% trans "非常感谢您使用我们的站点!" %}
+
+{% blocktrans %}{{ site_name }}团队 {% endblocktrans %}
+{% endblock text_body %}
+
+{% block html_body %}
+{% blocktrans %}
+<p>您收到这封邮件是因为你创建了一个 {{ site_name }}的账号。.</p>{% endblocktrans %}
+
+<p>{% trans "请点击以下链接来激活您的账号：" %}</p>
+<p><a href="{{ protocol }}://{{ domain }}/{{ url }}">{{ protocol }}://{{ domain }}/{{ url }}</a></p>
+
+<p>{% trans "非常感谢您使用我们的站点!" %}</p>
+
+<!--<p>{% blocktrans %}{{ site_name }}团队 {% endblocktrans %}</p>-->
+
+{% endblock html_body %}
