@@ -43,3 +43,4 @@ shippable/
 scripts/
 .python-version
 .env
+migrations/
