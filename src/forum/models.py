@@ -12,7 +12,10 @@ class Posts(models.Model):
         help_text=_('e.g posts title')
     )
 
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(
+        User,
+        on_delete=models.PROTECT
+        )
 
     visited = models.IntegerField(
         blank=False,
@@ -76,7 +79,10 @@ class Posts(models.Model):
 
 
 class Comments(models.Model):
-    post = models.ForeignKey(Posts)
+    post = models.ForeignKey(
+        Posts,
+        on_delete=models.PROTECT
+        )
 
     thumbs_up = models.IntegerField(
         blank=False,
@@ -92,7 +98,10 @@ class Comments(models.Model):
         help_text=_('e.g comment content')
     )
 
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(
+        User,
+        on_delete=models.PROTECT
+        )
 
     date_created = models.DateTimeField(
         _('date created'),
