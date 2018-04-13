@@ -146,7 +146,7 @@ class SurroundingEatView extends Component {
                         >
                             <Input
                                 name="title"
-                                placeholder="快讯标题"
+                                placeholder="分享什么"
                                 onChange={this.onInputChange}
                                 style={{ marginBottom: 20 }}
                             />
