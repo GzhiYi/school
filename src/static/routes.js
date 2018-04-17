@@ -17,6 +17,7 @@ import {
 
  } from './containers';
 import requireAuthentication from './utils/requireAuthentication';
+import requireAdmin from './utils/requireAdmin';
 
 const ForumChildRoute = ({match}) => (
     <div>
@@ -30,14 +31,13 @@ export default(
         <Route exact path="/" component={HomeView} />
         <Route path="/login" component={LoginView} />
         <Route path="/register" component={RegisterView} />
-        <Route path="/protected" component={requireAuthentication(ProtectedView)} />
         <Route exact path="/introduce" component={IntroduceView} />
         <Route exact path="/introduce/:item" component={IntroduceDetailView} />
         <Route path="/surrounding" component={SurroundingView} />
         <Route path="/forum/detail/:topicId" component={PostDetailView} />
         <Route path="/forum" component={ForumChildRoute} />
-        <Route path="/profile/:menu" component={ProfileView} />
-        <Route path="/admin" component={AdminView} />
+        <Route path="/profile/:menu" component={requireAuthentication(ProfileView)} />
+        <Route path="/admin" component={requireAdmin(AdminView)} />
         <Route path="*" component={NotFoundView} />
     </Switch>
 
