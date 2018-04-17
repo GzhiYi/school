@@ -53,14 +53,14 @@ class RightSideBar extends Component {
         }
         return (
             <div>
-                <div className="search">
+                {/* <div className="search">
                     <Search
                         // placeholder="input search text"
                         onSearch={value => console.log(value)}
                         size="large"
                         enterButton
                     />
-                </div>
+                </div> */}
 
                 <div className="post-btn">
                     <button 
