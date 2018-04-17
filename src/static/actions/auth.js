@@ -158,6 +158,7 @@ export function authRegisterUser(email, password, userName, phoneNumber) {
                 dispatch(push('/login'));
             })
             .catch((error) => {
+                message.error("注册失败，确保你的邮箱、手机号正确并无使用!");
                 if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
                     // Invalid authentication credentials
                     return error.response.json().then((data) => {
