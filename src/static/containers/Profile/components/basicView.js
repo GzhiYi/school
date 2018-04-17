@@ -30,6 +30,7 @@ class BasicView extends Component {
 				dateBorn: null,
 				photoUrl: null
 			},
+			imageUrl: '',
 		}
 	}
 
@@ -61,10 +62,12 @@ class BasicView extends Component {
 			this.setState({ loading: true });
 			return;
 		}
+		console.log("what is info ", info);
 		if (info.file.status === 'done') {
 			// Get this url from response in real world.
+			console.log(info, "$$$$$");
 			this.getBase64(info.file.originFileObj, imageUrl => this.setState({
-				imageUrl,
+				imageUrl: `http://p7b9iw239.bkt.clouddn.com/${info.file.response.hash}`,
 				loading: false,
 			}));
 		}
@@ -85,7 +88,8 @@ class BasicView extends Component {
 			"first_name": user.first_name,
 			"gender": user.gender,
 			"phone_number": user.phone_number,
-			"id": user.id
+			"id": user.id,
+			"photo_url": this.state.imageUrl
 		}
 		_.map(formValues, (value, key) => {
 			if (value !== null && value !== '') {
@@ -102,23 +106,34 @@ class BasicView extends Component {
 				<div className="ant-upload-text">Upload</div>
 			</div>
 		);
+		console.log("看看imgge", this.state.imageUrl);
 		const imageUrl = this.state.imageUrl;
 		let user = this.props.user;
 		let renderInfo = '';
+		let uploadData = {
+			'token': 'CGcNHo5yT0y9m-kFKMD9j5PSOKdpY3c5OUr6DVVM:tsDZOaUCTZKsSkkdQyRi-GyeTJw=:eyJzY29wZSI6ImltYWdlcyIsImRlYWRsaW5lIjoxNTIzOTg5NjM2fQ=='
+		}
 		if (user) {
 			renderInfo = <div>
 				<div className="avatar-upload">
 					<Upload
-						name="avatar"
+						name="file"
 						listType="picture-card"
 						className="avatar-uploader"
 						showUploadList={false}
-						action="//jsonplaceholder.typicode.com/posts/"
+						action="https://upload-z2.qiniup.com"
 						beforeUpload={this.beforeUpload}
+						data={uploadData}
 						onChange={this.handleAvatarChange}
 					>
 						{/* {imageUrl ? <img src={JSON.parse(user).photo_url} alt="" /> : uploadButton} */}
-						<img src={user.photo_url} alt="" />
+						{
+							this.state.imageUrl
+							?
+								<img src={this.state.imageUrl} alt="" />
+							:
+								<img src={user.photo_url} alt="" />
+						}
 					</Upload>
 				</div>
 				<div className="basic-form">

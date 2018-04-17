@@ -88,10 +88,12 @@ class UserUpdateView(DefaultsMixin):
         first_name = request.data['first_name']
         phone_number = request.data['phone_number']
         gender = request.data['gender']
+        photo = request.data['photo_url']
         put_target = User.objects.get(id=uid)
         put_target.first_name = first_name
         put_target.phone_number = phone_number
         put_target.gender = gender
+        put_target.photo_url = photo
         put_target.save()
         return Response({
             'user': self.get_serializer(request.user).data
