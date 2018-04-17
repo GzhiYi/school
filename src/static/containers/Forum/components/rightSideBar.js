@@ -5,6 +5,7 @@ import * as actionCreators from '../../../actions/forum';
 import { connect } from 'react-redux';
 import Input from 'antd/lib/input';
 import Carousel from 'antd/lib/carousel';
+import message from 'antd/lib/message';
 const Search = Input.Search;
 
 import './style.scss';
@@ -27,8 +28,14 @@ class RightSideBar extends Component {
     }
 
     createPost = () => {
-        console.log('???');
-        this.props.dispatch(push('/forum/new-post'));
+        let token = Cookies.get('token');
+        console.log("token", token);
+        if (token) {
+            this.props.dispatch(push('/forum/new-post'));
+        } else {
+            message.info("发帖请先登录哦。")
+            this.props.dispatch(push('/login'));
+        }
     }
 
     render() {
