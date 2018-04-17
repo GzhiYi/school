@@ -33,8 +33,8 @@ class RightSideBar extends Component {
         if (token) {
             this.props.dispatch(push('/forum/new-post'));
         } else {
-            message.info("发帖请先登录哦。")
-            this.props.dispatch(push('/login'));
+            message.info("发帖请先登录哦。");
+            this.props.dispatch(push(`/login?next=/forum/new-post`));
         }
     }
 
@@ -82,14 +82,20 @@ class RightSideBar extends Component {
                         <div><h3>3</h3></div>
                         <div><h3>4</h3></div>
                     </Carousel> */}
-                    <div className="carousel-below">
-                        <div className="title">推荐帖子</div>
-                        <div className="recommend-posts-list">
-                            <ul>
-                                {recommended}
-                            </ul>
-                        </div>
-                    </div>
+                    {
+                        recommended !== ''
+                        ?
+                            <div className="carousel-below">
+                                <div className="title">推荐帖子</div>
+                                <div className="recommend-posts-list">
+                                    <ul>
+                                        {recommended}
+                                    </ul>
+                                </div>
+                            </div>
+                        : 
+                            null
+                    }
                 </div>
             </div>
         );
