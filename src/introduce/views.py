@@ -28,6 +28,7 @@ class DefaultsMixin(viewsets.ModelViewSet):
         filters.SearchFilter,
         filters.OrderingFilter,
     )
+    
 class IntroduceSchoolViewSet(GenericAPIView):
 
     authentication_classes = (TokenAuthentication,)
@@ -50,7 +51,6 @@ class IntroduceSchoolViewSetWithNoToken(GenericAPIView):
         return Response(serializer.data)
 
 
-#  介绍老师
 class IntroduceTeacherViewSet(GenericAPIView):
 
     authentication_classes = (TokenAuthentication,)
@@ -73,7 +73,6 @@ class IntroduceTeacherViewSetWithNoToken(GenericAPIView):
         return Response(serializer.data)
 
 
-#  介绍专业
 class IntroduceProfessionViewSet(GenericAPIView):
 
     authentication_classes = (TokenAuthentication,)
@@ -96,7 +95,6 @@ class IntroduceProfessionViewSetWithNoToken(GenericAPIView):
         return Response(serializer.data)
 
 
-#  介绍社团
 class IntroduceSocietyViewSet(GenericAPIView):
 
     authentication_classes = (TokenAuthentication,)
@@ -119,7 +117,6 @@ class IntroduceSocietyViewSetWithNoToken(GenericAPIView):
         return Response(serializer.data)
 
 
-#  介绍学院
 class IntroduceCollegeViewSet(GenericAPIView):
 
     authentication_classes = (TokenAuthentication,)
@@ -142,7 +139,6 @@ class IntroduceCollegeViewSetWithNoToken(GenericAPIView):
         return Response(serializer.data)
 
 
-#  基本介绍
 class PostBasicIntroduceViewSet(GenericAPIView):
 
     authentication_classes = (TokenAuthentication,)
@@ -161,7 +157,6 @@ class BasicIntroduceViewSet(GenericAPIView):
         introduces = IntroduceBase.objects.all()
         serializer = IntroduceBaseSerializer(introduces, many=True)
         return Response(serializer.data)
-
 
 class UpdateBasicIntroduceViewSet(DefaultsMixin):
     queryset = IntroduceBase.objects.all()

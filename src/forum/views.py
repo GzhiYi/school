@@ -64,8 +64,8 @@ class GetPostsViewSet(GetPostsMixin):
     def list(self, request, *args, **kwargs):
         if request.query_params.get('id'):
             posts = self.queryset.filter(id=request.query_params.get('id'))
-            for post in posts:  # querySet是多个object的集合，所以不能用save方法。
-                post.visited += 1 # 正确是遍历queryset然后对应的save方法实现链接点击自增
+            for post in posts: 
+                post.visited += 1 
                 post.save()
         elif request.query_params.get('au'):
             posts = self.queryset.filter(author_id=request.query_params.get('au'))
@@ -74,7 +74,7 @@ class GetPostsViewSet(GetPostsMixin):
         comments = list(posts)
         for item in comments:
             comment_data = Comments.objects.filter(post_id=item.id)
-            item.comment = len(comment_data)  #  呵呵。转成list再判断长度，好像不用
+            item.comment = len(comment_data) 
         page = self.paginate_queryset(comments)
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)
@@ -89,7 +89,7 @@ class GetTopPostsViewSet(GetPostsMixin):
         comments = list(posts)
         for item in comments:
             comment_data = Comments.objects.filter(post_id=item.id)
-            item.comment = len(comment_data)  # 呵呵。转成list再判断长度，好像不用
+            item.comment = len(comment_data) 
         page = self.paginate_queryset(comments)
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)
@@ -105,7 +105,7 @@ class GetRecommendedPostsViewSet(GetPostsMixin):
         comments = list(posts)
         for item in comments:
             comment_data = Comments.objects.filter(post_id=item.id)
-            item.comment = len(comment_data)  # 呵呵。转成list再判断长度，好像不用
+            item.comment = len(comment_data) 
         page = self.paginate_queryset(comments)
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)
@@ -124,9 +124,9 @@ class GetCommentsView(GetPostsMixin):
         comments = self.queryset.all()
         comments = list(comments)
         if request.query_params.get('id'):
-            comments = [item for item in comments if str(item.post.id) == request.query_params.get('id')]  # 遍历找出该帖子的id
+            comments = [item for item in comments if str(item.post.id) == request.query_params.get('id')]  
         elif request.query_params.get('au'):
-            comments = [item for item in comments if str(item.author_id) == request.query_params.get('au')]  # 遍历找出该帖子的id
+            comments = [item for item in comments if str(item.author_id) == request.query_params.get('au')]  
         page = self.paginate_queryset(comments)
         serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)
