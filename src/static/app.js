@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import Avatar  from 'antd/lib/avatar';
 import Popover from 'antd/lib/popover';
 import Icon from 'antd/lib/icon';
+import Layout from 'antd/lib/layout';
+const { Header } = Layout;
 
 import { authLogoutAndRedirect } from './actions/auth';
 import './styles/main.scss';
@@ -197,8 +199,10 @@ class App extends React.Component {
 
                 }
 
-                <div>
+                <div className="children" style={{minHeight: 'calc(84vh - 70px)'}}>
                     {this.props.children}
+                </div>
+                <div className="push">
                 </div>
                 {
                     (this.props.location && this.props.location.pathname === '/forum') || location.pathname.split('/')[1] == ''
