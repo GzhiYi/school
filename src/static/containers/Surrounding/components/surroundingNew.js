@@ -135,6 +135,7 @@ class SurroundingNewView extends Component {
                                 style={{ marginBottom: 20 }}
                                 onChange={this.onInputChange}
                             />
+                            
                             <Alert message="注意，发布的快讯将公布于所有人，请确保信息的准确性。" type="info" showIcon />
                         </Modal>
                     :

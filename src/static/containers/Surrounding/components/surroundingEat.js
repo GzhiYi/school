@@ -14,12 +14,14 @@ const { TextArea } = Input;
 import List from 'antd/lib/list';
 import Avatar from 'antd/lib/avatar';
 import Icon from 'antd/lib/icon';
+import Upload from 'antd/lib/upload';
 class SurroundingEatView extends Component {
     state = {
         visible: false,
         title: '',
         content: '',
-        description: ''
+        description: '',
+        imageUrl: '',
     }
 
     componentDidMount() {
@@ -48,7 +50,8 @@ class SurroundingEatView extends Component {
             let data = {
                 'title': title,
                 'content': content,
-                'description': description
+                'description': description,
+                'cover': this.state.imageUrl,
             }
             this.props.actions.addEat(Cookies.get('token'), data);
             this.setState({
@@ -86,6 +89,38 @@ class SurroundingEatView extends Component {
                 break;
         }
     }
+
+    getBase64 = (img, callback) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => callback(reader.result));
+        reader.readAsDataURL(img);
+    }
+
+    beforeUpload = (file) => {
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        if (!isLt2M) {
+            message.error('大小不能超过2M。');
+        }
+        return isLt2M;
+    }
+
+    handleUploadChange = (info) => {
+        if (info.file.status === 'uploading') {
+            this.setState({ loading: true });
+            return;
+        }
+        if (info.file.status === 'done') {
+            message.success("图片上传成功。");
+            this.getBase64(info.file.originFileObj, imageUrl => this.setState({
+                imageUrl: `http://p7b9iw239.bkt.clouddn.com/${info.file.response.hash}`,
+                loading: false,
+            }));
+        }
+    }
+
+    onPreview = (file) => {
+        window.open(`http://p7b9iw239.bkt.clouddn.com/${file.response.hash}`)
+    }
     render() {
         let listData = [];
 
@@ -102,12 +137,15 @@ class SurroundingEatView extends Component {
                 listData.push({
                     // href: 'http://ant.design',
                     title: eat.title,
-                    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                    avatar: eat.cover,
                     description: eat.description,
                     content: eat.content,
                     date_created: eat.date_created
                 });
             })
+        }
+        const uploadData = {
+            'token': 'CGcNHo5yT0y9m-kFKMD9j5PSOKdpY3c5OUr6DVVM:mwzjCW_vU4qTtgrqTES2Sn_p1CM=:eyJzY29wZSI6ImltYWdlcyIsImRlYWRsaW5lIjoxNTM2OTEwMzM2fQ=='
         }
         return (
             <div>
@@ -123,7 +161,7 @@ class SurroundingEatView extends Component {
                         <List.Item
                             key={item.title}
                             actions={[<span className="panel-time">{moment(item.date_created).format('YYYY-MM-DD HH:mm')}</span>]}
-                            extra={<img width={272} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
+                            extra={<div className="img-out"><img alt="cover" src={item.avatar} /></div>}
                         >
                             <List.Item.Meta
                                 avatar={<Avatar src={item.avatar} />}
@@ -165,6 +203,21 @@ class SurroundingEatView extends Component {
                                 style={{ marginBottom: 20 }}
                                 onChange={this.onInputChange}
                             />
+
+                            <Upload
+                                name="file"
+                                listType="picture"
+                                // showUploadList={false}
+                                action="https://upload-z2.qiniup.com"
+                                beforeUpload={this.beforeUpload}
+                                data={uploadData}
+                                onPreview={this.onPreview}
+                                onChange={this.handleUploadChange}
+                            >
+                                <Button>
+                                    <Icon type="upload" /> 上传封面
+                                </Button>
+                            </Upload>
                         </Modal>
                         :
                         ''

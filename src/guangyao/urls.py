@@ -7,6 +7,7 @@ from accounts.views import HandlerUserViewSet, UserUpdateView
 from forum.views import *
 from quicknew.views import *
 from eat.views import *
+from introduce.views import *
 
 router = DefaultRouter()
 router.register(r'user', HandlerUserViewSet)
@@ -21,6 +22,7 @@ router.register(r'quick_new', QuickNewViewSet, base_name='quick new api')
 router.register(r'get_quick_new', GetQuickNewViewSet, base_name='get quick new api')
 router.register(r'eat', EatViewSet, base_name='quick eat api')
 router.register(r'get_eat', GetEatViewSet, base_name='get eat api')
+router.register(r'update_base', UpdateBasicIntroduceViewSet, base_name='update base introduce')
 
 urlpatterns = [
     url(r'^api/v1/accounts/', include('accounts.urls', namespace='accounts')),

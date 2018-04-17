@@ -35,6 +35,19 @@
             text-align: right;
             margin-top: 20px;
         }
+
+        .upload-div {
+            position: absolute;
+            right: 246px;
+        }
+
+        img.display {
+            width: 300px;
+            position: absolute;
+            top: 306px;
+            right: 58px;
+            border: 4px solid #eeeeee;
+        }
     }
 
     .select-title {

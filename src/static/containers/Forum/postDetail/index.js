@@ -111,7 +111,7 @@ class PostDetailView extends Component {
 
     render() {
         let token = Cookies.get('token');
-        let user = JSON.parse(Cookies.get('user'));
+        let user = Cookies.get('user')
         let post = this.props.posts;
         let comments = this.props.comments;
         let firstFloor = '';
@@ -248,12 +248,12 @@ class PostDetailView extends Component {
                                         <div className="replyer-avatar">
                                             <img 
                                                 className="replyer-avatar-img"
-                                                src={user ? user.photo_url : ''} 
-                                                alt="头像啦"                                            
+                                                src={user ? JSON.parse(user).photo_url : ''} 
+                                                alt="头像不见啦，快登录。"                                            
                                             />
                                         </div>
                                         <div>
-                                            <p className="replyer">{user ? user.first_name : ''}</p>
+                                            <p className="replyer">{user ? JSON.parse(user).first_name : ''}</p>
                                         </div>
                                     </div>
                                 </div>

@@ -69,7 +69,7 @@ class IntroduceView extends React.Component {
                     <li className="card-item" key={index} onClick={() => {this.goToDetail(item.introduce_type)}}>
                         <div className="item">
                             <div className="card-pic">
-                                <img src={door} alt="" />
+                                <img src={item.cover_image} alt="" />
                             </div>
                             <div className="card-content">
                                 <h4>{item.title}</h4>

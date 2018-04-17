@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import Select from 'antd/lib/select';
 import Input from 'antd/lib/input';
-import Button from 'antd/lib/button';
 import ReactQuill from 'react-quill';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import * as actionCreators from '../../../actions/introduce';
+import Button from 'antd/lib/button';
+import Upload from 'antd/lib/upload';
+import Icon from 'antd/lib/icon';
+import message from 'antd/lib/message';
 const Option = Select.Option;
 
 class AdminIntroduceView extends Component {
@@ -15,12 +18,50 @@ class AdminIntroduceView extends Component {
         editorHtml: "",
         title: '',
         currentTarget: '',
+        imageUrl: '',
+        is_upload: false,
+        oldImage: '',
     }
 
     handleEditorChange = (html) => {
         this.setState({
             editorHtml: html
         });
+    }
+
+    getBase64 = (img, callback) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => callback(reader.result));
+        reader.readAsDataURL(img);
+    }
+
+    beforeUpload = (file) => {
+        const isLt2M = file.size / 1024 / 1024 < 2;
+        if (!isLt2M) {
+            message.error('大小不能超过2M。');
+        }
+        return isLt2M;
+    }
+
+    handleUploadChange = (info) => {
+        this.setState({
+            is_upload: true,
+        });
+        if (info.file.status === 'uploading') {
+            this.setState({ loading: true });
+            return;
+        }
+        if (info.file.status === 'done') {
+            message.success("图片上传成功。");
+            this.getBase64(info.file.originFileObj, imageUrl => this.setState({
+                imageUrl: `http://p7b9iw239.bkt.clouddn.com/${info.file.response.hash}`,
+                loading: false,
+            }));
+        }
+    }
+
+    onPreview = (file) => {
+        window.open(`http://p7b9iw239.bkt.clouddn.com/${file.response.hash}`)
     }
 
     handleChange = (value) => {
@@ -32,12 +73,15 @@ class AdminIntroduceView extends Component {
         }
         this.setState({
             currentTarget: value,
+            imageUrl: '',
+            is_upload: false,
         });
         this.props.actions.getIntroduceDetail(value, (response) => {
             if (response.length > 0) {
                 this.setState({
                     editorHtml: response[0].body,
-                    title: response[0].title
+                    title: response[0].title,
+                    oldImage: response[0].cover_image
                 });
             } else {
                 this.setState({
@@ -58,13 +102,24 @@ class AdminIntroduceView extends Component {
         let token = Cookies.get('token');
         let data = {
             "title": this.state.title,
-            "body": this.state.editorHtml
+            "body": this.state.editorHtml,
+            'cover_image': this.state.imageUrl
         }
-        console.log("what in current target", this.state.currentTarget);
+        if (this.state.is_upload) {
+            let updateData = {
+                "introduce_type": this.state.currentTarget,
+                "cover": this.state.imageUrl,
+                "title": this.state.title
+            }
+            this.props.actions.updateBaseIntroduce(Cookies.get('token'), updateData);
+        }
         this.props.actions.updateIntroduceDetail(token, this.state.currentTarget, data, () => {})
     }
 
     render() {
+        const uploadData = {
+            'token': 'CGcNHo5yT0y9m-kFKMD9j5PSOKdpY3c5OUr6DVVM:mwzjCW_vU4qTtgrqTES2Sn_p1CM=:eyJzY29wZSI6ImltYWdlcyIsImRlYWRsaW5lIjoxNTM2OTEwMzM2fQ=='
+        }
         return (
             <div className="admin-introduce">
                 <div className="select-title">
@@ -76,17 +131,44 @@ class AdminIntroduceView extends Component {
                         <Option value="society">社团</Option>
                     </Select>
 
+                    
+
                     {
                         this.state.showEditor
                         ?
-                            <div className="title">
+                            [<div key="title" className="title">
                                 <Input 
                                     placeholder="标题" 
                                     onChange={this.onTitleChange} 
                                     name="title"
                                     value={this.state.title}
                                 />
-                            </div>
+                            </div>,
+                            <div className="upload-div" key="upload">
+                                <Upload
+                                    name="file"
+                                    listType="picture"
+                                    // showUploadList={false}
+                                    action="https://upload-z2.qiniup.com"
+                                    beforeUpload={this.beforeUpload}
+                                    data={uploadData}
+                                    onPreview={this.onPreview}
+                                    onChange={this.handleUploadChange}
+                                >
+                                    <Button>
+                                        <Icon type="upload" /> 上传封面
+                                    </Button>
+                                </Upload>
+                            </div>,
+                            <div key="old-image">
+                                {
+                                    this.state.oldImage !== ''
+                                    ?
+                                        <img key="2" className="display" src={this.state.oldImage} alt="现在的封面" />
+                                    :
+                                        ''
+                                }
+                            </div> ]
                         :
                             ''
                     }
