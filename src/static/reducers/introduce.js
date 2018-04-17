@@ -13,7 +13,11 @@ import {
 
     SEARCH_ADMISSION_SUCCESS,
     SEARCH_ADMISSION_FAILURE,
-    SEARCH_ADMISSION_REQUEST
+    SEARCH_ADMISSION_REQUEST,
+
+    UPDATE_BASE_INTRODUCE_SUCCESS,
+    UPDATE_BASE_INTRODUCE_FAILURE,
+    UPDATE_BASE_INTRODUCE_REQUEST
 
 } from '../constants';
 
@@ -94,6 +98,25 @@ export default function introduceReducer(state = initialState, action) {
         case SEARCH_ADMISSION_FAILURE:
             return Object.assign({}, state, {
                 isFetchingSearchAdmission: false,
+                statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
+            });
+
+        // 查询录取结果
+        case UPDATE_BASE_INTRODUCE_REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true,
+                statusText: null
+            });
+
+        case UPDATE_BASE_INTRODUCE_SUCCESS:
+            return Object.assign({}, state, {
+                isFetching: false,
+                introduceBaseResponse: action.payload.response,
+            });
+
+        case UPDATE_BASE_INTRODUCE_FAILURE:
+            return Object.assign({}, state, {
+                isFetching: false,
                 statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
             });
 
