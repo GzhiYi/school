@@ -37,7 +37,7 @@ class PostsView extends Component {
 		message.error('选择取消');
 	}
 
-	goToPostDetail = () => {
+	goToPostDetail = (index) => {
 		window.open(`/forum/detail/${index.key}`)
 	}
 	render() {

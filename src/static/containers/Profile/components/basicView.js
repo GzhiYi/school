@@ -46,15 +46,11 @@ class BasicView extends Component {
 	}
 
 	beforeUpload = (file) => {
-		const isJPG = file.type === 'image/jpeg';
-		if (!isJPG) {
-			message.error('You can only upload JPG file!');
-		}
 		const isLt2M = file.size / 1024 / 1024 < 2;
 		if (!isLt2M) {
-			message.error('Image must smaller than 2MB!');
+			message.error('头像大小不能超过2M。');
 		}
-		return isJPG && isLt2M;
+		return isLt2M;
 	}
 
 	handleAvatarChange = (info) => {
@@ -64,8 +60,7 @@ class BasicView extends Component {
 		}
 		console.log("what is info ", info);
 		if (info.file.status === 'done') {
-			// Get this url from response in real world.
-			console.log(info, "$$$$$");
+			message.success("头像上传成功，请点击下方更新信息按钮保存更改。");
 			this.getBase64(info.file.originFileObj, imageUrl => this.setState({
 				imageUrl: `http://p7b9iw239.bkt.clouddn.com/${info.file.response.hash}`,
 				loading: false,
