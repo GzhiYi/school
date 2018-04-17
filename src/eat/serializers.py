@@ -8,4 +8,4 @@ class QuickNewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Eat
-        fields = ('title', 'content', 'description', 'date_created')
+        fields = ('title', 'content', 'description', 'date_created', 'cover')

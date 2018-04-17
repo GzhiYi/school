@@ -105,7 +105,7 @@ class BasicView extends Component {
 		const imageUrl = this.state.imageUrl;
 		let user = this.props.user;
 		let renderInfo = '';
-		let uploadData = {
+		const uploadData = {
 			'token': 'CGcNHo5yT0y9m-kFKMD9j5PSOKdpY3c5OUr6DVVM:mwzjCW_vU4qTtgrqTES2Sn_p1CM=:eyJzY29wZSI6ImltYWdlcyIsImRlYWRsaW5lIjoxNTM2OTEwMzM2fQ=='
 		}
 		if (user) {
