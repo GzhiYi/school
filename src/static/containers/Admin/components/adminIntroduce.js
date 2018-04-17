@@ -20,6 +20,7 @@ class AdminIntroduceView extends Component {
         currentTarget: '',
         imageUrl: '',
         is_upload: false,
+        oldImage: '',
     }
 
     handleEditorChange = (html) => {
@@ -79,7 +80,8 @@ class AdminIntroduceView extends Component {
             if (response.length > 0) {
                 this.setState({
                     editorHtml: response[0].body,
-                    title: response[0].title
+                    title: response[0].title,
+                    oldImage: response[0].cover_image
                 });
             } else {
                 this.setState({
@@ -100,7 +102,8 @@ class AdminIntroduceView extends Component {
         let token = Cookies.get('token');
         let data = {
             "title": this.state.title,
-            "body": this.state.editorHtml
+            "body": this.state.editorHtml,
+            'cover_image': this.state.imageUrl
         }
         if (this.state.is_upload) {
             let updateData = {
@@ -110,7 +113,6 @@ class AdminIntroduceView extends Component {
             }
             this.props.actions.updateBaseIntroduce(Cookies.get('token'), updateData);
         }
-        console.log("what in current target", this.state.currentTarget);
         this.props.actions.updateIntroduceDetail(token, this.state.currentTarget, data, () => {})
     }
 
@@ -157,7 +159,16 @@ class AdminIntroduceView extends Component {
                                         <Icon type="upload" /> 上传封面
                                     </Button>
                                 </Upload>
-                            </div>]
+                            </div>,
+                            <div key="old-image">
+                                {
+                                    this.state.oldImage !== ''
+                                    ?
+                                        <img key="2" className="display" src={this.state.oldImage} alt="现在的封面" />
+                                    :
+                                        ''
+                                }
+                            </div> ]
                         :
                             ''
                     }
