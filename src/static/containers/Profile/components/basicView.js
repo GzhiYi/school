@@ -111,7 +111,7 @@ class BasicView extends Component {
 		let user = this.props.user;
 		let renderInfo = '';
 		let uploadData = {
-			'token': 'CGcNHo5yT0y9m-kFKMD9j5PSOKdpY3c5OUr6DVVM:tsDZOaUCTZKsSkkdQyRi-GyeTJw=:eyJzY29wZSI6ImltYWdlcyIsImRlYWRsaW5lIjoxNTIzOTg5NjM2fQ=='
+			'token': 'CGcNHo5yT0y9m-kFKMD9j5PSOKdpY3c5OUr6DVVM:mwzjCW_vU4qTtgrqTES2Sn_p1CM=:eyJzY29wZSI6ImltYWdlcyIsImRlYWRsaW5lIjoxNTM2OTEwMzM2fQ=='
 		}
 		if (user) {
 			renderInfo = <div>
