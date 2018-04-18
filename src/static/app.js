@@ -130,7 +130,7 @@ class App extends React.Component {
                     ?
                         ''
                     :
-                        <nav className={location.pathname.split('/')[1] === '' ? `navbar navbar-default navbar-fixed-top` : `navbar navbar-default`}>
+                        <nav className="navbar navbar-default">
                             <div className="container-fluid">
                                 <div className="navbar-header">
                                     <button type="button"
