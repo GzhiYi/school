@@ -3,6 +3,7 @@ import { push } from 'react-router-redux';
 import message from 'antd/lib/message';
 import { SERVER_URL } from '../utils/config';
 import { checkHttpStatus, parseJSON } from '../utils';
+import { authLogoutAndRedirect } from './auth';
 import {
     LIST_POSTS_SUCCESS,
     LIST_POSTS_FAILURE,
@@ -252,7 +253,10 @@ export function addPost(token, data) {
                 dispatch(push('/forum'));
             })
             .catch((error) => {
-                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
+                    message.error("登录凭证过期，请重新登录。");
+                    dispatch(authLogoutAndRedirect());
+                }else if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
                     // Server side error
                     dispatch(addPostFailure(500, 'A server error occurred while sending your data!'));
                 } else {
@@ -374,7 +378,10 @@ export function addComments(token, data, postId, callback) {
                 // dispatch(push(`/forum/detail/${postId}`))
             })
             .catch((error) => {
-                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
+                    message.error("登录凭证过期，请重新登录。");
+                    dispatch(authLogoutAndRedirect());
+                } else if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
                     // Server side error
                     dispatch(addCommentsFailure(500, 'A server error occurred while sending your data!'));
                 } else {

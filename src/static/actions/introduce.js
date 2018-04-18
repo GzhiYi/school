@@ -3,6 +3,7 @@ import { push } from 'react-router-redux';
 import message from 'antd/lib/message';
 import { SERVER_URL } from '../utils/config';
 import { checkHttpStatus, parseJSON } from '../utils';
+import { authLogoutAndRedirect } from './auth';
 import { 
     GET_INTRODUCE_BASE_SUCCESS,
     GET_INTRODUCE_BASE_FAILURE, 
@@ -179,7 +180,10 @@ export function updateIntroduceDetail(token, type, data, callback) {
                 callback(response)
             })
             .catch((error) => {
-                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
+                    message.error("登录凭证过期，请重新登录。");
+                    dispatch(authLogoutAndRedirect());
+                } else if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
                     // Server side error
                     dispatch(updateIntroduceDetailFailure(500, 'A server error occurred while sending your data!'));
                 } else {
@@ -234,7 +238,10 @@ export function searchAdmission(token, idNum) {
                 dispatch(searchAdmissionSuccess(response));
             })
             .catch((error) => {
-                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
+                    message.error("登录凭证过期，请重新登录。");
+                    dispatch(authLogoutAndRedirect());
+                } else if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
                     // Server side error
                     dispatch(searchAdmissionFailure(500, 'A server error occurred while sending your data!'));
                 } else {
@@ -290,7 +297,10 @@ export function updateBaseIntroduce(token, data) {
                 dispatch(updateBaseIntroduceSuccess(response));
             })
             .catch((error) => {
-                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
+                    message.error("登录凭证过期，请重新登录。");
+                    dispatch(authLogoutAndRedirect());
+                } else if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
                     // Server side error
                     dispatch(updateBaseIntroduceFailure(500, 'A server error occurred while sending your data!'));
                 } else {

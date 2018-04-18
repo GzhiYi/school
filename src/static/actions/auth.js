@@ -92,7 +92,7 @@ export function authLoginUser(email, password, redirect = '/') {
                 if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
                     // Invalid authentication credentials
                     return error.response.json().then((data) => {
-                        message.error("登陆失败，检查您的帐号和密码对不对。")
+                        message.error("登陆失败，检查您的帐号和密码对不对。");
                         dispatch(authLoginUserFailure(401, data.non_field_errors[0]));
                     });
                 } else if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
@@ -229,6 +229,9 @@ export function updateUser(token, data) {
                 if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
                     // Server side error
                     dispatch(updateUserFailure(500, 'A server error occurred while sending your data!'));
+                } else if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
+                    message.error("登录凭证过期，请重新登录。");
+                    dispatch(authLogoutAndRedirect());
                 } else {
                     // Most likely connection issues
                     dispatch(updateUserFailure('Connection Error', 'An error occurred while sending your data!'));
@@ -285,6 +288,9 @@ export function getUser(token) {
                 if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
                     // Server side error
                     dispatch(getUserFailure(500, 'A server error occurred while sending your data!'));
+                } else if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
+                    message.error("登录凭证过期，请重新登录。");
+                    dispatch(authLogoutAndRedirect());
                 } else {
                     // Most likely connection issues
                     dispatch(getUserFailure('Connection Error', 'An error occurred while sending your data!'));
