@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Zoom from 'react-reveal/Zoom';
 import Bounce from 'react-reveal/Bounce';
 import Slide from 'react-reveal/Slide';
+import {Link} from 'react-router-dom';
 import './style.scss';
 
 class HomeView extends React.Component {
@@ -21,9 +22,9 @@ class HomeView extends React.Component {
                             <div className='subtitle-box subtitle'>
                                 {/* <h4>在广药家园寻找熟悉的氛围</h4> */}
                             </div>
-                            <a href="" className='lists-problem lists-headle'><strong>立即登录</strong></a>
-                            <a href="" className='lists-problem'><strong>学校介绍</strong></a>
-                            <a href="" className='lists-problem'><strong>广药社区</strong></a>
+                            <Link to="/login" className='lists-problem lists-headle'><strong>立即登录</strong></Link>
+                            <Link to="/introduce" className='lists-problem'><strong>学校介绍</strong></Link>
+                            <Link to="forum" className='lists-problem'><strong>广药社区</strong></Link>
                         </div>
                     </div>
                     <div className='dna-testing-werpper'>
@@ -36,9 +37,9 @@ class HomeView extends React.Component {
                                 师兄师姐都在这，有什么问题不知道的？有什么要分享的？在这畅快交流吧！
                             </div>
                             <div className='button-werpper'>
-                                <a href="#" className='button-click button-blue'>立即登陆</a>
-                                <a href="#" className='button-click button-red'>看看帖子</a>
-                                <a href="#" className='button-click button-purple'>我要发帖</a>
+                                <Link to="/login" className='button-click button-blue'>立即登陆</Link>
+                                <Link to="/forum" className='button-click button-red'>看看帖子</Link>
+                                <Link to="/forum/new-post" className='button-click button-purple'>我要发帖</Link>
                             </div>
 
                         </div>
@@ -92,11 +93,11 @@ class HomeView extends React.Component {
                                         学校、老师、专业、社团等等......更多学校的介绍信息等你了解！    
                                     </p>
                                     <div className='buttom-button-traitst'>
-                                        <a href="" className='buttom-button-traitst-left'>看看介绍</a>
+                                        <Link to="/introduce" className='buttom-button-traitst-left'>看看介绍</Link>
                                     </div>
                                     <div className='col-position'>
                                         <div className='col-position-top'></div>
-                                        <span className='col-podition-bottom'>大部分新生都还不了解学校的概况呢！</span>
+                                        <span className='col-podition-bottom'>大部分新生都还不了解学校的概况！</span>
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +145,7 @@ class HomeView extends React.Component {
                                         We offer large qualified breeders wholesale pricing. For information on our breeder bulk discounts, and to see how much you can save with our breeder program, please click below. We'll discuss pricing with your team and provide a unique coupon code.
                                 </p> */}
                                     <div className='buttom-button-traitst'>
-                                        <a href="" className='buttom-button-traitst-left special-button'>查看校内快讯</a>
+                                        <Link to="/surrounding" className='buttom-button-traitst-left special-button'>查看校内快讯</Link>
                                     </div>
                                     <div className='col-position special'>
                                         {/* <p className='position-helder-title'>NEW BULK PRICING:</p>
@@ -171,7 +172,7 @@ class HomeView extends React.Component {
                                         <p className='research-contern'>在这寻找分享的地方，你也可以在这里是分享吃喝玩乐，把你喜欢的地方分享出来。</p>
                                         <div className='quality-assured-bottom'>
                                             <div className='col-position-top'></div>
-                                            <span className='quality-assured-footer'>{' Dr. Adam Boyko (click for paper)'}</span>
+                                            <span className='quality-assured-footer'></span>
                                         </div>
                                     </div>
                                 </div>
@@ -212,11 +213,11 @@ class HomeView extends React.Component {
                                     </p>
                                     <p className='service'>
                                         <strong>可以协作</strong>
-                                        <span>可以增加项目经验</span>
+                                        <span>可以增加项目经验。</span>
                                     </p>
                                     <p className='service'>
-                                        <strong>2014届答辩</strong>
-                                        <span>于2018年4月21日</span>
+                                        <strong>2014届计科医用答辩</strong>
+                                        <span>暂结于2018年4月21日。</span>
                                     </p>
                                 </div>
                             </div>
@@ -235,7 +236,7 @@ class HomeView extends React.Component {
                                 <span className='subtitle-started'>{'马上加入广药大家园，发现广药生活。'}</span>
                             </div>
                             <div className='started-right'>
-                                <a href="" className='started-right-button'>{'马上注册'}</a>
+                                <Link to="/register" className='started-right-button'>{'马上注册'}</Link>
                             </div>
                         </div>
                     </div>
