@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { push } from 'react-router-redux';
 import t from 'tcomb-form';
 import PropTypes from 'prop-types';
+import message from 'antd/lib/message';
 
 import * as actionCreators from '../../actions/auth';
 
@@ -99,8 +100,9 @@ class LoginView extends React.Component {
     }
 
     componentWillMount() {
-        if (this.props.isAuthenticated) {
+        if (Cookies.get('token')) {
             this.props.dispatch(push('/'));
+            message.info("你已经登陆啦，需要更换帐号，请先退出当前帐号！");
         }
         this.setState({
             showStatusText: false
