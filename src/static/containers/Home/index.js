@@ -14,96 +14,95 @@ class HomeView extends React.Component {
                 <div className="order-page">                    
                     <div className="container">
                         <div className='content-title'>
-                            <h1 className='title-heald'>欢迎加入 <br />广东药科大学</h1>
+                            <h1 className='title-heald'>欢迎加入 <br />广药大家园</h1>
                             <div className='subtitle-box'>
-                                <a href="">BREED-SPECIFIC HEALTH TESTS </a><a href="">COAT COLOR</a><a href="">INBREEDING</a>
+                                <h4>新生在此了解更为全面的广药， 和所有同学交流。</h4>
                             </div>
                             <div className='subtitle-box subtitle'>
-                                <a href="">EACH MUTATION TESTED 2 - 8x  </a> <a href="">OFA ACCEPTED</a><a href="">AFFORDABLE</a>
+                                {/* <h4>在广药家园寻找熟悉的氛围</h4> */}
                             </div>
-                            <a href="" className='lists-problem lists-headle'><strong>ORDER KITS</strong></a>
-                            <a href="" className='lists-problem'><strong>Questions?</strong></a>
-                            <a href="" className='lists-problem'><strong>ORDER KITS</strong></a>
+                            <a href="" className='lists-problem lists-headle'><strong>立即登录</strong></a>
+                            <a href="" className='lists-problem'><strong>学校介绍</strong></a>
+                            <a href="" className='lists-problem'><strong>广药社区</strong></a>
                         </div>
                     </div>
                     <div className='dna-testing-werpper'>
                         <div className='container'>
                             <div className='dna-testing'>
-                                <div className='dna-testing-left'><strong>BREEDER-FRIENDLY DNA TESTING</strong></div>
+                                <div className='dna-testing-left'><strong>广药交流平台</strong></div>
                                 <div className='dna-testing-right'></div>
                             </div>
                             <div className='dna-testing-text'>
-                                Embark uses a research grade SNP chip in a CLIA-certified lab that identifies breed-specific genetic disease risks and traits like coat and color with a simple cheek swab.
-                        </div>
+                                师兄师姐都在这，有什么问题不知道的？有什么要分享的？在这畅快交流吧！
+                            </div>
                             <div className='button-werpper'>
-                                <a href="#" className='button-click button-blue'>HEALTH CONDITIONS</a>
-                                <a href="#" className='button-click button-red'>TRAITS</a>
-                                <a href="#" className='button-click button-purple'>COI</a>
+                                <a href="#" className='button-click button-blue'>立即登陆</a>
+                                <a href="#" className='button-click button-red'>看看帖子</a>
+                                <a href="#" className='button-click button-purple'>我要发帖</a>
                             </div>
 
                         </div>
                     </div>
-                    <div className='health-conditions'>
+                    {/* <div className='health-conditions'>
                         <div className='container'>
                             <div className='dna-testing'>
-                                <div className='dna-testing-left'><strong>HEALTH CONDITIONS</strong></div>
+                                <div className='dna-testing-left'><strong>了解广药</strong></div>
                                 <div className='dna-testing-right'></div>
                             </div>
                             <div className='health-conditions-text'>
                                 <div className='health-conditions-text-right'>
-                                    <p className='health-conditions-text-right-title'>GENETIC DISEASE TESTING TAILORED TO YOUR NEEDS</p>
-                                    <p className='health-conditions-text-right-content'>Ensure every litter is as healthy as possible with Embark. We test for most or all testable genetic health conditions in nearly every breed. We test all dogs on our entire marker set so you don't have to choose which breed-specific health and trait tests to buy. It also allows us to work with breeders and breed clubs to discover the genetic mutations behind currently untestable diseases.
-                                </p>
-                                    <div className='buttom-button'>
-                                        <a href="" className='buttom-button-left'>{'SAMPLE RESULTS'}</a>
-                                        <a href="" className='buttom-button-right'>{'DISEASE TEST LIST'}</a>
+                                    <p className='health-conditions-text-right-title'>对于学校还有什么细节不知道的呢？</p>
+                                    <p className='health-conditions-text-right-content'>学校、老师、专业、社团等等......更多学校的介绍信息等你挖掘！</p>
+                                    <div className='button-introduce'>
+                                        <a href="#" className='button-click button-blue'>立即登陆</a>
+                                        <a href="#" className='button-click button-red'>看看介绍</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className='traitst'>
+                    </div> */}
+                    {/* <div className='traitst'>
                         <div className='container'>
                             <div className='dna-testing'>
-                                <div className='dna-testing-left'><strong>{'TRAITS'}</strong></div>
+                                <div className='dna-testing-left'><strong>了解广药</strong></div>
                                 <div className='dna-testing-right'></div>
                             </div>
                             <div className='health-conditions-text traitst-text'>
                                 <div className='health-conditions-text-right traitst-text-left'>
-                                    <p className='health-conditions-text-right-title traitst-text-left-title'>{'OUR NEWLY CREATED BREEDER-FOCUSED ADVANCED TAB'}</p>
-                                    <p className='health-conditions-text-right-content traitst-text-left-content'>Ensure every litter is as healthy as possible with Embark. We test for most or all testable genetic health conditions in nearly every breed. We test all dogs on our entire marker set so you don't have to choose which breed-specific health and trait tests to buy. It also allows us to work with breeders and breed clubs to discover the genetic mutations behind currently untestable diseases.
+                                    <p className='health-conditions-text-right-title traitst-text-left-title'>对于学校还有什么细节不知道的呢？</p>
+                                    <p className='health-conditions-text-right-content traitst-text-left-content'>学校、老师、专业、社团等等......更多学校的介绍信息等你了解！
                                 </p>
                                     <div className='buttom-button-traitst'>
-                                        <a href="" className='buttom-button-traitst-left'>ADVANCED TAB TEST LIST</a>
+                                        <a href="" className='buttom-button-traitst-left'>看看介绍</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className='col'>
                         <div className='container'>
                             <div className='dna-testing'>
-                                <div className='dna-testing-left'><strong>{'COI'}</strong></div>
-                                <div className='col-right'>{'COEFFICIENT OF INBREEDING'}</div>
+                                <div className='dna-testing-left'><strong>介绍</strong></div>
+                                <div className='col-right'>了解广东药科大学</div>
                             </div>
                             <div className='health-conditions-text traitst-text'>
                                 <div className='health-conditions-text-right traitst-text-left col-text-left'>
-                                    <p className='health-conditions-text-right-title traitst-text-left-title'>ASSESS YOUR DOG'S GENETIC DIVERSITY</p>
+                                    <p className='health-conditions-text-right-title traitst-text-left-title'>对于学校还有什么细节不知道的呢？</p>
                                     <p className='health-conditions-text-right-content traitst-text-left-content'>
-                                        {'Coefficient of Inbreeding (COI) is a measure of how genetically similar a dog’s parents are. From a genetic point of view, this translates to what percentage of the genome is identical on both its maternal and paternal strands (also known as homozygosity).'}
+                                        学校、老师、专业、社团等等......更多学校的介绍信息等你了解！    
                                     </p>
                                     <div className='buttom-button-traitst'>
-                                        <a href="" className='buttom-button-traitst-left'>{'LEARN MORE ABOUT COI'}</a>
+                                        <a href="" className='buttom-button-traitst-left'>看看介绍</a>
                                     </div>
                                     <div className='col-position'>
                                         <div className='col-position-top'></div>
-                                        <span className='col-podition-bottom'>{'Breeding Coefficent: One of our Advanced Tab features.'}</span>
+                                        <span className='col-podition-bottom'>大部分新生都还不了解学校的概况呢！</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className='quality-assured'>
+                    {/* <div className='quality-assured'>
                         <div className='container'>
                             <div className='dna-testing'>
                                 <div className='dna-testing-left'><strong>{'QUALITY ASSURED'}</strong></div>
@@ -130,30 +129,30 @@ class HomeView extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className='col'>
                         <div className='container'>
                             <div className='dna-testing'>
-                                <div className='dna-testing-left'><strong>{'WHAT DOES IT COST?'}</strong></div>
-                                <div className='quality-assured-title'>{'Both trait and breed-specific health tests are included in our single test kit. No more ordering several tests from different providers again, saving time and money on each dog.'}</div>
+                                <div className='dna-testing-left'><strong>校内快讯</strong></div>
+                                {/* <div className='quality-assured-title'>想快速了解学校的快讯吗？加入广药校园，及时知晓学校通知。</div> */}
                             </div>
                             <div className='health-conditions-text traitst-text'>
                                 <div className='health-conditions-text-right traitst-text-left col-text-left'>
-                                    <p className='health-conditions-text-right-title traitst-text-left-title'>{'SPECIAL BULK PRICING'}</p>
-                                    <p className='health-conditions-text-right-content traitst-text-left-content'>
+                                    <p className='health-conditions-text-right-title traitst-text-left-title'>想快速了解学校的快讯吗？加入广药校园，及时知晓学校通知。</p>
+                                    {/* <p className='health-conditions-text-right-content traitst-text-left-content'>
                                         We offer large qualified breeders wholesale pricing. For information on our breeder bulk discounts, and to see how much you can save with our breeder program, please click below. We'll discuss pricing with your team and provide a unique coupon code.
-                                </p>
+                                </p> */}
                                     <div className='buttom-button-traitst'>
-                                        <a href="" className='buttom-button-traitst-left special-button'>{'GET BULK PRICING'}</a>
+                                        <a href="" className='buttom-button-traitst-left special-button'>查看校内快讯</a>
                                     </div>
                                     <div className='col-position special'>
-                                        <p className='position-helder-title'>NEW BULK PRICING:</p>
+                                        {/* <p className='position-helder-title'>NEW BULK PRICING:</p>
                                         <p className='position-helder-list'>1 Kit = $179</p>
                                         <p className='position-helder-list'>2 - 4 Kits = $169 per kit</p>
                                         <p className='position-helder-list'>5 - 9 Kits = $159 per kit</p>
                                         <p className='position-helder-list'>10 - 19 Kits = $149 per kit</p>
-                                        <p className='position-helder-list'>20+ =  Contact us</p>
+                                        <p className='position-helder-list'>20+ =  Contact us</p> */}
                                     </div>
                                 </div>
                             </div>
@@ -162,14 +161,14 @@ class HomeView extends React.Component {
                     <div className='quality-assured research'>
                         <div className='container'>
                             <div className='dna-testing'>
-                                <div className='dna-testing-left'><strong>{'OUR RESEARCH'}</strong></div>
+                                <div className='dna-testing-left'><strong>吃喝玩乐</strong></div>
                                 <div className='quality-assured-title'></div>
                             </div>
                             <div className='quality-assured-content'>
                                 <div className='health-conditions-text traitst-text quality-assured-text'>
                                     <div className='health-conditions-text-right traitst-text-left quality-assured-left'>
-                                        <p className='research-title'>PIONEERING CANINE GENETICS</p>
-                                        <p className='research-contern'>Our Chief Science Officer, Dr. Adam Boyko, has coauthored more than 40 peer-reviewed scientific papers (published in is lab discovered genetic markers for body size, hip and elbow dysplasia, granulomatous colitis, and mast cell tumors. These findings inform features like our state of the art "genetic weight" algorithms, and pushes ever further into the field of personalized genomics for your dog.</p>
+                                        <p className='research-title'>查看周边分享信息</p>
+                                        <p className='research-contern'>在这寻找分享的地方，你也可以在这里是分享吃喝玩乐，把你喜欢的地方分享出来。</p>
                                         <div className='quality-assured-bottom'>
                                             <div className='col-position-top'></div>
                                             <span className='quality-assured-footer'>{' Dr. Adam Boyko (click for paper)'}</span>
@@ -179,7 +178,7 @@ class HomeView extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className='active-research'>
+                    {/* <div className='active-research'>
                         <div className='container'>
                             <h1 className='active-research-title'>ACTIVE RESEARCH</h1>
                             <div className='research-box'>
@@ -201,23 +200,23 @@ class HomeView extends React.Component {
                                 <div className='active-research-bottom-right'><a href="">CONTACT US</a></div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className='health-conditions'>
                         <div className='container'>
-                            <h1 className='active-research-title'>WHAT CAN WE DO FOR YOUR BREED CLUB</h1>
+                            <h1 className='active-research-title'>欢迎新生常驻于此，在这发现更好的校园生活。</h1>
                             <div className='health-conditions-text service-wrapper'>
                                 <div className='health-conditions-text-right'>
                                     <p className='service'>
-                                        <strong>ERADICATE DISEASE IN YOUR BREED</strong>
-                                        <span>We can work with you to provide the necessary genetic data to help identify the genes that cause health problems in your breed.</span>
+                                        <strong>欢迎对系统的功能提出issue</strong>
+                                        <span>不定期修复bug，对需求进行优化。</span>
                                     </p>
                                     <p className='service'>
-                                        <strong>ACCELERATE DISCOVERY</strong>
-                                        <span>Genetic data combined with breed-specific health and research surveys can power the genetic association studies of the future.</span>
+                                        <strong>可以协作</strong>
+                                        <span>可以增加项目经验</span>
                                     </p>
                                     <p className='service'>
-                                        <strong>BUILD A HEALTHIER FUTURE</strong>
-                                        <span>Linking genetic data with pedigree data enables genomic selection for healthier dogs.</span>
+                                        <strong>2014届答辩</strong>
+                                        <span>于2018年4月21日</span>
                                     </p>
                                 </div>
                             </div>
