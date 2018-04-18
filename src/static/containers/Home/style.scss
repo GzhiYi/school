@@ -20,6 +20,1335 @@
     .container-fluid {
       padding: 0 !important;
     }
+
+    .order-page{
+    background: rgba(238,238,238,1);
+
+}
+@media screen and (min-width: 600px) {
+    header{
+        position: fixed;
+        left: 0;
+        top: 0;
+        background: #fff;
+        width: 100%;
+        z-index: 999;
+    }
+
+    .header-title{
+        text-align: center;
+        padding: 30px 0 8px 0;
+        font-size: 14px;
+    }
+
+    .header-right-button{
+        position: absolute;
+        width: 280px;
+        height: 57px;
+        line-height: 57px;
+        text-align: center;
+        color: #000;
+        font-size: 14px;
+        font-weight: bold;
+        background: rgba(255,206,52,1);
+        transition: all 0.3s;
+        top: 0;
+        right: 0;
+    }
+
+    .header-right-button:hover{
+        background: rgba(242,186,40,1);
+        text-decoration: none;
+        color: #000;
+    }
+
+    .content-title{
+        width: 50%;
+    }
+    .title-heald{
+        font-size: 3.5rem;
+        padding-top: 200px;
+        font-weight: bold;
+        line-height: 77px;
+        color: #000;
+    }
+    .subtitle-box{
+        font-size: 16px;
+        line-height: 22px;
+        color: #000;
+        padding-top: 100px;
+    }
+
+    .subtitle-box a{
+        font-size: 16px;
+        color: #000;
+        text-decoration: none;
+        display: inline-block;
+        padding: 0 9px;
+        border-right: 1px solid #000;
+        line-height: 16px;
+
+    }
+
+    .subtitle-box a:last-child{
+        border-right: 0px;
+    }
+
+    .subtitle{
+        padding-top:5px;
+    }
+    .lists-problem{
+        width: 353px;
+        height: 67px;
+        display: block;
+        line-height: 67px;
+        font-size: 20px;
+        color: #000;
+        text-decoration: none;
+        border: 2px solid #DFDFDF;
+        text-align: center;
+        margin: 15px 0;
+
+    }
+    .lists-problem:hover{
+        color: #000;
+        text-decoration: none;
+    }
+    .lists-headle{
+        background: rgba(255,206,52,1);
+        border-width:0px;
+        margin-top: 30px;
+    }
+
+    .dna-testing-werpper{
+        background: #fff;
+        width: 100%;
+        margin-top: 70px;
+        padding: 100px 0;
+
+
+    }
+    .dna-testing::after{
+        display: block;
+        content:'';
+        clear: both;
+
+    }
+    .dna-testing .dna-testing-left{
+        width: 50%;
+        float: left;
+        padding: 50px 30px 50px 0px;
+        border-right:2px solid #000;
+        font-size: 48px;
+        text-align: right;
+        color: #000;
+    }
+
+    .dna-testing .dna-testing-right{
+        float: left;
+    }
+    .dna-testing-text{
+        font-size: 20px;
+        color: #333;
+        text-align: center;
+        width: 80%;
+        margin: 40px auto;
+    }
+    .button-werpper{
+        display: flex;
+        justify-content: space-around;
+    }
+    .button-click{
+        width: 260px;
+        height: 80px;
+        border: 3px solid #000;
+        line-height: 80px;
+        font-size: 22px;
+        border-radius: 2px;
+        text-align: center;
+        font-weight: bold;
+
+    }
+    .button-click:hover{
+        text-decoration: none;
+    }
+    .button-blue{
+        color: #46b7e1;
+        border-color: #57C1E9;
+    }
+    .button-blue:hover{
+        background: #57C1E9;
+        color: #fff;
+    }
+
+    .button-red{
+        color: #F15B5C;
+        border-color: #F15B5C;
+    }
+    .button-red:hover{
+        background: #F15B5C;
+        color: #fff;
+    }
+    .button-purple{
+        color: #9e6b9d;
+        border-color: #A776A6;
+    }
+    .button-purple:hover{
+        background:  #A776A6;
+        color: #fff;
+    }
+
+    .health-conditions{
+        margin-top: 100px;
+    }
+
+    .health-conditions-text{
+        padding: 0 20px;
+        background: rgba(238,238,238,1);
+        height: 100%;
+        width: 100%;
+    }
+
+    .health-conditions-text:after{
+        display: block;
+        content:'';
+        clear: both;
+    }
+
+    .health-conditions-text-right{
+        border-radius: 0px;
+        z-index: 31;
+        width: 681px;
+        height: 619px;
+        float: right;
+        margin-top: 40px;
+        padding: 60px 44px 10px 110px;
+        background: rgba(255,255,255,1);
+    }
+
+
+
+    .health-conditions-text-right .health-conditions-text-right-title{
+        font-size: 28px;
+        color: #000;
+        line-height: 45px;
+    }
+    .health-conditions-text-right .health-conditions-text-right-content{
+        font-size: 20px;
+        color: #070000;
+        line-height: 32px;
+    }
+    .buttom-button{
+        margin-top: 60px;
+    }
+    .buttom-button a{
+        width: 191px;
+        height: 70px;
+        background: rgba(255,206,52,1);
+        color: #000000;
+        display: inline-block;
+        text-align: center;
+        border: 3px solid #DFDFDF;
+        font-size: 16px;
+        line-height: 70px;
+    }
+    .buttom-button a:hover{
+        text-decoration: none;
+    }
+    .buttom-button-left{
+        margin-right: 10px;
+    }
+    .buttom-button-right{
+        margin-left: 20px;
+    }
+
+
+    .test-list{
+        margin-top: 100px;
+    }
+
+    .test-list h2{
+        font-size: 36px;
+        color: #000;
+        text-align: center;
+
+    }
+    .test-list p{
+        text-align: center;
+        font-size: 20px;
+        color: #070000;
+        width: 671px;
+        margin: 50px auto 20px auto;
+
+    }
+
+    .test-list p a{
+        font-size: 20px;
+        color: #5e5e5e;
+    }
+
+    .table-box{
+        border-left: 1px solid #ddd;
+    }
+    .table-box .table-title{
+        text-align: left;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        font-size: 15px;
+        color: #000;
+        line-height: 20px;
+        padding: 7px;
+        border: 1px solid #ddd;
+        background: #fff;
+
+    }
+    .table-box .table-left-title{
+        background-color: #ffce34;
+        text-align: center;
+        font-size:20px;
+        font-weight: bold;
+        color: #000000;
+    }
+    .table-box td{
+        color: #000;
+    }
+    .table-body{
+        height:440px;
+        overflow: auto;
+    }
+    .table-box .table-right-title{
+        text-align: center;
+        font-size:20px;
+        background-color: #cccccc;
+        font-weight: bold;
+        color: #000000;
+    }
+    .table-box .classification{
+        text-align: left;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        font-size: 15px;
+        color: #000;
+        padding: 7px 10px;
+        border: 1px solid #ddd;
+    }
+    .table-box .classification a{
+        background: #fff;
+        display: inline-block;
+        padding: 5px 15px;
+        color: #000;
+        font-weight: bold;
+        font-size: 11px;
+        border: 1px solid #b3b3b3;
+        margin:5px;
+    }
+
+    .traitst{
+        background: #fff;
+        margin-top: 100px;
+        padding: 60px 0;
+    }
+
+    .traitst .traitst-text{
+        background: #fff;
+    }
+
+    .traitst .traitst-text-left{
+        float: left;
+        background: rgba(238,238,238,1);
+    }
+
+    .traitst .traitst-text-left-title{
+        text-align: right;
+    }
+
+    .traitst .traitst-text-left-content{
+        text-align: right;
+    }
+
+    .traitst .buttom-button-traitst{
+        text-align: right;
+    }
+
+    .buttom-button-traitst-left{
+        display: inline-block;
+        background: rgba(242,186,40,1);
+        border: 2px solid #fff;
+        line-height: 72px;
+        text-align: center;
+        width: 277px;
+        height: 72px;
+        color: #000;
+        font-weight: bold;
+        font-size: 16px;
+        margin-top: 20px;
+
+    }
+    .col{
+        padding-top: 80px;
+    }
+    .col-right{
+        padding: 62px 0px 50px 30px;
+        font-size: 34px;
+        text-align: left;
+        color: #000;
+        float: left;
+        width: 50%;
+    }
+    .col-text-left{
+        position: relative;
+    }
+    .col .col-position{
+        position: absolute;
+        left: -396px;
+        top: 72px;
+        z-index: 255;
+        width: 471px;
+        height: 414px;
+        padding: 20px;
+        text-align: center;
+        background: rgba(158,107,157,1);
+    }
+    .col-position-top{
+        height: 340px;
+    }
+
+    .col .col-podition-bottom{
+        color: rgb(255, 255, 255);
+        font-size: 16px;
+    }
+
+    .quality-assured{
+        background-color: #fff;
+        margin-top: 100px;
+        padding:100px 0 20px 0;
+    }
+
+    .quality-assured-title{
+        padding: 40px 0px 50px 30px;
+        font-size: 20px;
+        text-align: left;
+        color: #000;
+        float: left;
+        width: 50%;
+        line-height: 34px;
+    }
+
+    .quality-assured-content{
+        background: #fff;
+
+    }
+
+    .quality-assured-text{
+        background: #fff;
+    }
+    .quality-assured-left{
+        float: left;
+        background: rgba(238,238,238,1);
+        padding-right: 210px;
+        position: relative;
+    }
+
+    .list-text li{
+        font-size: 20px;
+        color: #000;
+        line-height: 35px;
+    }
+
+    .helder-title{
+        display: none;
+    }
+
+    .quality-assured-button{
+        width: 366px;
+    }
+
+    .quality-assured-bottom{
+        position: absolute;
+        left: 570px;
+        top: 72px;
+        z-index: 255;
+        width: 471px;
+        height: 414px;
+        padding: 20px;
+        text-align: center;
+        background: rgba(87,193,233,1);
+    }
+
+    .quality-assured-footer{
+        color: rgb(255, 255, 255);
+        font-size: 16px;
+    }
+
+    .position-helder-title{
+        font-size: 28px;
+        color: #696969;
+        font-weight: bold;
+        margin-bottom: 50px;
+    }
+    .position-helder-list{
+        padding-left: 70px;
+        text-align: left;
+        color: #000;
+        font-size: 18px;
+    }
+    .col .special{
+        background: #fff;
+    }
+    .col .col-text-left{
+        background: rgba(255,206,52,1);
+    }
+    .col .special-button{
+        background: rgba(62,171,219,1);
+        color: #fff;
+    }
+
+    .research .health-conditions-text-right{
+        padding-left: 50px;
+        padding-right: 180px;
+    }
+    .research-title{
+        font-size: 28px;
+        color: #000000;
+        margin-bottom: 50px;
+    }
+    .research-contern{
+        text-align: right;
+        line-height: 29px;
+        font-size: 20px;
+        color: #000;
+    }
+
+    .active-research{
+        background: #fff;
+        padding-top: 50px;
+    }
+
+    .active-research:after{
+        clear: both;
+        display: block;
+        content:'';
+    }
+
+    .active-research-title{
+        text-align: center;
+        font-size: 40px;
+        color: #000;
+        text-align: center;
+        font-weight:bold;
+        margin-bottom: 60px;
+    }
+
+    .research-left{
+        float: left;
+        width: 30%;
+        text-align: left;
+
+    }
+
+    .research-mid{
+        float: left;
+        width: 50%;
+        height: 300px;
+
+    }
+
+    .research-right{
+        float: left;
+        width: 20%;
+        text-align: left;
+    }
+
+    .research-text{
+        font-size: 22px;
+        color: #000;
+        margin-bottom:30px;
+    }
+
+    .blod-last{
+        font-weight: bold;
+    }
+
+    .active-research .research-box::after{
+        display: block;
+        content: '';
+        clear: both;
+    }
+
+    .active-research-bottom-left{
+        width: 60%;
+        padding-left: 100px;
+        float: left;
+        font-size: 22px;
+        color: #000;
+    }
+
+    .active-research-bottom{
+        padding-bottom: 60px;
+    }
+
+    .active-research-bottom::after{
+        display: block;
+        content: '';
+        clear: both;
+    }
+    .active-research-bottom-right{
+        width: 40%;
+        float: left;
+        width: 238px;
+
+    }
+
+    .active-research-bottom-right a{
+        height: 72px;
+        display: block;
+        background: rgba(87,193,233,1);
+        text-align: center;
+        line-height: 72px;
+        font-size: 16px;
+        color: #fff;
+    }
+
+    .service{
+        padding:0 20px;
+        margin-bottom: 30px;
+    }
+    .service strong{
+        display: block;
+        font-size: 22px;
+        color: #000;
+        margin-bottom: 10px;
+    }
+
+    .service span{
+        font-size: 18px;
+        color: #000;
+    }
+
+    .started{
+        padding: 50px;
+        background: rgba(255,206,52,1);
+        margin-top: 100px;
+    }
+    .started::after{
+        display: block;
+        clear: both;
+        content: '';
+
+    }
+    .started-left{
+        width: 50%;
+        float: left;
+        text-align: center;
+    }
+
+    .started-right{
+        width: 50%;
+        float: left;
+    }
+
+    .started-title{
+        font-size: 28px;
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 26px;
+    }
+    .subtitle-started{
+        font-size: 18px;
+        color: #000;
+    }
+
+    .started .started-right-button{
+        font-size: 45px;
+        background: rgba(255,206,52,1);
+        border: 3px solid #fff;
+        color: #000;
+        font-weight: bold;
+        text-align: center;
+        width: 439px;
+        height: 142px;
+        line-height: 142px;
+        display: block;
+    }
+
+    .started .started-right-button:hover{
+        background: rgba(87,193,233,1);
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .started-checked{
+        display: none;
+    }
+
+    footer{
+        background: #fff;
+        padding:60px 0;
+    }
+
+    footer::after{
+        display: block;
+        clear: both;
+        content: '';
+    }
+
+    .flooter-left{
+        float: left;
+        height: 300px;
+        width: 40%;
+    }
+
+    .flooter-mid{
+        float: left;
+        width: 30%;
+    }
+
+    .flooter-right{
+        float: left;
+        width: 30%;
+
+    }
+    .left-title{
+        font-size: 14px;
+        color: #000;
+        font-weight: bold;
+    }
+    .left-content a{
+        color: #5e5e5e;
+        text-decoration: underline;
+        font-size: 14px;
+    }
+
+    .left-content span{
+        color: #5e5e5e;
+        font-size: 14px;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+
+    header{
+        position: fixed;
+        left: 0;
+        top: 0;
+        background: #fff;
+        width: 100%;
+        height: 57px;
+    }
+
+    .header-title{
+        display: none;
+    }
+
+    .header-right-button{
+        position: absolute;
+        width: 155px;
+        height: 57px;
+        line-height: 57px;
+        text-align: center;
+        color: #000;
+        font-size: 14px;
+        font-weight: bold;
+        background: rgba(255,206,52,1);
+        transition: all 0.3s;
+        top: 0;
+        right: 0;
+    }
+    .content-title{
+        width: 100%;
+    }
+    .title-heald{
+        font-size: 2rem;
+        padding-top: 170px;
+        font-weight: bold;
+        text-align: center;
+        color: #000;
+    }
+    .subtitle-box{
+        font-size: 14px;
+        line-height: 22px;
+        color: #000;
+        padding-top: 100px;
+        text-align: center;
+
+    }
+
+    .subtitle-box a{
+        font-size: 16px;
+        color: #000;
+        text-decoration: none;
+        display: inline-block;
+        padding: 0 9px;
+        border-right: 1px solid #000;
+        line-height: 16px;
+    }
+
+    .subtitle-box a:last-child{
+        border-right: 0px;
+    }
+
+    .subtitle{
+        padding-top:3px;
+    }
+
+    .lists-problem{
+        width: 268px;
+        height: 53px;
+        display: block;
+        line-height: 53px;
+        font-size: 16px;
+        color: #000;
+        text-decoration: none;
+        border: 2px solid #DFDFDF;
+        text-align: center;
+        margin: 15px auto;
+
+    }
+    .lists-problem:hover{
+        color: #000;
+        text-decoration: none;
+    }
+    .lists-headle{
+        background: rgba(255,206,52,1);
+        border-width:0px;
+        margin-top: 30px;
+    }
+
+    .dna-testing-werpper{
+        background: #fff;
+        width: 100%;
+        margin-top: 70px;
+        padding: 100px 0;
+    }
+
+    .dna-testing::after{
+        display: block;
+        content:'';
+        clear: both;
+
+    }
+
+    .dna-testing .dna-testing-left{
+        font-size: 28px;
+        padding: 15px 5px;
+        text-align: center;
+        color: #000;
+    }
+
+    .dna-testing .dna-testing-right{
+        display: none;
+    }
+
+    .dna-testing-text{
+        font-size: 18px;
+        color: #333;
+        margin:0 10px;
+    }
+
+
+    .button-click{
+        display: block;
+        width: 262px;
+        height: 66px;
+        border: 2px solid #000;
+        line-height: 66px;
+        font-size: 22px;
+        border-radius: 2px;
+        text-align: center;
+        font-weight: bold;
+        margin: 15px auto;
+
+    }
+    .button-click:hover{
+        text-decoration: none;
+    }
+    .button-blue{
+        color: #46b7e1;
+        margin-top: 23px;
+        border-color: #57C1E9;
+    }
+    .button-blue:hover{
+        background: #57C1E9;
+        color: #fff;
+    }
+
+    .button-red{
+        color: #F15B5C;
+        border-color: #F15B5C;
+    }
+    .button-red:hover{
+        background: #F15B5C;
+        color: #fff;
+    }
+    .button-purple{
+        color: #9e6b9d;
+        border-color: #A776A6;
+    }
+    .button-purple:hover{
+        background:  #A776A6;
+        color: #fff;
+    }
+
+    .health-conditions{
+        margin-top: 100px;
+    }
+
+    .health-conditions-text{
+        background: rgba(238,238,238,1);
+        height: 100%;
+        width: 100%;
+    }
+    .health-conditions-text-right{
+        border-radius: 0px;
+        z-index: 31;
+        width: 100%;
+        margin-top: 40px;
+        padding: 100px 20px;
+        background: rgba(255,255,255,1);
+
+    }
+
+    .health-conditions-text-right .health-conditions-text-right-title{
+        font-size: 24px;
+        color: #000;
+        line-height: 35px;
+    }
+    .health-conditions-text-right .health-conditions-text-right-content{
+        font-size: 18px;
+        color: #070000;
+        line-height: 32px;
+    }
+    .buttom-button{
+        margin-top: 60px;
+
+    }
+    .buttom-button a{
+        width: 246px;
+        height: 50px;
+        background: rgba(255,206,52,1);
+        color: #000000;
+        text-align: center;
+        border: 2px solid #DFDFDF;
+        font-size: 14px;
+        line-height: 50px;
+        display: block;
+        margin: 10px auto;
+        font-weight: bold;
+
+    }
+    .buttom-button a:hover{
+        text-decoration: none;
+    }
+
+    .test-list{
+        margin-top: 100px;
+    }
+
+    .test-list h2{
+        font-size: 28px;
+        color: #000;
+        text-align: center;
+
+    }
+    .test-list p{
+        text-align: center;
+        font-size: 18px;
+        color: #070000;
+        margin: 40px 10px;
+    }
+
+    .test-list p a{
+        font-size: 18px;
+        color: #5e5e5e;
+    }
+
+    .table-box .table-title{
+        text-align: left;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        font-size: 15px;
+        color: #000;
+        line-height: 20px;
+        padding: 7px;
+        border: 1px solid #ddd;
+        background: #fff;
+
+    }
+    .table-box .table-left-title{
+        background-color: #ffce34;
+        text-align: center;
+        font-weight: bold;
+        color: #000000;
+    }
+    .table-box td{
+        color: #000;
+    }
+
+    .table-box .table-right-title{
+        text-align: center;
+        background-color: #cccccc;
+        font-weight: bold;
+        color: #000000;
+    }
+
+    .table-box .table{
+        margin: 0;
+    }
+
+    .table-box .classification{
+        text-align: left;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        font-size: 15px;
+        color: #000;
+        padding: 7px 10px;
+        border: 1px solid #ddd;
+        border-top: 0px;
+    }
+    .table-box .classification a{
+        background: #fff;
+        display: inline-block;
+        padding: 5px 15px;
+        color: #000;
+        font-weight: bold;
+        font-size: 11px;
+        border: 1px solid #b3b3b3;
+        margin:5px;
+    }
+
+    .traitst .traitst-text-left{
+        background: rgba(238,238,238,1);
+    }
+
+    .traitst{
+        background: #fff;
+        margin-top: 100px;
+        padding: 60px 0;
+    }
+
+    .traitst .traitst-text{
+        background: #fff;
+    }
+    .buttom-button-traitst-left{
+        display: block;
+        background: rgba(242,186,40,1);
+        border: 2px solid #fff;
+        line-height: 54px;
+        text-align: center;
+        width: 238px;
+        height: 54px;
+        color: #000;
+        font-weight: bold;
+        font-size: 16px;
+        margin: 20px auto;
+    }
+
+    .col{
+        padding-top: 80px;
+    }
+
+    .col-right{
+        font-size: 18px;
+        text-align: center;
+        color: #000;
+        font-weight: bold;
+        margin-bottom: 230px;
+
+    }
+    .col-text-left{
+        position: relative;
+
+    }
+
+    .col .col-position{
+        position: absolute;
+        left: 18px;
+        top: -170px;
+        z-index: 255;
+        height: 251px;
+        width: 279px;
+        padding: 20px;
+        text-align: center;
+        background: rgba(158,107,157,1);
+    }
+    .col-position-top{
+        height: 188px;
+    }
+    .col .col-podition-bottom{
+        color: rgb(255, 255, 255);
+        font-size: 12px;
+    }
+
+    .quality-assured{
+        background-color: #fff;
+        margin-top: 100px;
+        padding:100px 0 20px 0;
+    }
+
+    .quality-assured .quality-assured-title{
+        display: none;
+    }
+
+    .quality-assured-content{
+        background: #fff;
+
+    }
+
+    .quality-assured-text{
+        background: #fff;
+    }
+    .quality-assured-left{
+        background: rgba(238,238,238,1);
+        position: relative;
+        padding: 300px 10px 30px 30px;
+        margin-top: 60px;
+    }
+
+    .helder-title{
+        font-size: 20px;
+        color: #000;
+    }
+
+    .list-text li{
+        font-size: 16px;
+        color: #000;
+        line-height: 35px;
+    }
+
+    .quality-assured-bottom{
+        position: absolute;
+        left: 33px;
+        top: -38px;
+        z-index: 255;
+        height: 325px;
+        width: 279px;
+        padding: 20px;
+        text-align: center;
+        background: rgba(87,193,233,1);
+    }
+
+    .quality-assured-bottom .col-position-top{
+        height: 267px;
+    }
+    .quality-assured-footer{
+        color: rgb(255, 255, 255);
+        font-size: 12px;
+        text-align: center;
+        width: 246px;
+        height: 50px;
+        line-height: 50px;
+    }
+    .quality-assured-button{
+        width: 300px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        font-size: 14px;
+        margin: 0;
+        display:block;
+    }
+
+    .position-helder-title{
+        font-size: 18px;
+        color: #696969;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .col .special{
+        background: #fff;
+    }
+    .col .col-text-left{
+        background: rgba(255,206,52,1);
+    }
+    .col .special-button{
+        background: rgba(62,171,219,1);
+        color: #fff;
+    }
+    .position-helder-list{
+        padding-left:30px;
+        text-align: left;
+        color: #000;
+        font-size: 12px;
+    }
+
+    .col .traitst-text-left{
+        margin-top: 230px;
+    }
+    .col .quality-assured-title{
+        line-height: 26px;
+        font-size: 16px;
+    }
+
+    .research-title{
+        font-size: 28px;
+        color: #000000;
+        margin-bottom: 50px;
+    }
+    .research-contern{
+        line-height: 29px;
+        font-size: 20px;
+        color: #000;
+    }
+
+    .active-research{
+        background: #fff;
+        padding: 50px 0;
+    }
+
+    .active-research-title{
+        text-align: center;
+        font-size: 28px;
+        color: #000;
+        text-align: center;
+        font-weight:bold;
+        margin-bottom: 60px;
+    }
+
+    .research-left,.research-right{
+        text-align: center;
+        font-size: 16px;
+        color: #000;
+    }
+    .research-mid{
+        display: none;
+    }
+
+    .blod-last{
+        font-weight: bold;
+    }
+
+    .active-research-bottom-left{
+        font-size: 16px;
+        color: #000;
+        padding:20px;
+        line-height: 25px;
+
+    }
+
+    .active-research-bottom-right a{
+        width: 234px;
+        height: 52px;
+        display: block;
+        background: rgba(87,193,233,1);
+        text-align: center;
+        line-height: 52px;
+        font-size: 16px;
+        margin: 40px auto;
+        border-radius: 2px;
+        border: 2px solid #dddddd;
+        color: #fff;
+    }
+
+    .service{
+        margin-bottom: 30px;
+    }
+
+    .service strong{
+        display: block;
+        font-size: 22px;
+        color: #000;
+        margin-bottom: 10px;
+    }
+
+    .service span{
+        font-size: 18px;
+        color: #000;
+    }
+
+    .started{
+        padding:50px 30px;
+        background: rgba(255,206,52,1);
+        margin-top: 100px;
+        text-align: center;
+    }
+
+    .started-title{
+        font-size: 22px;
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 26px;
+    }
+
+    .subtitle-started{
+        display: none;
+    }
+
+    .started-checked strong{
+        color: #000;
+    }
+
+    .started .started-right-button{
+        font-size: 18px;
+        background: rgba(255,206,52,1);
+        border: 3px solid #fff;
+        color: #000;
+        font-weight: bold;
+        text-align: center;
+        width: 253px;
+        height: 59px;
+        line-height: 59px;
+        display: block;
+        margin: 40px auto;
+    }
+
+    .started .started-right-button:hover{
+        background: rgba(87,193,233,1);
+        color: #fff;
+        text-decoration: none;
+    }
+
+    footer{
+        background: #fff;
+        padding:60px 0;
+    }
+
+    .flooter-left{
+        display: none;
+    }
+
+    .left-title{
+        font-size: 14px;
+        color: #000;
+        font-weight: bold;
+    }
+
+    .flooter-mid{
+        padding-left: 60px;
+    }
+    .flooter-right{
+        padding-left:60px;
+        margin-top: 60px;
+    }
+    .left-content a{
+        color: #5e5e5e;
+        text-decoration: underline;
+        font-size: 14px;
+    }
+
+    .left-content span{
+        color: #5e5e5e;
+        font-size: 14px;
+    }
+
+}
+.trigger-body{
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    background-color: #ffce34;
+    font-size: 18px;
+    padding: 8px 14px;
+    color: #fff;
+    border-radius: 2px;
+    z-index: 999;
+}
+
 }
 
   .ant-carousel .slick-slide {

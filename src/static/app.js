@@ -130,7 +130,7 @@ class App extends React.Component {
                     ?
                         ''
                     :
-                        <nav className="navbar navbar-default">
+                        <nav className={location.pathname.split('/')[1] === '' ? `navbar navbar-default navbar-fixed-top` : `navbar navbar-default`}>
                             <div className="container-fluid">
                                 <div className="navbar-header">
                                     <button type="button"
@@ -173,7 +173,7 @@ class App extends React.Component {
                                     <ul className="nav navbar-nav navbar-right">
                                         <li className={homeClass}>
                                             <a className="js-go-to-index-button" onClick={this.goToIndex}>
-                                                你好
+                                                主页
                                         </a>
                                         </li>
                                         <li className={introduceClass}>
