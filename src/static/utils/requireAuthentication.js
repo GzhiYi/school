@@ -25,7 +25,7 @@ export default function requireAuthentication(Component) {
         checkAuth() {
             let token = Cookies.get('token');
             if (!token) {
-                messgage.error("请先登录！");
+                message.error("请先登录！");
                 const redirectAfterLogin = this.props.location.pathname;
                 this.props.dispatch(push(`/login?next=${redirectAfterLogin}`));
             }

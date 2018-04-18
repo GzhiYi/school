@@ -3,6 +3,7 @@ import { push } from 'react-router-redux';
 import message from 'antd/lib/message';
 import { SERVER_URL } from '../utils/config';
 import { checkHttpStatus, parseJSON } from '../utils';
+import { authLogoutAndRedirect } from './auth';
 import {
     GET_USERS_SUCCESS,
     GET_USERS_FAILURE,
@@ -63,11 +64,9 @@ export function getUsers(token, name=null, page=1) {
             })
             .catch((error) => {
                 if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
-                    // Invalid authentication credentials
-                    return error.response.json().then((data) => {
-                        dispatch(getUsersFailure(401, data.non_field_errors[0]));
-                    });
-                }else if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                    message.error("登录凭证过期，请重新登录。");
+                    dispatch(authLogoutAndRedirect());
+                } else if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
                     // Server side error
                     dispatch(getUsersFailure(500, 'A server error occurred while sending your data!'));
                 } else {
@@ -127,10 +126,8 @@ export function delUsers(token, putData) {
             })
             .catch((error) => {
                 if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
-                    // Invalid authentication credentials
-                    return error.response.json().then((data) => {
-                        dispatch(delUsersFailure(401, data.non_field_errors[0]));
-                    });
+                    message.error("登录凭证过期，请重新登录。");
+                    dispatch(authLogoutAndRedirect());
                 } else if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
                     // Server side error
                     dispatch(delUsersFailure(500, 'A server error occurred while sending your data!'));

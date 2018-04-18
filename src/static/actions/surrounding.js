@@ -3,6 +3,7 @@ import { push } from 'react-router-redux';
 import message from 'antd/lib/message';
 import { SERVER_URL } from '../utils/config';
 import { checkHttpStatus, parseJSON } from '../utils';
+import { authLogoutAndRedirect } from './auth';
 import {
     GET_ALL_QUICK_NEW_SUCCESS,
     GET_ALL_QUICK_NEW_REQUEST,
@@ -123,7 +124,9 @@ export function addQuickNew(token, data) {
                 dispatch(getAllQuickNew());
             })
             .catch((error) => {
-                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
+                    dispatch(authLogoutAndRedirect())
+                } else if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
                     // Server side error
                     dispatch(addQuickNewFailure(500, 'A server error occurred while sending your data!'));
                 } else {
@@ -236,7 +239,9 @@ export function addEat(token, data) {
                 dispatch(getEat());
             })
             .catch((error) => {
-                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
+                    dispatch(authLogoutAndRedirect())
+                } else if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
                     // Server side error
                     dispatch(addEatFailure(500, 'A server error occurred while sending your data!'));
                 } else {
