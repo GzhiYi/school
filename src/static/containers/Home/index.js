@@ -14,13 +14,13 @@ class HomeView extends React.Component {
                 <div className="order-page">                    
                     <div className="container">
                         <div className='content-title'>
-                            <h1 className='title-heald'>EMBARK FOR <br />DOG BREEDERS</h1>
-                            {/* <div className='subtitle-box'>
+                            <h1 className='title-heald'>欢迎加入 <br />广东药科大学</h1>
+                            <div className='subtitle-box'>
                                 <a href="">BREED-SPECIFIC HEALTH TESTS </a><a href="">COAT COLOR</a><a href="">INBREEDING</a>
                             </div>
                             <div className='subtitle-box subtitle'>
                                 <a href="">EACH MUTATION TESTED 2 - 8x  </a> <a href="">OFA ACCEPTED</a><a href="">AFFORDABLE</a>
-                            </div> */}
+                            </div>
                             <a href="" className='lists-problem lists-headle'><strong>ORDER KITS</strong></a>
                             <a href="" className='lists-problem'><strong>Questions?</strong></a>
                             <a href="" className='lists-problem'><strong>ORDER KITS</strong></a>
@@ -227,20 +227,20 @@ class HomeView extends React.Component {
                         <div className='conditions'>
                             <div className='started-left'>
                                 <p className='started-title'>
-                                    LET'S GET STARTED!
-                            </p>
+                                    从注册一个账号开始!
+                                </p>
                                 <p className='started-checked'>
                                     <strong>{'LIMITED-TIME INTRO '}</strong>
                                     <strong>{'PRICING ENDS SOON! '}</strong>
                                 </p>
-                                <span className='subtitle-started'>{'Please contact us for bulk pricing over 20 kits.'}</span>
+                                <span className='subtitle-started'>{'马上加入广药大家园，发现广药生活。'}</span>
                             </div>
                             <div className='started-right'>
-                                <a href="" className='started-right-button'>{'ORDER NOW'}</a>
+                                <a href="" className='started-right-button'>{'马上注册'}</a>
                             </div>
                         </div>
                     </div>
-                    <footer>
+                    {/* <footer>
                         <div className='conditions'>
                             <div className='flooter-left'>
                             </div>
@@ -262,7 +262,7 @@ class HomeView extends React.Component {
                                 <p className='left-content'><a href="">{'Terms of Service - Privacy Policy '}</a></p>
                             </div>
                         </div>
-                    </footer>
+                    </footer> */}
                     {/* <a href="#" className='trigger-body'>Get $10</a> */}
                 </div>
             </div>
