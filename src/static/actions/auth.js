@@ -19,6 +19,10 @@ import {
     GET_USER_REQUEST,
     GET_USER_SUCCESS,
     GET_USER_FAILURE,
+
+    RESET_PASSWORD_REQUEST,
+    RESET_PASSWORD_SUCCESS,
+    RESET_PASSWORD_FAILURE
 } from '../constants';
 import message from 'antd/lib/message';
 
@@ -294,6 +298,69 @@ export function getUser(token) {
                 } else {
                     // Most likely connection issues
                     dispatch(getUserFailure('Connection Error', 'An error occurred while sending your data!'));
+                }
+                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+            });
+    };
+}
+
+// 重置密码
+export function resetPasswordSuccess(response) {
+    return {
+        type: RESET_PASSWORD_SUCCESS,
+        payload: {
+            response
+        }
+    };
+}
+
+export function resetPasswordFailure(error, message) {
+    return {
+        type: RESET_PASSWORD_FAILURE,
+        payload: {
+            status: error,
+            statusText: message
+        }
+    };
+}
+
+export function resetPasswordRequest() {
+    return {
+        type: RESET_PASSWORD_REQUEST
+    };
+}
+
+export function resetPassword(token, oldPwd, newPwd) {
+    let data = {
+        "old_pwd": oldPwd,
+        "new_pwd": newPwd
+    };
+    return (dispatch, state) => {
+        dispatch(resetPasswordRequest());
+        return fetch(`${SERVER_URL}/api/v1/handler/reset_pwd/`, {
+            method: 'put',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `token ${token}`
+            },
+            body: JSON.stringify(data),
+        })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then((response) => {
+                dispatch(resetPasswordSuccess(response));
+            })
+            .catch((error) => {
+                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                    // Server side error
+                    dispatch(resetPasswordFailure(500, 'A server error occurred while sending your data!'));
+                } else if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
+                    message.error("登录凭证过期，请重新登录。");
+                    dispatch(authLogoutAndRedirect());
+                } else {
+                    // Most likely connection issues
+                    dispatch(resetPasswordFailure('Connection Error', 'An error occurred while sending your data!'));
                 }
                 return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
             });

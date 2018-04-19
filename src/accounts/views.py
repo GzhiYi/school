@@ -100,6 +100,20 @@ class UserUpdateView(DefaultsMixin):
         })
 
 
+class UserResetPasswordView(DefaultsMixin):
+    queryset = User.objects.all()
+    serializer_class = HandlerUserSerializer
+
+    def put(self, request, *args, **kwargs):
+        old_pwd = request.data['old_pwd']
+        new_pwd = request.data['new_pwd']
+        if request.user.check_password(old_pwd):
+            request.user.set_password(new_pwd)
+            request.user.save()
+            return Response("修改成功", status=status.HTTP_200_OK)
+        else:
+            return Response("原密码不正确！", status=status.HTTP_400_BAD_REQUEST)
+
 class UserConfirmEmailView(GenericAPIView):
     serializer_class = None
     authentication_classes = ()
