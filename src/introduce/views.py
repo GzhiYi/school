@@ -123,7 +123,7 @@ class IntroduceCollegeViewSet(GenericAPIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request):
-        serializer = IntroduceSocietySerializer(data=request.data)
+        serializer = IntroduceCollegeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
