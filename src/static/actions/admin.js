@@ -11,7 +11,11 @@ import {
 
     DEL_USERS_SUCCESS,
     DEL_USERS_FAILURE,
-    DEL_USERS_REQUEST
+    DEL_USERS_REQUEST,
+
+    ADMIN_HANDLE_POST_SUCCESS,
+    ADMIN_HANDLE_POST_REQUEST,
+    ADMIN_HANDLE_POST_FAILURE
 
 } from '../constants';
 import { authLoginUserFailure } from './auth';
@@ -134,6 +138,67 @@ export function delUsers(token, putData) {
                 } else {
                     // Most likely connection issues
                     dispatch(delUsersFailure('Connection Error', 'An error occurred while sending your data!'));
+                }
+                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+            });
+    };
+}
+
+
+// 管理帖子各种
+export function adminHandlePostSuccess(response) {
+    return {
+        type: ADMIN_HANDLE_POST_SUCCESS,
+        payload: {
+            response
+        }
+    };
+}
+
+export function adminHandlePostFailure(error, message) {
+    return {
+        type: ADMIN_HANDLE_POST_FAILURE,
+        payload: {
+            status: error,
+            statusText: message
+        }
+    };
+}
+
+export function adminHandlePostRequest() {
+    return {
+        type: ADMIN_HANDLE_POST_REQUEST
+    };
+}
+
+export function adminHandlePost(token, putData) {
+    return (dispatch, state) => {
+        dispatch(adminHandlePostRequest());
+        return fetch(`${SERVER_URL}/api/v1/handler/post_admin/`, {
+            method: 'put',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `token ${token}`
+            },
+            body: JSON.stringify(putData),
+        })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then((response) => {
+                dispatch(adminHandlePostSuccess(response));
+                message.success("操作成功！");
+            })
+            .catch((error) => {
+                if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
+                    message.error("登录凭证过期，请重新登录。");
+                    dispatch(authLogoutAndRedirect());
+                } else if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                    // Server side error
+                    dispatch(adminHandlePostFailure(500, 'A server error occurred while sending your data!'));
+                } else {
+                    // Most likely connection issues
+                    dispatch(adminHandlePostFailure('Connection Error', 'An error occurred while sending your data!'));
                 }
                 return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
             });

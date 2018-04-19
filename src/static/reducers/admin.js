@@ -7,6 +7,10 @@ import {
     DEL_USERS_FAILURE,
     DEL_USERS_REQUEST,
 
+    ADMIN_HANDLE_POST_SUCCESS,
+    ADMIN_HANDLE_POST_REQUEST,
+    ADMIN_HANDLE_POST_FAILURE
+
 
 } from '../constants';
 
@@ -51,6 +55,25 @@ export default function adminReducer(state = initialState, action) {
         case GET_USERS_FAILURE:
             return Object.assign({}, state, {
                 isDeleteUserData: false,
+                statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
+            });
+
+        // 更改帖子状态
+        case ADMIN_HANDLE_POST_REQUEST:
+            return Object.assign({}, state, {
+                isAdminHandling: true,
+                statusText: null
+            });
+
+        case ADMIN_HANDLE_POST_SUCCESS:
+            return Object.assign({}, state, {
+                isAdminHandling: false,
+                handleResponse: action.payload.response,
+            });
+
+        case ADMIN_HANDLE_POST_FAILURE:
+            return Object.assign({}, state, {
+                isAdminHandling: false,
                 statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
             });
 

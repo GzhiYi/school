@@ -24,6 +24,7 @@ router.register(r'eat', EatViewSet, base_name='quick eat api')
 router.register(r'get_eat', GetEatViewSet, base_name='get eat api')
 router.register(r'update_base', UpdateBasicIntroduceViewSet, base_name='update base introduce')
 router.register(r'reset_pwd', UserResetPasswordView, base_name='reset password')
+router.register(r'post_admin', HandlePostAdmin, base_name='handle post every')
 
 urlpatterns = [
     url(r'^api/v1/accounts/', include('accounts.urls', namespace='accounts')),
