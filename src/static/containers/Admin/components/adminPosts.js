@@ -23,7 +23,7 @@ class AdminPostsView extends Component {
     }
 
     componentDidMount() {
-        this.props.actions.listPosts(null, null, 1, (response) => {
+        this.props.actions.listPostsAdmin(null, null, 1, (response) => {
             console.log("nothing");
         })
     }
@@ -166,7 +166,7 @@ class AdminPostsView extends Component {
                     category: postType,
                     top: post.is_top ? "已置顶" : "不是置顶",
                     recommended: post.is_recommended ? "已推荐" : "不是推荐",
-                    deleted: post.is_deleted ? "以删除" : "正常",
+                    deleted: post.is_deleted ? "已删除" : "正常",
                 });
             })
         }
@@ -221,7 +221,7 @@ class AdminPostsView extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        posts: state.forum.posts,
+        posts: state.forum.postsAdmin,
         isFetchingPosts: state.forum.isFetchingPosts
     };
 };

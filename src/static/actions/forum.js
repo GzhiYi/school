@@ -9,6 +9,10 @@ import {
     LIST_POSTS_FAILURE,
     LIST_POSTS_REQUEST,
 
+    LIST_POSTS_ADMIN_SUCCESS,
+    LIST_POSTS_ADMIN_FAILURE,
+    LIST_POSTS_ADMIN_REQUEST,
+
     LIST_COMMENTS_SUCCESS,
     LIST_COMMENTS_FAILURE,
     LIST_COMMENTS_REQUEST,
@@ -98,6 +102,73 @@ export function listPosts(postId = null, authorId = null,  page = 1, callback) {
             });
     };
 }
+
+// list所有帖子-管理员
+export function listPostsAdminSuccess(response) {
+    return {
+        type: LIST_POSTS_ADMIN_SUCCESS,
+        payload: {
+            response
+        }
+    };
+}
+
+export function listPostsAdminFailure(error, message) {
+    return {
+        type: LIST_POSTS_ADMIN_FAILURE,
+        payload: {
+            status: error,
+            statusText: message
+        }
+    };
+}
+
+export function listPostsAdminRequest() {
+    return {
+        type: LIST_POSTS_ADMIN_REQUEST
+    };
+}
+
+export function listPostsAdmin(postId = null, authorId = null, page = 1, callback) {
+    let api = `${SERVER_URL}/api/v1/handler/posts_admin/?page=${page}`;
+    if (postId !== null) {
+        api = `${SERVER_URL}/api/v1/handler/posts_admin/?id=${postId}`
+    }
+    if (authorId !== null) {
+        api = `${SERVER_URL}/api/v1/handler/posts_admin/?au=${authorId}`
+    }
+    return (dispatch, state) => {
+        dispatch(listPostsAdminRequest());
+        return fetch(api, {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then((response) => {
+                dispatch(listPostsAdminSuccess(response));
+                callback(response)
+            })
+            .catch((error) => {
+                if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
+                    // Server side error
+                    dispatch(listPostsAdminFailure(500, 'A server error occurred while sending your data!'));
+                } else if (error && typeof error.response !== 'undefined' && error.response.status === 404) {
+                    // Most likely connection issues
+                    dispatch(listPostsAdminFailure('Connection Error', error));
+                    message.warning("没有更多啦！")
+                } else {
+                    // Most likely connection issues
+                    dispatch(listPostsAdminFailure('Connection Error', error));
+                }
+                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+            });
+    };
+}
+
 
 // list置顶帖子
 export function listTopPostsSuccess(response) {

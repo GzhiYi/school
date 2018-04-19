@@ -3,6 +3,10 @@ import {
     LIST_POSTS_FAILURE,
     LIST_POSTS_REQUEST,
 
+    LIST_POSTS_ADMIN_SUCCESS,
+    LIST_POSTS_ADMIN_FAILURE,
+    LIST_POSTS_ADMIN_REQUEST,
+
     LIST_TOP_POSTS_SUCCESS,
     LIST_TOP_POSTS_FAILURE,
     LIST_TOP_POSTS_REQUEST,
@@ -45,6 +49,25 @@ export default function forumReducer(state = initialState, action) {
             });
             
         case LIST_POSTS_FAILURE:
+            return Object.assign({}, state, {
+                isFetchingPosts: false,
+                statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
+            });
+
+        // 列出所有的帖子
+        case LIST_POSTS_ADMIN_REQUEST:
+            return Object.assign({}, state, {
+                isFetchingPosts: true,
+                statusText: null
+            });
+
+        case LIST_POSTS_ADMIN_SUCCESS:
+            return Object.assign({}, state, {
+                isFetchingPosts: false,
+                postsAdmin: action.payload.response,
+            });
+
+        case LIST_POSTS_ADMIN_FAILURE:
             return Object.assign({}, state, {
                 isFetchingPosts: false,
                 statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
