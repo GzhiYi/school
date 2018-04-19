@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../../actions/forum';
+import * as adminCteator from '../../../actions/admin';
 import Table from 'antd/lib/table';
 import Input from 'antd/lib/input';
 import Button from 'antd/lib/button';
@@ -16,8 +17,8 @@ class AdminPostsView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedRows: [],
-            selectedRowKeys: []
+            // selectedRows: [],
+            // selectedRowKeys: []
         }
     }
 
@@ -26,20 +27,59 @@ class AdminPostsView extends Component {
             console.log("nothing");
         })
     }
-    
-
-    confirm = (e) => {
-        console.log(e);
-        message.success('已经删除');
-    }
 
     cancel = (e) => {
         console.log(e);
-        message.error('选择取消');
+        message.warning('欢迎可次再来～');
     }
 
     goToPostDetail = (index) => {
         window.open(`/forum/detail/${index.key}`)
+    }
+
+    confirmHandle = (text, index, col) => {
+        console.log(text, index, col);
+        let method = null;
+        let doType = null;
+        switch (col) {
+            case "top":
+                console.log("top");
+                if (index.top === "已置顶") {
+                    method = 0;
+                } else {
+                    method = 1;
+                }
+                doType = 0;
+                break;
+            case "recommended":
+                if (index.recommended === "已推荐") {
+                    method = 0;
+                } else {
+                    method = 1;
+                }
+                doType = 1;
+                break;
+            case "delete":
+                if (index.deleted === "正常") {
+                    method = 1;
+                } else {
+                    method = 0;
+                }
+                doType = 2;
+                break;
+            default:
+                break;
+        }
+        let putData = {
+            "post_id": index.key,
+            "method": method,
+            "do": doType 
+        };
+        this.props.adminActions.adminHandlePost(Cookies.get("token"), putData , (response) => {
+            this.props.actions.listPosts(null, null, 1, (response) => {
+                console.log("nothing");
+            })
+        });
     }
 
     render() {
@@ -65,15 +105,39 @@ class AdminPostsView extends Component {
         },{
             title: '置顶？',
             dataIndex: 'top',
-            render: (text, index) => <a onClick={()=>{this.confirmRecovery(text, index)}} className={text === false ? "deleted" : 'normal'}>{text ? "已置顶" : "不是" }</a>
+            sorter: (a, b) => a.top.localeCompare(b.top, 'zh-Hans-CN', { sensitivity: 'accent' }),
+            render: (text, index) => 
+                    <Popconfirm title="确定要修改该帖子是否置顶的状态吗？" onConfirm={() => { this.confirmHandle(text, index, "top") }} onCancel={this.cancel} okText="确认" cancelText="不啦">
+                        <a
+                            className={text !== "已置顶" ? "deleted" : 'normal'}
+                        >
+                            {text}
+                        </a>
+                    </Popconfirm>                   
         },{
             title: '推荐？',
             dataIndex: 'recommended',
-            render: (text, index) => <a onClick={()=>{this.confirmRecovery(text, index)}} className={text === false ? "deleted" : 'normal'}>{text ? "没错" : "不是" }</a>
+            sorter: (a, b) => a.recommended.localeCompare(b.recommended, 'zh-Hans-CN', { sensitivity: 'accent' }),
+            render: (text, index) => 
+                <Popconfirm title="确定要修改该帖子是否推荐的状态吗？" onConfirm={() => { this.confirmHandle(text, index, "recommended") }} onCancel={this.cancel} okText="确认" cancelText="不啦">
+                    <a 
+                        className={text !== "已推荐" ? "deleted" : 'normal'}
+                    >
+                        {text}
+                    </a>
+                </Popconfirm>  
         },{
             title: '已删除？',
             dataIndex: 'deleted',
-            render: (text, index) => <a onClick={()=>{this.confirmRecovery(text, index)}} className={text === true ? "deleted" : 'normal'}>{text ? "没错" : "正常" }</a>
+            sorter: (a, b) => a.deleted.localeCompare(b.deleted, 'zh-Hans-CN', { sensitivity: 'accent' }),
+            render: (text, index) => 
+                <Popconfirm title="确定要修改该帖子是否删除的状态吗？" onConfirm={() => { this.confirmHandle(text, index, "delete") }} onCancel={this.cancel} okText="确认" cancelText="不啦">
+                    <a 
+                        className={text !== "已删除" ? "deleted" : 'normal'}
+                    >
+                        {text}
+                    </a>
+                </Popconfirm> 
         }];
         let data = [];
         const posts = this.props.posts;
@@ -100,31 +164,31 @@ class AdminPostsView extends Component {
                     sender: post.author.first_name,
                     comments: post.comment,
                     category: postType,
-                    top: post.is_top,
-                    recommended: post.is_recommended,
-                    deleted: post.is_deleted,
+                    top: post.is_top ? "已置顶" : "不是置顶",
+                    recommended: post.is_recommended ? "已推荐" : "不是推荐",
+                    deleted: post.is_deleted ? "以删除" : "正常",
                 });
             })
         }
 
-        const rowSelection = {
-            onChange: (selectedRowKeys, selectedRows) => {
-                console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-                this.setState({
-                    selectedRows,
-                    selectedRowKeys
-                });
-            },
-            getCheckboxProps: record => ({
-                disabled: record.name === 'Disabled User', // Column configuration not to be checked
-                name: record.name,
-            }),
-        };
-        const { selectedRows } = this.state;
+        // const rowSelection = {
+        //     onChange: (selectedRowKeys, selectedRows) => {
+        //         console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        //         this.setState({
+        //             selectedRows,
+        //             selectedRowKeys
+        //         });
+        //     },
+        //     getCheckboxProps: record => ({
+        //         disabled: record.name === 'Disabled User', // Column configuration not to be checked
+        //         name: record.name,
+        //     }),
+        // };
+        // const { selectedRows } = this.state;
         return (
             <div>
                 <div className="search">
-                    {
+                    {/* {
                         selectedRows.length > 0
                             ?
                             <Popconfirm
@@ -139,7 +203,7 @@ class AdminPostsView extends Component {
                             </Popconfirm>
                             :
                             ''
-                    }
+                    } */}
                     <Search
                         placeholder="搜索"
                         onSearch={value => console.log(value)}
@@ -147,7 +211,7 @@ class AdminPostsView extends Component {
                     />
                 </div>
                 <Spin tip="加载帖子数据中..." spinning={this.props.isFetchingPosts}>
-                    <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+                    <Table columns={columns} dataSource={data} />
                 </Spin>
             </div>
         );
@@ -165,7 +229,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         dispatch,
-        actions: bindActionCreators(actionCreators, dispatch)
+        actions: bindActionCreators(actionCreators, dispatch),
+        adminActions: bindActionCreators(adminCteator, dispatch),
     };
 };
 

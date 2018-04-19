@@ -171,7 +171,7 @@ export function adminHandlePostRequest() {
     };
 }
 
-export function adminHandlePost(token, putData) {
+export function adminHandlePost(token, putData, callback) {
     return (dispatch, state) => {
         dispatch(adminHandlePostRequest());
         return fetch(`${SERVER_URL}/api/v1/handler/post_admin/`, {
@@ -187,7 +187,8 @@ export function adminHandlePost(token, putData) {
             .then(parseJSON)
             .then((response) => {
                 dispatch(adminHandlePostSuccess(response));
-                message.success("操作成功！");
+                callback(response);
+                message.success(response);
             })
             .catch((error) => {
                 if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
