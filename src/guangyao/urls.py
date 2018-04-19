@@ -3,7 +3,7 @@ from django.conf.urls import include, url
 from django.views.decorators.cache import cache_page
 from rest_framework.routers import DefaultRouter
 from base import views as base_views
-from accounts.views import HandlerUserViewSet, UserUpdateView
+from accounts.views import HandlerUserViewSet, UserUpdateView, UserResetPasswordView
 from forum.views import *
 from quicknew.views import *
 from eat.views import *
@@ -23,6 +23,7 @@ router.register(r'get_quick_new', GetQuickNewViewSet, base_name='get quick new a
 router.register(r'eat', EatViewSet, base_name='quick eat api')
 router.register(r'get_eat', GetEatViewSet, base_name='get eat api')
 router.register(r'update_base', UpdateBasicIntroduceViewSet, base_name='update base introduce')
+router.register(r'reset_pwd', UserResetPasswordView, base_name='reset password')
 
 urlpatterns = [
     url(r'^api/v1/accounts/', include('accounts.urls', namespace='accounts')),

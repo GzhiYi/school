@@ -15,6 +15,10 @@ import {
     GET_USER_REQUEST,
     GET_USER_SUCCESS,
     GET_USER_FAILURE,
+
+    RESET_PASSWORD_REQUEST,
+    RESET_PASSWORD_SUCCESS,
+    RESET_PASSWORD_FAILURE
 } from '../constants';
 
 
@@ -112,6 +116,25 @@ export default function authReducer(state = initialState, action) {
         case GET_USER_FAILURE:
             return Object.assign({}, state, {
                 isGettingUser: false,
+                statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
+            });
+
+        // 重置密码
+        case RESET_PASSWORD_REQUEST:
+            return Object.assign({}, state, {
+                isResetting: true,
+                statusText: null
+            });
+
+        case RESET_PASSWORD_SUCCESS:
+            return Object.assign({}, state, {
+                isResetting: false,
+                resetResponse: action.payload.response,
+            });
+
+        caseRESET_PASSWORD_FAILURE:
+            return Object.assign({}, state, {
+                isResetting: false,
                 statusText: `Error: ${action.payload.status} - ${action.payload.statusText}`
             });
 

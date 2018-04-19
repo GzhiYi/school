@@ -13,18 +13,24 @@ class HomeView extends React.Component {
         return (
             <div className="container-fluid home" style={{padding: 0}}>
                 <div className="order-page">                    
-                    <div className="container">
-                        <div className='content-title'>
-                            <h1 className='title-heald'>欢迎加入 <br />广药大家园</h1>
-                            <div className='subtitle-box'>
-                                <h4>新生在此了解更为全面的广药， 和所有同学交流。</h4>
+                    <div className="outer">
+                        <div className="container">
+                            <div className='content-title col-md-6'>
+                                <h1 className='title-heald'>欢迎新生加入 <br />广药大家园</h1>
+                                <div className='subtitle-box'>
+                                    <h4>新生在此了解更为全面的广药， 和所有同学交流。</h4>
+                                </div>
+                                <div className='subtitle-box subtitle'>
+                                    {/* <h4>在广药家园寻找熟悉的氛围</h4> */}
+                                </div>
+                                <Link to="/login" className='lists-problem lists-headle'><strong>立即登录</strong></Link>
+                                <Link to="/introduce" className='lists-problem'><strong>学校介绍</strong></Link>
+                                <Link to="forum" className='lists-problem'><strong>广药社区</strong></Link>
                             </div>
-                            <div className='subtitle-box subtitle'>
-                                {/* <h4>在广药家园寻找熟悉的氛围</h4> */}
+                            <div className="col-md-6">
+                                <div className="home-show">
+                                </div>
                             </div>
-                            <Link to="/login" className='lists-problem lists-headle'><strong>立即登录</strong></Link>
-                            <Link to="/introduce" className='lists-problem'><strong>学校介绍</strong></Link>
-                            <Link to="forum" className='lists-problem'><strong>广药社区</strong></Link>
                         </div>
                     </div>
                     <div className='dna-testing-werpper'>
@@ -96,7 +102,11 @@ class HomeView extends React.Component {
                                         <Link to="/introduce" className='buttom-button-traitst-left'>看看介绍</Link>
                                     </div>
                                     <div className='col-position'>
-                                        <div className='col-position-top'></div>
+                                        <div 
+                                            className='col-position-top'
+                                            id="introduce-show"
+                                        >
+                                        </div>
                                         <span className='col-podition-bottom'>大部分新生都还不了解学校的概况！</span>
                                     </div>
                                 </div>
@@ -147,7 +157,7 @@ class HomeView extends React.Component {
                                     <div className='buttom-button-traitst'>
                                         <Link to="/surrounding" className='buttom-button-traitst-left special-button'>查看校内快讯</Link>
                                     </div>
-                                    <div className='col-position special'>
+                                    <div className='col-position special' id="new-show">
                                         {/* <p className='position-helder-title'>NEW BULK PRICING:</p>
                                         <p className='position-helder-list'>1 Kit = $179</p>
                                         <p className='position-helder-list'>2 - 4 Kits = $169 per kit</p>
@@ -171,8 +181,8 @@ class HomeView extends React.Component {
                                         <p className='research-title'>查看周边分享信息</p>
                                         <p className='research-contern'>在这寻找分享的地方，你也可以在这里是分享吃喝玩乐，把你喜欢的地方分享出来。</p>
                                         <div className='quality-assured-bottom'>
-                                            <div className='col-position-top'></div>
-                                            <span className='quality-assured-footer'></span>
+                                            <div className='col-position-top' id="surrounding-show"></div>
+                                            <span className='quality-assured-footer'>好的地方等你发现</span>
                                         </div>
                                     </div>
                                 </div>

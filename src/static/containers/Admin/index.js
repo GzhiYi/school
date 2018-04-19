@@ -130,10 +130,10 @@ class AdminView extends Component {
                                 <Icon type="copy" />
                                 <span>介绍内容管理</span>
                             </Menu.Item>
-                            <Menu.Item key="surrounding">
+                            {/* <Menu.Item key="surrounding">
                                 <Icon type="shop" />
                                 <span>周边内容管理</span>
-                            </Menu.Item>
+                            </Menu.Item> */}
                             <Menu.Item key="posts">
                                 <Icon type="compass" />
                                 <span>帖子管理</span>
