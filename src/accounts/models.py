@@ -37,7 +37,7 @@ class MyUserManager(BaseUserManager):
 
         return user
 
-    def create_user(self, email, first_name, last_name, password, **extra_fields):
+    def create_user(self, email, first_name='', last_name='', password=None, **extra_fields):
         """
         Create and save an User with the given email, password and name.
 
@@ -81,6 +81,13 @@ class User(AbstractBaseUser):
         (GENDER_FEMALE, 'Female')
     )
 
+    TEACHER, STUDENT, PRINCIPAL = range(3)
+    USER_TYPE = (
+        (TEACHER, 'teacher'),
+        (STUDENT, 'student'),
+        (PRINCIPAL, 'principal')
+    )
+
     # we want primary key to be called id so need to ignore pytlint
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)  # pylint: disable=invalid-name
 
@@ -100,6 +107,28 @@ class User(AbstractBaseUser):
     date_updated = models.DateTimeField(_('date updated'), auto_now=True)
 
     activation_key = models.UUIDField(unique=True, default=uuid.uuid4)  # email
+    photo_url = models.CharField(
+        _('URL of image'),
+        max_length=1024,
+        default='https://files.jb51.net/file_images/game/201610/20161015204638166.jpg',
+        blank=True,
+        null=True
+    )
+
+    phone_number = models.CharField( # phoneNumber
+        _('phone number'),
+        max_length=50,
+        unique=True,
+        null=True,
+        blank=True,
+
+    )
+
+    user_type = models.PositiveSmallIntegerField(
+        default=STUDENT,
+        choices=USER_TYPE,
+        help_text=_("0:teacher; 1:student; 2:principal"),
+    )
 
     USERNAME_FIELD = 'email'
 

@@ -3,10 +3,15 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import  Avatar  from 'antd/lib/avatar';
+import Avatar  from 'antd/lib/avatar';
+import Popover from 'antd/lib/popover';
+import Icon from 'antd/lib/icon';
+import Layout from 'antd/lib/layout';
+const { Header } = Layout;
 
 import { authLogoutAndRedirect } from './actions/auth';
 import './styles/main.scss';
+import Img from "./images/github.png";
 
 class App extends React.Component {
     static propTypes = {
@@ -34,9 +39,37 @@ class App extends React.Component {
         this.props.dispatch(push('/login'));
     };
 
+    goToRegister = () => {
+        this.props.dispatch(push('/register'));
+    };
+
     goToProtected = () => {
         this.props.dispatch(push('/protected'));
     };
+
+    goToIntroduce = () => {
+        this.props.dispatch(push('/introduce'));
+    }
+
+    goToSurrounding = () => {
+        this.props.dispatch(push('/surrounding'));
+    }
+
+    goToForum = () => {
+        this.props.dispatch(push('/forum'));
+    }
+
+    openGithub = () => {
+        window.open('https://github.com/GzhiYi/school');
+    }
+
+    goToProfile = () => {
+        this.props.dispatch(push('/profile/basic'));
+    }
+
+    goToAdmin = () => {
+        this.props.dispatch(push('/admin/user'));
+    }
 
     render() {
         const homeClass = classNames({
@@ -48,32 +81,80 @@ class App extends React.Component {
         const loginClass = classNames({
             active: this.props.location && this.props.location.pathname === '/login'
         });
-
+        const introduceClass = classNames({
+            active: location.pathname.split('/')[1] === 'introduce'
+        });
+        const surroundingClass = classNames({
+            active: location.pathname.split('/')[1] === 'surrounding'
+        });
+        const forumClass = classNames({
+            active: location.pathname.split('/')[1] === 'forum'
+        });
+        let content = 
+            <div>
+                <ul className="avatar-auth">
+                    <li className="avatar-auth-li" onClick={this.goToLogin}><a>登录</a></li>
+                    <li className="avatar-auth-li" onClick={this.goToRegister}><a>注册</a></li>
+                </ul>
+            </div>;
+        let user = null;
+        console.log(Cookies.get('user') == undefined);
+        if (Cookies.get('user') !== undefined) {
+            user = JSON.parse(Cookies.get('user'));
+        }
+        console.log(user, user !== null);
+        if (user) {
+            content = 
+            <div>
+                <ul className="avatar-auth">
+                    <li className="avatar-auth-li"><a onClick={this.goToProfile}><Icon type="user"></Icon>&nbsp;&nbsp;个人中心</a></li>
+                    {
+                        user !== undefined && user !== null
+                        ?
+                            user.is_superuser
+                            ?
+                                <li className="avatar-auth-li"><a style={{ color: '#1890ff' }} onClick={this.goToAdmin}><Icon type="dashboard"></Icon>&nbsp;&nbsp;管理中心</a></li>
+                            :
+                                ''
+                        :
+                            ''
+                    }
+                    <li className="avatar-auth-li" onClick={this.logout}><a><Icon type="logout"></Icon>&nbsp;&nbsp;退出登录</a></li>
+                </ul>
+            </div>;
+        }
         return (
             <div className="app">
-                <nav className="navbar navbar-default">
-                    <div className="container-fluid">
-                        <div className="navbar-header">
-                            <button type="button"
-                                className="navbar-toggle collapsed"
-                                data-toggle="collapse"
-                                data-target="#top-navbar"
-                                aria-expanded="false"
-                            >
-                                <span className="sr-only">Toggle navigation</span>
-                                <span className="icon-bar" />
-                                <span className="icon-bar" />
-                                <span className="icon-bar" />
-                            </button>
-                            <a className="navbar-brand" onClick={this.goToIndex}>
-                                <Avatar size="large" icon="user" />
-                            </a>
-                        </div>
-                        <div className="collapse navbar-collapse" id="top-navbar">
-                            {this.props.isAuthenticated ?
+                {
+                    (location.pathname.split('/')[1] === 'admin')
+                    ?
+                        ''
+                    :
+                        <nav className="navbar navbar-default">
+                            <div className="container-fluid">
+                                <div className="navbar-header">
+                                    <button type="button"
+                                        className="navbar-toggle collapsed"
+                                        data-toggle="collapse"
+                                        data-target="#top-navbar"
+                                        aria-expanded="false"
+                                    >
+                                        <span className="sr-only">Toggle navigation</span>
+                                        <span className="icon-bar" />
+                                        <span className="icon-bar" />
+                                        <span className="icon-bar" />
+                                    </button>
+                                    <a className="navbar-brand">
+                                        <Popover placement="bottomLeft" content={content} title={Cookies.get('token') ? `你好,${user.first_name}!` : "游客，你好！"} trigger="hover">
+                                            <Avatar size="large" src={ user ? user.photo_url : ''} icon="user" />
+                                        </Popover>
+                                    </a>
+                                </div>
+                                <div className="collapse navbar-collapse" id="top-navbar">
+                                    {/* {this.props.isAuthenticated ?
                                 <ul className="nav navbar-nav navbar-right">
                                     <li className={homeClass}>
-                                        <a className="js-go-to-index-button" onClick={this.goToIndex}>
+                                        <a className="js-go-to-index-button">
                                             <i className="fa fa-home" /> Home
                                         </a>
                                     </li>
@@ -88,37 +169,52 @@ class App extends React.Component {
                                         </a>
                                     </li>
                                 </ul>
-                                :
-                                <ul className="nav navbar-nav navbar-right">
-                                    <li className={homeClass}>
-                                        <a className="js-go-to-index-button" onClick={this.goToIndex}>
-                                            <i className="fa fa-home" /> 你好
+                                : */}
+                                    <ul className="nav navbar-nav navbar-right">
+                                        <li className={homeClass}>
+                                            <a className="js-go-to-index-button" onClick={this.goToIndex}>
+                                                主页
                                         </a>
-                                    </li>
-                                    <li className={loginClass}>
-                                        <a className="js-login-button" onClick={this.goToLogin}>
-                                            <i className="fa fa-home" /> 介绍
+                                        </li>
+                                        <li className={introduceClass}>
+                                            <a className="js-login-button" onClick={this.goToIntroduce}>
+                                                介绍
                                         </a>
-                                    </li>
-                                    <li className={loginClass}>
-                                        <a className="js-login-button" onClick={this.goToLogin}>
-                                            <i className="fa fa-home" /> 查询
+                                        </li>
+                                        <li className={surroundingClass}>
+                                            <a className="js-login-button" onClick={this.goToSurrounding}>
+                                                周边
                                         </a>
-                                    </li>
-                                    <li className={loginClass}>
-                                        <a className="js-login-button" onClick={this.goToLogin}>
-                                            <i className="fa fa-home" /> 交流
+                                        </li>
+                                        <li className={forumClass}>
+                                            <a className="js-login-button" onClick={this.goToForum}>
+                                                交流
                                         </a>
-                                    </li>
-                                </ul>
-                            }
-                        </div>
-                    </div>
-                </nav>
+                                        </li>
+                                    </ul>
+                                    {/* } */}
+                                </div>
+                            </div>
+                        </nav>
 
-                <div>
+                }
+
+                <div className="children" style={{minHeight: 'calc(84vh - 70px)'}}>
                     {this.props.children}
                 </div>
+                <div className="push">
+                </div>
+                {
+                    (this.props.location && this.props.location.pathname === '/forum') || location.pathname.split('/')[1] == ''
+                    ?
+                        ""
+                    :
+                        <div className="top-footer">
+                            <div className="basic-info">
+                                <img src={Img} alt="" onClick={this.openGithub}/>
+                            </div>
+                        </div>
+                }
             </div>
         );
     }

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import PropTypes from 'prop-types';
+import message from 'antd/lib/message';
 
 export default function requireAuthentication(Component) {
     class AuthenticatedComponent extends React.Component {
@@ -22,16 +23,19 @@ export default function requireAuthentication(Component) {
         }
 
         checkAuth() {
-            if (!this.props.isAuthenticated) {
+            let token = Cookies.get('token');
+            if (!token) {
+                message.error("请先登录！");
                 const redirectAfterLogin = this.props.location.pathname;
                 this.props.dispatch(push(`/login?next=${redirectAfterLogin}`));
             }
         }
 
         render() {
+            let token = Cookies.get('token');
             return (
                 <div>
-                    {this.props.isAuthenticated === true
+                    {token !== 'undefined'
                         ? <Component {...this.props} />
                         : null
                     }

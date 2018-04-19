@@ -1,0 +1,206 @@
+$form-input-height: 55px;
+.login {
+    .login-container {
+        max-width: 550px;
+        margin: 0 auto;
+        padding: 13px 39px;
+        border-radius: 28px;
+        background: #ffffff;
+        margin-top: 40px;
+        box-shadow: 0px 9px 20px 0 rgba(46, 61, 73, 0.2);
+        transition: 0.6s all;
+        
+        .login-label {
+            margin-top: 23px;
+        }
+    }
+    .login-container:hover {
+        box-shadow: none;
+    }
+    width: 100%;
+    padding: 0;
+
+
+    form.login-form {
+        margin-top: 38px;
+    }
+
+    h1.login-header {
+        border-bottom: 2px solid;
+        height: 90px;
+        line-height: 77px;
+    }
+
+    span.login-logo {
+        padding: 0 41px 10px 41px;
+        border: 1px solid;
+    }
+
+    h5.welcome-back {
+        margin: 15px;
+    }
+
+    .radio label,
+    .checkbox label {
+        min-height: 20px;
+        padding-left: 20px;
+        margin-bottom: 0;
+        font-weight: normal;
+        cursor: pointer;
+        line-height: 21px;
+    }
+
+    .hr-outer {
+        width: 100%;
+        text-align: center;
+        margin-top: 24px;
+        .hr-inner {
+            width: 30%;
+            display: inline-block;
+        }
+        .hr-span {
+            position: relative;
+            top: -16px;
+            padding: 13px;
+            color: #7a7a7a;
+            font-size: 1.1em;
+        }
+    }
+
+    .login-more {
+        width: 32%;
+        margin: 0 auto;
+        /* margin-top: 12px; */
+        margin-bottom: 32px;
+        font-size: 0.8rem;
+        a {
+            font-size: 1.2em;
+            text-decoration: none;
+            color: #828282;
+            transition: 0.5s all;
+        }
+        a:hover {
+            color: black;
+        }
+    }
+
+    $login-type-width: 50%;
+    .login-type {
+        text-align: center;
+        margin: 0 0 30px 0;
+        width: 100%;
+        .login-btn-gup {
+            width: 74%;
+            box-shadow: #eee 0px 7px 19px;
+            transition: 0.5s all;
+            .email {
+                width: $login-type-width;
+                text-decoration: none;
+                height: 42px;
+                line-height: 28px;
+            }
+            .phone {
+                width: $login-type-width;
+                text-decoration: none;
+                height: 42px;
+                line-height: 28px;
+            }
+        }
+
+        .login-btn-gup:hover {
+            box-shadow: none;
+        }
+    }
+
+    .login-with-other {
+        text-align: center;
+        ul {
+            display: -webkit-inline-box;
+        }
+        .li-brand {
+            font-size: 2em;
+            cursor: pointer;
+            margin: 0 8px;
+        }
+    }
+
+    .form-group-country_code {
+        width: 24%;
+        float: left;
+    }
+
+    .btn-auth {
+        width: 100%;
+        height: $form-input-height + 8px;
+        font-size: 1.3rem;
+        background: $color-blue;
+        color: white;;
+        margin-top: 8px;
+        box-shadow: 0px 9px 20px 0 rgba(46, 61, 73, 0.2);
+        transition: 0.6s all;
+    }
+
+    .btn-auth:hover {
+        background: $color-blue-dark;
+        color: white;
+        box-shadow: none;
+    }
+
+    .form-control {
+        height: $form-input-height;
+        font-size: 1rem;
+    }
+
+    .form-control:focus {
+        border: $color-blue;
+    }
+
+    a.email.active {
+        border-color: $color-blue;
+        background: $color-blue-light;
+        color: white;
+    }
+
+    a.phone.active {
+        border-color: $color-blue;
+        background: $color-blue-light;
+        color: white;
+    }
+
+    a.btn.phone {
+        color: black;
+        border-color: $color-blue;
+    }
+    
+    a.btn.email {
+        color: black;
+        border-color: $color-blue;
+    }
+
+    li.li-brand {
+        transition: color 1s;
+    }
+
+    li.li-brand:hover {
+        color: #36a69a;
+    }
+
+}
+
+
+
+// media query
+@media screen and (max-width: 545px) {
+    .line {
+        display: none;
+    }
+    .login-more a {
+        text-decoration: none;
+        color: #828282;
+        text-align: center;
+        margin-top: 7px;
+    }
+    .login-more {
+        display: grid;
+    }
+}

@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 // importLoader:1 from https://blog.madewithenvy.com/webpack-2-postcss-cssnext-fdcd2fd7d0bd
 
@@ -37,10 +38,18 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin('styles/[name].css'),
         new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
+        new UglifyJSPlugin({
             compress: {
-                warnings: false
-            }
-        })
+                warnings: false,
+                drop_debugger: true,
+                drop_console: true
+            },
+            sourceMap: true,
+            mangle: false
+        }),
+        new webpack.ContextReplacementPlugin(
+            /moment[\\\/]locale$/,
+            /^\.\/(zh-cn)$/
+        ),
     ]
 };

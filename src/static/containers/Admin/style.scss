@@ -1,0 +1,74 @@
+.admin-page {
+    .logo {
+        height: 32px;
+        background: rgba(255,255,255,.2);
+        margin: 16px;
+    }
+    
+    .ant-layout-sider-trigger {
+        position: static;
+    }
+
+    a.ant-dropdown-link.ant-dropdown-trigger {
+        float: right;
+        margin-right: 50px;
+    }
+    .search {
+        text-align: right;
+        margin-bottom: 20px;
+    }
+
+    button.ant-btn.del-post-btn.ant-btn-danger {
+        margin-right: 20px;
+    }
+
+    .admin-introduce {
+        .editor {
+            width: 70%;
+            margin-top: 20px;
+
+            .ql-editor {
+                min-height: 367px;
+            }
+        }
+        .submit-button {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .upload-div {
+            position: absolute;
+            right: 246px;
+        }
+
+        img.display {
+            width: 300px;
+            position: absolute;
+            top: 306px;
+            right: 58px;
+            border: 4px solid #eeeeee;
+        }
+    }
+
+    .select-title {
+        display: flex;
+        .title {
+            width: 50.8%;
+            margin-left: 20px;
+        }
+    }
+    a.deleted {
+        background: #ccc;
+        color: #ffff;
+        font-size: 0.8rem;
+        padding: 8px;
+        cursor: pointer;
+    }
+    a.normal {
+        background: #8ec767;
+        color: #ffff;
+        font-size: 0.8rem;
+        padding: 8px;
+        cursor: pointer;
+    }
+}

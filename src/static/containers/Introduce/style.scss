@@ -1,0 +1,117 @@
+.introduce-page {
+    padding: 0px 8%;;
+    .header {
+        h2 {
+            margin-top: 0;
+            margin-bottom: 32px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 26px;
+            color: #808080;
+        }
+    }
+    .card {
+        .card-item {
+            background: #ffffff;
+            border-radius: 8px;
+        }
+        .item {
+            text-align: left;
+            padding: 20px;
+            margin-top: 25px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: #eee 0px 7px 19px;
+            transition: all 0.5s;
+            .search-card {
+                text-align: center;
+                width: 80%;
+                input.search-input {
+                    width: 100%;
+                }
+            }
+        }
+        .item:hover {
+            box-shadow: rgb(172, 171, 171) 0px 7px 19px;
+        }
+
+        .card-pic {
+            margin-bottom: 5px;
+            overflow: hidden;
+            transition: all 1s ease;
+            height: 200px;
+            border-radius: 4px;
+            
+            img {
+                width: 100%;
+                // height: 130px;
+                image-rendering: -webkit-optimize-contrast;
+                transition: all 1s ease;
+                width: 100%;
+                height: auto;
+            }
+
+            img:hover {
+                transform: scale(1.06);
+            }
+        }
+        h4 {
+            margin-top: 15px;
+        }
+        .card-content {
+            height: 40px;
+            line-height: 20px;
+            color: #6E6E6E;
+            text-align: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical; 
+        }
+        .card-footer {
+            position: relative;
+            height: 20px;
+            line-height: 20px;
+            margin-top: 10px;
+        }
+
+        .tool {
+            // text-align: center;
+            padding: 10px 0;
+        }
+    }
+}
+
+.introduce-content {
+    width: 80%;
+    background: #ffffff;
+    margin: 30px auto;
+    padding: 20px;
+
+    h3.header {
+        margin: 40px;
+        text-align: center;
+    }
+
+    i.anticon.anticon-home {
+        font-size: 1.4rem;
+        cursor: pointer;
+        transition: .5s all;
+    }
+
+    i.anticon.anticon-home:hover {
+        color: #69c0ff;
+    }
+
+    p.date-updated {
+        text-align: right;
+        margin-right: 300px;
+        color: #5d5d5d;
+    }
+
+    .body {
+        margin: 0 40px;
+    }
+}

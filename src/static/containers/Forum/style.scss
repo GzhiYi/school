@@ -1,0 +1,108 @@
+$rightBarMargin : 20px;
+
+.forum-page {
+    .ant-carousel .slick-slide {
+        text-align: center;
+        height: 300px;
+        line-height: 160px;
+        background: #364d79;
+        overflow: hidden;
+    }
+
+    .ant-carousel .slick-slide h3 {
+        color: #fff;
+    }
+
+        //right sidebar
+    .post-btn {
+        margin-bottom: $rightBarMargin;
+
+        .new-post-btn {
+            color: white;
+            font-weight: bold;
+            width: 100%;
+            height: 55px;
+            font-size: 1.3rem;
+            background: #1890ff;
+        }
+        i.fa.fa-pencil-square-o {
+            margin-right: 6px;
+        }
+    }
+
+    .top-up {
+        font-size: 1.8rem;
+        /* background: rebeccapurple; */
+        padding-left: 8px;
+        width: 45px;
+        border-radius: 23px;
+        border: 1px solid;
+    }
+
+    .search {
+        margin-bottom: $rightBarMargin;
+
+    }
+
+    .recommend-posts {
+        margin-bottom: $rightBarMargin;
+
+        .ant-carousel .slick-slide {
+            text-align: center;
+            height: 100px;
+            line-height: 160px;
+            background: #364d79;
+            overflow: hidden;
+        }
+
+        .title {
+            border-bottom: 1px solid #eee;
+            margin-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .recommend-posts-list li {
+            padding: 14px 5px;
+
+            a {
+                text-decoration: none;
+                outline: none;
+                color: #252323;
+                margin-left: 6px;
+            }
+        }
+
+        span.recommend1 {
+            color: white;
+            background: #f84e4e;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        span.recommend2 {
+            color: white;
+            background: #f64d4d;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        span.recommend3 {
+            color: white;
+            background: #f86336;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        span.recommend4 {
+            color: white;
+            background: #f8a436;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        .carousel-below {
+            background: #ffffff;
+            padding: 10px;
+        }
+    }
+}
