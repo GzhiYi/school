@@ -58,7 +58,7 @@ class GetPostsMixin(viewsets.ModelViewSet):
 
 
 class GetPostsViewSet(GetPostsMixin):
-    queryset = Posts.objects.all().order_by('-date_created')
+    queryset = Posts.objects.filter(is_deleted=False).order_by('-date_created')
     serializer_class = PostsSerializer
 
     def list(self, request, *args, **kwargs):
@@ -80,8 +80,30 @@ class GetPostsViewSet(GetPostsMixin):
         return self.get_paginated_response(serializer.data)
 
 
+class GetPostsAdminViewSet(GetPostsMixin):
+    queryset = Posts.objects.all().order_by('-date_created')
+    serializer_class = PostsSerializer
+
+    def list(self, request, *args, **kwargs):
+        if request.query_params.get('id'):
+            posts = self.queryset.filter(id=request.query_params.get('id'))
+            for post in posts:
+                post.visited += 1
+                post.save()
+        elif request.query_params.get('au'):
+            posts = self.queryset.filter(
+                author_id=request.query_params.get('au'))
+        else:
+            posts = self.queryset.all()
+        comments = list(posts)
+        for item in comments:
+            comment_data = Comments.objects.filter(post_id=item.id)
+            item.comment = len(comment_data)
+        page = self.paginate_queryset(comments)
+        serializer = self.get_serializer(page, many=True)
+        return self.get_paginated_response(serializer.data)
 class GetTopPostsViewSet(GetPostsMixin):
-    queryset = Posts.objects.filter(is_top=True)
+    queryset = Posts.objects.filter(is_top=True , is_deleted=False)
     serializer_class = PostsSerializer
 
     def list(self, request, *args, **kwargs):
@@ -96,7 +118,7 @@ class GetTopPostsViewSet(GetPostsMixin):
 
 
 class GetRecommendedPostsViewSet(GetPostsMixin):
-    queryset = Posts.objects.filter(is_recommended=True)
+    queryset = Posts.objects.filter(is_recommended=True, is_deleted=False)
     serializer_class = PostsSerializer
 
     def list(self, request, *args, **kwargs):
@@ -135,3 +157,45 @@ class GetCommentsView(GetPostsMixin):
 class AddCommentsViewSet(GetPostsMixin):
     queryset = Comments.objects.all()
     serializer_class = AddCommentsSerializer
+
+
+class HandlePostAdmin(DefaultsMixin):
+
+    """ API endpoint for listing and creating notes """
+    queryset = Posts.objects.all()
+    serializer_class = PostsSerializer
+    # do 0-top, 1-recommend, 2-delete 
+
+    def put(self, request, *args, **kwargs):
+        post_id = request.data['post_id']
+        method = request.data['method']
+        do = request.data['do']
+        put_target = Posts.objects.get(id=post_id)
+        if do == 0:
+            if method == 0:
+                put_target.is_top = False
+                put_target.save() 
+                return Response("取消置顶成功", status=status.HTTP_200_OK)
+            else:
+                put_target.is_top = True
+                put_target.save()
+                return Response("置顶成功", status=status.HTTP_200_OK)
+        elif do == 1:
+            if method == 0:
+                put_target.is_recommended = False
+                put_target.save()
+                return Response("取消推荐成功", status=status.HTTP_200_OK)
+            else:
+                put_target.is_recommended = True
+                put_target.save()
+                return Response("推荐成功", status=status.HTTP_200_OK)
+        else:
+            if method == 0:
+                put_target.is_deleted = False
+                put_target.save()
+                return Response("取消删除成功", status=status.HTTP_200_OK)
+            else:
+                put_target.is_deleted = True
+                put_target.save()
+                return Response("删除成功", status=status.HTTP_200_OK)
+

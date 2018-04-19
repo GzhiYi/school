@@ -51,6 +51,7 @@ class Posts extends Component {
     }
 
     renderPosts(data, isTop=false) {
+        console.log("object", data);
         return (
             _.map(data, (item, index) => {
                 let postType = '';
