@@ -350,6 +350,8 @@ export function resetPassword(token, oldPwd, newPwd) {
             .then(parseJSON)
             .then((response) => {
                 dispatch(resetPasswordSuccess(response));
+                message.info("密码修改成功，请用新密码登录！");
+                dispatch(authLogoutAndRedirect());
             })
             .catch((error) => {
                 if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
@@ -358,6 +360,8 @@ export function resetPassword(token, oldPwd, newPwd) {
                 } else if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
                     message.error("登录凭证过期，请重新登录。");
                     dispatch(authLogoutAndRedirect());
+                } else if (error && typeof error.response !== 'undefined' && error.response.status === 400) {
+                    message.error("原密码不正确！");
                 } else {
                     // Most likely connection issues
                     dispatch(resetPasswordFailure('Connection Error', 'An error occurred while sending your data!'));

@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import * as actionCreators from '../../../actions/auth';
 import Icon from 'antd/lib/icon';
 import message from 'antd/lib/message';
 import Input from 'antd/lib/input';
@@ -34,7 +38,11 @@ class PasswordView extends Component {
 
 	resetPassword = () => {
 		let formValues = this.state.formValues;
-		console.log('formValues', formValues);
+		if (formValues.newPassword !== formValues.confirmPassword) {
+			message.error("密码和确认密码不一致，请确认！");
+		} else {
+			this.props.actions.resetPassword(Cookies.get('token'), formValues.oldPassword, formValues.newPassword);
+		}
 	}
 
 	render() {
@@ -104,4 +112,20 @@ class PasswordView extends Component {
 	}
 }
 
-export default PasswordView;
+
+const mapStateToProps = (state) => {
+	return {
+		isFetchingComments: state.forum.isFetchingComments,
+		comments: state.forum.comments
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		dispatch,
+		actions: bindActionCreators(actionCreators, dispatch)
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PasswordView);
+export { PasswordView };
