@@ -76,7 +76,7 @@ class AdminPostsView extends Component {
             "do": doType 
         };
         this.props.adminActions.adminHandlePost(Cookies.get("token"), putData , (response) => {
-            this.props.actions.listPosts(null, null, 1, (response) => {
+            this.props.actions.listPostsAdmin(null, null, 1, (response) => {
                 console.log("nothing");
             })
         });
