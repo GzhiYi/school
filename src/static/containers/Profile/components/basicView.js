@@ -79,13 +79,26 @@ class BasicView extends Component {
 	updateProfile = () => {
 		let formValues = this.state.formValues;
 		let user = this.props.user;
-		let postData = {
-			"first_name": user.first_name,
-			"gender": user.gender,
-			"phone_number": user.phone_number,
-			"id": user.id,
-			"photo_url": this.state.imageUrl
+		console.log(user, "???");
+		let postData = {};
+		if (this.state.imageUrl === '') {
+			postData = {
+				"first_name": user.first_name,
+				"gender": user.gender,
+				"phone_number": user.phone_number,
+				"id": user.id,
+				"photo_url": user.photo_url
+			}
+		} else {
+			postData = {
+				"first_name": user.first_name,
+				"gender": user.gender,
+				"phone_number": user.phone_number,
+				"id": user.id,
+				"photo_url": this.state.imageUrl
+			}
 		}
+		
 		_.map(formValues, (value, key) => {
 			if (value !== null && value !== '') {
 				postData[`${_.snakeCase(key)}`] = value

@@ -230,6 +230,7 @@ export function updateUser(token, data) {
                 dispatch(getUser(token));
             })
             .catch((error) => {
+                message.error("更新出错，请稍后再试！");
                 if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
                     // Server side error
                     dispatch(updateUserFailure(500, 'A server error occurred while sending your data!'));
