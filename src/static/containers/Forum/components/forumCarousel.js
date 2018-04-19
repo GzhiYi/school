@@ -1,6 +1,9 @@
 import React from 'react';
 import Carousel from 'antd/lib/carousel';
-
+import win from '../../../images/win.jpg';
+import reward from '../../../images/reward.png';
+import reward2 from '../../../images/reward2.jpg';
+import sence from '../../../images/sence.png';
 class ForumCarousel extends React.Component {
 
     onChange = (a, b, c) => {
@@ -12,12 +15,13 @@ class ForumCarousel extends React.Component {
             <div>
                 <Carousel 
                     afterChange={this.onChange} 
-                    /*autoplay*/
+                    effect="fade"
+                    autoplay
                 >
-                    <div><h3>1</h3></div>
-                    <div><h3>2</h3></div>
-                    <div><h3>3</h3></div>
-                    <div><h3>4</h3></div>
+                    <img src={win} alt="" />
+                    <img src={reward} alt="" />
+                    <img src={reward2} alt="" />
+                    <img src={sence} alt="" />
                 </Carousel>
             </div>
         );
