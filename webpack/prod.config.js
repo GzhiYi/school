@@ -37,10 +37,18 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin('styles/[name].css'),
         new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
+        new UglifyJSPlugin({
             compress: {
-                warnings: false
-            }
-        })
+                warnings: false,
+                drop_debugger: true,
+                drop_console: true
+            },
+            sourceMap: true,
+            mangle: false
+        }),
+        new webpack.ContextReplacementPlugin(
+            /moment[\\\/]locale$/,
+            /^\.\/(zh-cn)$/
+        ),
     ]
 };
