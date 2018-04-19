@@ -67,7 +67,7 @@
     }
     .title-heald{
         font-size: 3.5rem;
-        padding-top: 200px;
+        padding-top: 95px;
         font-weight: bold;
         line-height: 77px;
         color: #000;
@@ -163,6 +163,7 @@
         display: flex;
         justify-content: space-around;
     }
+    
     .button-click{
         width: 260px;
         height: 80px;
@@ -418,6 +419,37 @@
     }
     .col-position-top{
         height: 340px;
+    }
+    // #home-show {
+    //     background-image: url("../../images/home.jpg");
+    //     background-size: cover;
+    //     background-position: 50% 50%;
+    //     margin-bottom: 17px;
+    // }
+    #introduce-show {
+        background-image: url("../../images/20160831024554824.jpg");
+        background-size: cover;
+        background-position: 50% 50%;
+        margin-bottom: 17px;
+    }
+
+    #new-show {
+        background-image: url("../../images/01155daec9a449da24bf7ad1a2953f3c.jpg");
+        background-size: cover;
+        background-position: 50% 50%;
+        margin-bottom: 17px;
+    }
+
+    #surrounding-show {
+        background-image: url("../../images/9b4c7db2251eabd40802ffc279e91f60.jpg");
+        background-size: cover;
+        background-position: 50% 50%;
+        margin-bottom: 17px;
+    }
+
+    .outer {
+        min-height: 100vh;
+        background-image: url("../../images/background_1.jpg");
     }
 
     .col .col-podition-bottom{
@@ -767,7 +799,7 @@
     }
     .title-heald{
         font-size: 2rem;
-        padding-top: 170px;
+        padding-top: 95px;
         font-weight: bold;
         text-align: center;
         color: #000;
