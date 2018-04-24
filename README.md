@@ -13,6 +13,7 @@
 ### 拉取代码
 ```bash
 $ git clone git@github.com:GzhiYi/school.git
+$ git checkout develop
 ```
 
 ### 安装（Running NO DOCKER）
